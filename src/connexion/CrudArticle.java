@@ -5,7 +5,7 @@
  */
 package connexion;
 
-import entitites.Article;
+import entities.Article;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
