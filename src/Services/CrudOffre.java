@@ -26,13 +26,13 @@ PreparedStatement pst ;
     ResultSet rs ; 
     
     
-    public List<Offre>displayAll() throws SQLException{
+    public List<Offre> displayAllOffre() throws SQLException{
         String requete="SELECT * FROM Offre" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt("1"),rs.getInt("2"),rs.getString("3"),rs.getString("4"),rs.getFloat("5"),rs.getFloat("6"),rs.getDate("7"),rs.getDate("8"),rs.getString("9"));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
         list.add(o) ;
         }
         return list ;
@@ -65,18 +65,101 @@ PreparedStatement pst ;
     }
     
     public List<Offre>searchOffreByNameEspace(String nom) throws SQLException{
-        String requete="SELECT * FROM Offre where ID_OFFRE= (Select ID_ESPACE from espace where nom_es='"+nom+"')" ;
+        String requete="SELECT * FROM Offre where ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nom+"')" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt("1"),rs.getInt("2"),rs.getString("3"),rs.getString("4"),rs.getFloat("5"),rs.getFloat("6"),rs.getDate("7"),rs.getDate("8"),rs.getString("9"));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
         list.add(o) ;
         }
         return list ;
     }
     
+    public List<Offre>searchOffreByIdEspace(int id) throws SQLException{
+        String requete="SELECT * FROM Offre where ID_ESPACE= '"+id+"'" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        list.add(o) ;
+        }
+        return list ;
+    }
+    public List<Offre>displayOffreByDateFin() throws SQLException{
+        String requete="SELECT * FROM Offre Order By (DATEFIN_O) ASC" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        list.add(o) ;
+        }
+        return list ;
+    }
+    public List<Offre>displayOffreByDateDebut() throws SQLException{
+        String requete="SELECT * FROM Offre Order By (DATEDEBUT_O) ASC" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        list.add(o) ;
+        }
+        return list ;
+    }
+    public List<Offre>displayOffreExpire() throws SQLException{
+        String requete="SELECT * FROM Offre where  CURRENT_TIMESTAMP  > DATEFIN_O " ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        list.add(o) ;
+        }
+        return list ;
+    }
+    public List<Offre>displayOffreValable() throws SQLException{
+        String requete="SELECT * FROM Offre where  CURRENT_TIMESTAMP  < DATEFIN_O " ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        list.add(o) ;
+        }
+        return list ;
+    }
     
+    public static void main(String[] args) {
+        
+        CrudOffre co = new CrudOffre();
+        try
+        {
+            
+            co.displayAllOffre().forEach(System.out::println);
+            System.out.println("Nom espace = consequatur");
+           co.searchOffreByNameEspace("consequatur").forEach(System.out::println);
+           System.out.println("Id Espace = 5");
+            co.searchOffreByIdEspace(5).forEach(System.out::println);
+            System.out.println("DateFin");
+            co.displayOffreByDateFin().forEach(System.out::println);
+            System.out.println("DateDebut");
+            co.displayOffreByDateDebut().forEach(System.out::println);
+            System.out.println("Offres Expire ");
+            co.displayOffreExpire().forEach(System.out::println);
+            System.out.println("Offres Valable ");
+            co.displayOffreValable().forEach(System.out::println);
+        }
+        catch (SQLException ex) {
+            System.out.println("erreur de connexion");
+           
+        }
+        
+        
+            
+    }
     
     
     
