@@ -52,15 +52,16 @@ PreparedStatement pst ;
         pst.setString(2, c.getPrenom());
         pst.setDate(3, c.getDate_naissance());
         pst.setString(4, c.getEmail());
-        pst.setInt(4, c.getSTATUS());
-        pst.setInt(5, c.getNum_tel());
-        pst.setFloat(6, c.getTaille());
-        pst.setFloat(7, c.getPoids());
-        pst.setString(8, c.getAvatar());
-        pst.setString(9, c.getMot_passe());
-        pst.setString(10, c.getNIVEAU_COACH());
-        pst.setString(11, c.getCERTIF_COACH());
-        pst.setInt(12, c.getNOTE_COACH());
+        pst.setInt(5, c.getSTATUS());
+        pst.setInt(6, c.getNum_tel());
+        pst.setFloat(7, c.getTaille());
+        pst.setFloat(8, c.getPoids());
+        pst.setString(9, c.getAvatar());
+        pst.setString(10, c.getMot_passe());
+        pst.setString(11, c.getNIVEAU_COACH());
+        pst.setString(12, c.getCERTIF_COACH());
+        pst.setInt(13, c.getNOTE_COACH());
+        pst.setInt(14, c.getId());
         pst.executeUpdate() ; 
        
     }

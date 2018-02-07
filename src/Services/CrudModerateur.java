@@ -45,7 +45,7 @@ PreparedStatement pst ;
         }
         return list ;
     }
-    public void UpdatePersonne(Moderateur m) throws SQLException{
+    public void UpdateModerateur(Moderateur m) throws SQLException{
         String requete="UPDATE utilisateur SET NOM=?, PRENOM=? ,DATENAISSANCE=? ,EMAIL=? ,STATUS=?, NUMTEL=?,TAILLE=?,POIDS=?,AVATAR=?,MDP=? WHERE id=?" ;
         pst=cnx.prepareStatement(requete) ; 
         pst.setString(1, m.getNom());
@@ -62,4 +62,5 @@ PreparedStatement pst ;
         pst.executeUpdate() ; 
        
     }
+    
 }

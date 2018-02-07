@@ -16,8 +16,6 @@ public class Utilisateur {
     int Id ; 
     String Nom ; 
     String Prenom ; 
-    
-    
     Date date_naissance ;
     String email;
     int STATUS ;
