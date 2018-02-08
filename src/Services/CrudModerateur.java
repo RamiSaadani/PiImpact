@@ -34,7 +34,7 @@ PreparedStatement pst ;
         ste=cnx.createStatement() ;
         ste.executeUpdate(requete); 
                 }
-    public List<Moderateur>displayAll() throws SQLException{
+    public List<Moderateur>displayAllModerateur() throws SQLException{
         String requete="SELECT * FROM utilisateur where type='moderateur'" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
@@ -52,15 +52,30 @@ PreparedStatement pst ;
         pst.setString(2, m.getPrenom());
         pst.setDate(3, m.getDate_naissance());
         pst.setString(4, m.getEmail());
-        pst.setInt(4, m.getSTATUS());
-        pst.setInt(5, m.getNum_tel());
-        pst.setFloat(6, m.getTaille());
-        pst.setFloat(7, m.getPoids());
-        pst.setString(8, m.getAvatar());
-        pst.setString(9, m.getMot_passe());
-        pst.setInt(10, m.getId());
+        pst.setInt(5, m.getSTATUS());
+        pst.setInt(6, m.getNum_tel());
+        pst.setFloat(7, m.getTaille());
+        pst.setFloat(8, m.getPoids());
+        pst.setString(9, m.getAvatar());
+        pst.setString(10, m.getMot_passe());
+        pst.setInt(11, m.getId());
         pst.executeUpdate() ; 
        
     }
-    
+     public void InsertModerateur(Moderateur m) throws SQLException{
+        String requete="Insert into utilisateur (NOM , PRENOM , DATENAISSANCE , EMAIL , STATUS , NUMTEL , TAILLE , POIDS , AVATAR , MDP,TYPE) values (?, ? ,? ,? ,?, ?,?,?,?,?,'moderateur',?) " ;
+        pst=cnx.prepareStatement(requete) ; 
+        pst.setString(1, m.getNom());
+        pst.setString(2, m.getPrenom());
+        pst.setDate(3, m.getDate_naissance());
+        pst.setString(4, m.getEmail());
+        pst.setInt(5, m.getSTATUS());
+        pst.setInt(6, m.getNum_tel());
+        pst.setFloat(7, m.getTaille());
+        pst.setFloat(8, m.getPoids());
+        pst.setString(9, m.getAvatar());
+        pst.setString(10, m.getMot_passe());
+        pst.executeUpdate() ; 
+       
+    }
 }
