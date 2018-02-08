@@ -15,6 +15,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -76,6 +79,12 @@ PreparedStatement pst ;
         pst.setString(9, m.getAvatar());
         pst.setString(10, m.getMot_passe());
         pst.executeUpdate() ; 
+        MailService ms = new MailService() ; 
+    try {
+        ms.SendEmail(m);
+    } catch (MessagingException ex) {
+        ex.printStackTrace();
+    }
        
     }
 }
