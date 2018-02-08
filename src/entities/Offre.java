@@ -22,8 +22,9 @@ public class Offre {
     Date DATEDEBUT_O;
     Date DATEFIN_O;
     String AFFICHE_O;
+    String TYPE_O;
 
-    public Offre(int ID_OFFRE, int ID_ESPACE, String DESCRIPTION_O, String TITRE_O, float ANCIEN_PRIX, float NOUVEAU_PRIX, Date DATEDEBUT_O, Date DATEFIN_O, String AFFICHE_O) {
+    public Offre(int ID_OFFRE, int ID_ESPACE, String DESCRIPTION_O, String TITRE_O, float ANCIEN_PRIX, float NOUVEAU_PRIX, Date DATEDEBUT_O, Date DATEFIN_O, String AFFICHE_O,String TYPE_O) {
         this.ID_OFFRE = ID_OFFRE;
         this.ID_ESPACE = ID_ESPACE;
         this.DESCRIPTION_O = DESCRIPTION_O;
@@ -33,6 +34,7 @@ public class Offre {
         this.DATEDEBUT_O = DATEDEBUT_O;
         this.DATEFIN_O = DATEFIN_O;
         this.AFFICHE_O = AFFICHE_O;
+        this.TYPE_O=TYPE_O;
     }
 
     public int getID_OFFRE() {
@@ -106,11 +108,21 @@ public class Offre {
     public void setAFFICHE_O(String AFFICHE_O) {
         this.AFFICHE_O = AFFICHE_O;
     }
+    
+     public String getTYPE_O() {
+        return TYPE_O;
+    }
+
+    public void setTYPE_O(String TYPE_O) {
+        this.TYPE_O = TYPE_O;
+    }
 
     @Override
     public String toString() {
-        return "Offre{" + "ID_OFFRE=" + ID_OFFRE + ", ID_ESPACE=" + ID_ESPACE + ", DESCRIPTION_O=" + DESCRIPTION_O + ", TITRE_O=" + TITRE_O + ", ANCIEN_PRIX=" + ANCIEN_PRIX + ", NOUVEAU_PRIX=" + NOUVEAU_PRIX + ", DATEDEBUT_O=" + DATEDEBUT_O + ", DATEFIN_O=" + DATEFIN_O + ", AFFICHE_O=" + AFFICHE_O + '}';
+        return "Offre{" + "ID_OFFRE=" + ID_OFFRE + ", ID_ESPACE=" + ID_ESPACE + ", DESCRIPTION_O=" + DESCRIPTION_O + ", TITRE_O=" + TITRE_O + ", ANCIEN_PRIX=" + ANCIEN_PRIX + ", NOUVEAU_PRIX=" + NOUVEAU_PRIX + ", DATEDEBUT_O=" + DATEDEBUT_O + ", DATEFIN_O=" + DATEFIN_O + ", AFFICHE_O=" + AFFICHE_O + ", TYPE_O=" + TYPE_O + '}';
     }
+
+   
     
     
     

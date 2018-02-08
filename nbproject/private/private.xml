@@ -3,18 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/Services/CrudArticle.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/Services/CrudModerateur.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Membre.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Utilisateur.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/Services/CrudMembre.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Admin.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/Services/CrudReclamation.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Moderateur.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/Services/CrudCoach.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Reclamation.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/entities/Coach.java</file>
-            <file>file:/C:/Users/Rami/Documents/NetBeansProjects/Health'Care/src/connexion/DataSource.java</file>
+            <file>file:/C:/Users/Nidhal%20Bougatf/Desktop/PI/PiImpact/src/Services/CrudOffre.java</file>
+            <file>file:/C:/Users/Nidhal%20Bougatf/Desktop/PI/PiImpact/src/Services/CrudMembre.java</file>
+            <file>file:/C:/Users/Nidhal%20Bougatf/Desktop/PI/PiImpact/src/connexion/DataSource.java</file>
+            <file>file:/C:/Users/Nidhal%20Bougatf/Desktop/PI/PiImpact/src/entities/Offre.java</file>
+            <file>file:/C:/Users/Nidhal%20Bougatf/Desktop/PI/PiImpact/src/Services/CrudArticle.java</file>
         </group>
     </open-files>
 </project-private>
