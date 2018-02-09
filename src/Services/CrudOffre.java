@@ -32,7 +32,7 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
@@ -41,8 +41,8 @@ PreparedStatement pst ;
     public void InsertOffre(Offre o) throws SQLException
     {
         
-        String req="INSERT INTO  offre (ID_OFFRE, ID_ESPACE, DESCRIPTION_O, TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O) "
-                + "VALUES ('"+o.getID_OFFRE()+"','"+o.getID_ESPACE()+"','"+o.getDESCRIPTION_O()+"','"+o.getTITRE_O()+"','"+o.getANCIEN_PRIX()+"','"+o.getNOUVEAU_PRIX()+"','"+o.getDATEDEBUT_O()+"','"+o.getDATEFIN_O()+"','"+o.getAFFICHE_O()+"')";
+        String req="INSERT INTO  offre (ID_OFFRE, ID_ESPACE, DESCRIPTION_O, TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O,TYPE_O) "
+                + "VALUES ('"+o.getID_OFFRE()+"','"+o.getID_ESPACE()+"','"+o.getDESCRIPTION_O()+"','"+o.getTITRE_O()+"','"+o.getANCIEN_PRIX()+"','"+o.getNOUVEAU_PRIX()+"','"+o.getDATEDEBUT_O()+"','"+o.getDATEFIN_O()+"','"+o.getAFFICHE_O()+"','"+o.getTYPE_O()+"')";
         ste=cnx.createStatement();  
         ste.executeUpdate(req); 
     }
@@ -51,7 +51,7 @@ PreparedStatement pst ;
     
     public void UpdateOffre(Offre o) throws SQLException
     {
-        String req="UPDATE offre  SET ID_OFFRE='"+o.getID_OFFRE()+"',ID_ESPACE='"+o.getID_ESPACE()+"',DESCRIPTION_O='"+o.getDESCRIPTION_O()+"',TITRE_O='"+o.getTITRE_O()+"',ANCIEN_PRIX='"+o.getANCIEN_PRIX()+"',NOUVEAU_PRIX='"+o.getNOUVEAU_PRIX()+"',DATEDEBUT_O='"+o.getDATEDEBUT_O()+"',DATEFIN_O='"+o.getDATEFIN_O()+"',AFFICHE_O='"+o.getAFFICHE_O()+"' WHERE ID_OFFRE='"+o.getID_OFFRE()+"' ";
+        String req="UPDATE offre  SET ID_OFFRE='"+o.getID_OFFRE()+"',ID_ESPACE='"+o.getID_ESPACE()+"',DESCRIPTION_O='"+o.getDESCRIPTION_O()+"',TITRE_O='"+o.getTITRE_O()+"',ANCIEN_PRIX='"+o.getANCIEN_PRIX()+"',NOUVEAU_PRIX='"+o.getNOUVEAU_PRIX()+"',DATEDEBUT_O='"+o.getDATEDEBUT_O()+"',DATEFIN_O='"+o.getDATEFIN_O()+"',AFFICHE_O='"+o.getAFFICHE_O()+"',TYPE_O='"+o.getTYPE_O()+"' WHERE ID_OFFRE='"+o.getID_OFFRE()+"' ";
         ste=cnx.createStatement();  
         ste.executeUpdate(req);
         
@@ -70,7 +70,7 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
@@ -82,7 +82,7 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
@@ -93,7 +93,7 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
@@ -104,18 +104,32 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
     }
+    
+    public List<Offre>displayOffreByType(String type) throws SQLException{
+        String requete="SELECT * FROM Offre WHERE type_o='"+type+"'" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Offre> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
+        list.add(o) ;
+        }
+        return list ;
+    }
+    
+    
     public List<Offre>displayOffreExpire() throws SQLException{
         String requete="SELECT * FROM Offre where  CURRENT_TIMESTAMP  > DATEFIN_O " ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
@@ -126,11 +140,13 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9));
+        Offre o = new Offre(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7),rs.getDate(8),rs.getString(9),rs.getString(10));
         list.add(o) ;
         }
         return list ;
     }
+    
+    
     
     public static void main(String[] args) {
         
@@ -151,6 +167,8 @@ PreparedStatement pst ;
             co.displayOffreExpire().forEach(System.out::println);
             System.out.println("Offres Valable ");
             co.displayOffreValable().forEach(System.out::println);
+            System.out.println("By type = sport");
+            co.displayOffreByType("sport").forEach(System.out::println);
         }
         catch (SQLException ex) {
             System.out.println("erreur de connexion");
