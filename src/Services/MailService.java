@@ -6,6 +6,7 @@
 
 package Services;
 import entities.Moderateur;
+import entities.Utilisateur;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,19 +42,26 @@ public class MailService {
                 return session ;
                     }
 		
-            public void SendEmail(Moderateur m) throws MessagingException{
+            public void SendEmailModOrMembre(Utilisateur m) throws MessagingException{
 			Message message = new MimeMessage(getProperties());
 			message.setFrom(new InternetAddress("no-reply@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(m.getEmail()));
-			message.setSubject("Confirmation du mail");
+			message.setSubject("Please Activate Your healthcare Account");
 			message.setText("Dear ,"+m.getNom() + " "+m.getPrenom()
-				+ " Veuillez confirmer le mail svp!");
-
+				+ " To activate your account, simply click on the link below or paste into the url field on your favorite browser: http://localhost/VerifMembreAndModerateur.php?id="+m.getId());
 			Transport.send(message);
-
-			System.out.println("Done");
                         
 }
-    
+    public void SendEmailCoach(Utilisateur m) throws MessagingException{
+			Message message = new MimeMessage(getProperties());
+			message.setFrom(new InternetAddress("no-reply@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(m.getEmail()));
+			message.setSubject("Please Activate Your healthcare Account");
+			message.setText("Dear ,"+m.getNom() + " "+m.getPrenom()
+				+ " To activate your account, simply click on the link below or paste into the url field on your favorite browser: http://localhost/VerifCoach.php?id="+m.getId());
+			Transport.send(message);
+                        
+}
 }

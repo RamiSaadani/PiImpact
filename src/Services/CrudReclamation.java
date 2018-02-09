@@ -69,5 +69,18 @@ PreparedStatement pst ;
         return list ;
        
     }
+    public void InsertReclamation(Reclamation r) throws SQLException{
+        String requete="Insert into Reclamation ( type_rec, commentaire_rec, etat_rec, date_rec , id_utilisateur) values (? ,? ,? ,?,?) " ;
+        pst=cnx.prepareStatement(requete);
+                
+     
+        pst.setString(1, r.getTYPE_R());
+        pst.setString(2, r.getCOMMENTAIRE_R());
+        pst.setString(3, r.getETAT_R());
+        pst.setDate(4, r.getDATE_R());
+        pst.setInt(5, r.getID_UTILISATEUR());
+
+        pst.executeUpdate() ;
    
+}
 }
