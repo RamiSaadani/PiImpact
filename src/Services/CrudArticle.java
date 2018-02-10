@@ -25,10 +25,17 @@ Statement ste ;
 PreparedStatement pst ; 
     ResultSet rs ;
     
-    
+     public void insertSt(Article a) throws SQLException{
+         
+        String requete = "INSERT INTO Article (ID_UTILISATEUR,TITRE_A,DESCRIPTION_A,EDITEUR_A,TYPE_A) values"
+                + "('"+a.getID_UTILISATEUR()+"','"+a.getDESCRIPTION_A()+"','"+a.getEDITEUR_A()+"','"+a.getTITRE_A()+"','"+a.getTYPE_A()+"')" ;
+                
+        ste=con.createStatement() ;
+        ste.executeUpdate(requete ); 
+    }
     
      public List<Article>displayAll() throws SQLException{
-        String requete="SELECT * FROM espace,evaluation,evenement,offre,reclamation,utilisateur limit 3" ;
+        String requete="SELECT * FROM Article" ;
         ste=con.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Article> list = new ArrayList<>() ; 
@@ -37,5 +44,32 @@ PreparedStatement pst ;
         list.add(a) ;
         }
         return list ;
+    }
+     public void DeleteSt(int id) throws SQLException{
+        String requete = "DELETE FROM Article WHERE id_ARTICLE="+id ;
+        ste=con.createStatement() ;
+        ste.executeUpdate(requete); 
+                }
+      public void UpdateArticle(Article a) throws SQLException{
+        String requete="UPDATE Article SET TITRE_A=?, DESCRIPTION_A=?, EDITEUR_A=?, TYPE_A=? WHERE ID_ARTICLE=?" ;
+       
+        pst=con.prepareStatement(requete) ; 
+        pst.setString(1, a.getTITRE_A());
+        pst.setString(2, a.getDESCRIPTION_A());
+        pst.setString(3, a.getEDITEUR_A());
+        pst.setString(4, a.getTYPE_A());
+        pst.setInt(5, a.getID_ARTICLE());
+        pst.executeUpdate() ; 
+       
+    }
+      
+      public static void main(String[] args) throws SQLException {
+          Article a =new Article( 1, "sport","sante","test","test");
+        CrudArticle b=new CrudArticle();
+        //b.insertSt(a);
+        //b.DeleteSt(2);
+        b.UpdateArticle(a);
+        //b.displayAll().forEach(System.out::println);
+        
     }
 }

@@ -26,13 +26,20 @@ public class Article {
         this.TYPE_A = TYPE_A;
     }
 
+    public Article( int ID_UTILISATEUR, String TITRE_A, String DESCRIPTION_A, String EDITEUR_A, String TYPE_A) {
+        
+        this.ID_UTILISATEUR = ID_UTILISATEUR;
+        this.TITRE_A = TITRE_A;
+        this.DESCRIPTION_A = DESCRIPTION_A;
+        this.EDITEUR_A = EDITEUR_A;
+        this.TYPE_A = TYPE_A;
+    }
+
     @Override
     public String toString() {
         return "Article{" + "ID_ARTICLE=" + ID_ARTICLE + ", ID_UTILISATEUR=" + ID_UTILISATEUR + ", TITRE_A=" + TITRE_A + ", DESCRIPTION_A=" + DESCRIPTION_A + ", EDITEUR_A=" + EDITEUR_A + ", TYPE_A=" + TYPE_A + '}';
     }
 
-    public Article() {
-    }
 
     public int getID_ARTICLE() {
         return ID_ARTICLE;

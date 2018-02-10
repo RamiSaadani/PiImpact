@@ -15,10 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import javax.mail.MessagingException;
 
 /**
  *
@@ -33,8 +29,8 @@ PreparedStatement pst ;
     
    
   
-    public void BanCoach(Coach c) throws SQLException{
-        String requete = "Update utilisateur set status=4 where ID_UTILISATEUR="+c.getId() ;
+    public void BanMembre(Coach c) throws SQLException{
+        String requete = "Update utilisateur set status=4 where id="+c.getId() ;
         ste=cnx.createStatement() ;
         ste.executeUpdate(requete); 
                 }
@@ -44,82 +40,19 @@ PreparedStatement pst ;
         rs=ste.executeQuery(requete);
         List<Coach> list = new ArrayList<>() ; 
         while(rs.next()){
-        Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("NIVEAU_COACH"),rs.getString("CERTIF_COACH"),rs.getInt("NOTE_COACH"));
+        Coach c = new Coach(rs.getInt("1"),rs.getString("2"),rs.getString("3"),rs.getDate("4"),rs.getString("5"),rs.getInt("6"),rs.getInt("7"),rs.getFloat("8"),rs.getFloat("9"),rs.getString("10"),rs.getString("11"),"coach",rs.getString("13"),rs.getString("14"),rs.getInt("15"));
         list.add(c) ;
         }
         return list ;
     }
-    
-          public Coach FindById(int id) throws SQLException{
-        String requete="SELECT * FROM utilisateur where ID_UTILISATEUR="+id ;
-        ste=cnx.createStatement() ;
-        rs=ste.executeQuery(requete);
-      
-        while(rs.next()){
-        
-        Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("NIVEAU_COACH"),rs.getString("CERTIF_COACH"),rs.getInt("NOTE_COACH"));
-        
-        return c ;
-        }
-        return null ;
-    }
-        public List<Coach> FindByNameOrlastname(String name) throws SQLException{
-        String requete="SELECT * FROM utilisateur where (NOM='"+name+"' OR PRENOM='"+name+"') AND Type='coach'" ;
-        ste=cnx.createStatement() ;
-        rs=ste.executeQuery(requete);
-        List<Coach> list = new ArrayList<>() ; 
-        while(rs.next()){
-        
-        Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("NIVEAU_COACH"),rs.getString("CERTIF_COACH"),rs.getInt("NOTE_COACH"));
-        
-        list.add(c) ;
-        }
-        return list ;
-    }
-    
-    public void UpdateCoach(Coach c) throws SQLException{
-        String requete="UPDATE utilisateur SET NOM=?, PRENOM=? ,DATENAISSANCE=? ,EMAIL=? ,STATUS=?, NUMTEL=?,TAILLE=?,POIDS=?,AVATAR=?,MDP=? , NIVEAU_COACH=? , CERTIF_COACH=?, NOTE_COACH=? WHERE ID_UTILISATEUR=?" ;
+    public void UpdatePersonne(Coach c) throws SQLException{
+        String requete="UPDATE utilisateur SET NOM=?, PRENOM=? ,DATENAISSANCE=? ,EMAIL=? ,STATUS=?, NUMTEL=?,TAILLE=?,POIDS=?,AVATAR=?,MDP=? , NIVEAU_COACH=? , CERTIF_COACH=?, NOTE_COACH=? WHERE id=?" ;
         pst=cnx.prepareStatement(requete) ; 
         pst.setString(1, c.getNom());
         pst.setString(2, c.getPrenom());
         pst.setDate(3, c.getDate_naissance());
         pst.setString(4, c.getEmail());
-        pst.setInt(5, c.getSTATUS());
-        pst.setInt(6, c.getNum_tel());
-        pst.setFloat(7, c.getTaille());
-        pst.setFloat(8, c.getPoids());
-        pst.setString(9, c.getAvatar());
-        pst.setString(10, c.getMot_passe());
-        pst.setString(11, c.getNIVEAU_COACH());
-        pst.setString(12, c.getCERTIF_COACH());
-        pst.setInt(13, c.getNOTE_COACH());
-        pst.setInt(14, c.getId());
-        pst.executeUpdate() ; 
-       
-    }
-    //filtrer selon le status du compte
-    public List<Coach> filtreCoach(List<Coach> list  , int i){
-        return list.stream().filter(e->e.getSTATUS()==i).collect(Collectors.toList()) ;
-    }
-     public Coach CoachAuthentification(String email , String passwd) throws SQLException{
-        String requete="SELECT * FROM utilisateur where EMAIL='"+email+"' AND MDP='"+passwd+"' AND STATUS=1 AND TYPE='coach'" ;
-        ste=cnx.createStatement() ;
-        rs=ste.executeQuery(requete);
-      
-        while(rs.next()){
-        
-Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("NIVEAU_COACH"),rs.getString("CERTIF_COACH"),rs.getInt("NOTE_COACH"));        
-        return c ;
-        }
-        return null ;
-    }
-    public void InsertCoach(Coach c) throws SQLException{
-        String requete="Insert into utilisateur (NOM , PRENOM , DATENAISSANCE , EMAIL , STATUS , NUMTEL , TAILLE , POIDS , AVATAR , MDP,TYPE , NIVEAU_COACH, CERTIF_COACH , NOTE_COACH) values (?, ? ,? ,? ,2, ?,?,?,?,?,'coach',?,?,?) " ;
-        pst=cnx.prepareStatement(requete) ; 
-        pst.setString(1, c.getNom());
-        pst.setString(2, c.getPrenom());
-        pst.setDate(3, c.getDate_naissance());
-        pst.setString(4, c.getEmail());
+        pst.setInt(4, c.getSTATUS());
         pst.setInt(5, c.getNum_tel());
         pst.setFloat(6, c.getTaille());
         pst.setFloat(7, c.getPoids());
@@ -129,12 +62,6 @@ Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString
         pst.setString(11, c.getCERTIF_COACH());
         pst.setInt(12, c.getNOTE_COACH());
         pst.executeUpdate() ; 
-       MailService ms = new MailService() ; 
-    try {
-        ms.SendEmailCoach(c);
-    } catch (MessagingException ex) {
-        ex.printStackTrace();
+       
     }
-    }
-    
 }

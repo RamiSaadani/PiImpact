@@ -16,7 +16,7 @@ public class DataSource {
     
     private static DataSource data;
     private Connection con;
-    String url="jdbc:mysql://127.0.0.1:3306/healthcare";
+    String url="jdbc:mysql://127.0.0.1:3306/health'care";
     String login="root";
     String password="";
     
