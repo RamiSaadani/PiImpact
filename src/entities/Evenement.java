@@ -26,6 +26,11 @@ public class Evenement {
   String CONTACT_E ; 
   String TYPE_E; 
 
+    public Evenement() {
+    }
+
+  
+  
     public Evenement(int ID_EVENEMENT, int ID_UTILISATEUR, String TITRE_E, String DESCRIPTION_E, String AFFICHE_E, Date DATEDEBUT_E, Date DATEFIN_E, String LIEU_E, int DUREE_E, float FRAIS_E, String ORGANISATEUR_E, String CONTACT_E, String TYPE_E) {
         this.ID_EVENEMENT = ID_EVENEMENT;
         this.ID_UTILISATEUR = ID_UTILISATEUR;
@@ -42,6 +47,21 @@ public class Evenement {
         this.TYPE_E = TYPE_E;
     }
 
+    public Evenement(String TITRE_E, String DESCRIPTION_E, String AFFICHE_E, Date DATEDEBUT_E, Date DATEFIN_E, String LIEU_E, int DUREE_E, float FRAIS_E, String ORGANISATEUR_E, String CONTACT_E, String TYPE_E) {
+        
+        
+        this.TITRE_E = TITRE_E;
+        this.DESCRIPTION_E = DESCRIPTION_E;
+        this.AFFICHE_E = AFFICHE_E;
+        this.DATEDEBUT_E = DATEDEBUT_E;
+        this.DATEFIN_E = DATEFIN_E;
+        this.LIEU_E = LIEU_E;
+        this.DUREE_E = DUREE_E;
+        this.FRAIS_E = FRAIS_E;
+        this.ORGANISATEUR_E = ORGANISATEUR_E;
+        this.CONTACT_E = CONTACT_E;
+        this.TYPE_E = TYPE_E;
+    }
     
     public int getID_EVENEMENT() {
         return ID_EVENEMENT;
