@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -33,12 +36,13 @@ ResultSet rs ;
         String req="INSERT INTO evenement(ID_EVENEMENT, ID_UTILISATEUR, TITRE_E, DESCRIPTION_E, AFFICHE_E, DATEDEBUT_E, DATEFIN_E, LIEU_E, DUREE_E, FRAIS_E, ORGANISATEUR_E, CONTACT_E,TYPE_E) "
                 + "VALUES ('"+E.getID_EVENEMENT()+"','"+E.getID_UTILISATEUR()+"','"+E.getTITRE_E()+"','"+E.getDESCRIPTION_E()+"','"+E.getAFFICHE_E()+"','"
                 +E.getDATEDEBUT_E()+"','"+E.getDATEFIN_E()+"','"+E.getLIEU_E()+"','"+E.getDUREE_E()+"','"+E.getFRAIS_E()+"','"+E.getORGANISATEUR_E()+"','"+E.getCONTACT_E()+"','"+E.getTYPE_E()+"')";
+        System.out.println(req);
         ste=cnx.createStatement();  
         ste.executeUpdate(req); 
     }
 
  public void UpdateEvenement(Evenement E,int id) throws SQLException{
-        String requete="UPDATE evenement SET ID_UTILISATEUR='"+E.getID_UTILISATEUR()+"',TITRE_E='"+E.getTITRE_E()+"',DESCRIPTION_E='"+E.getDESCRIPTION_E()+"',AFFICHE_E='"+E.getAFFICHE_E()+"',DATEDEBUT_E='"+E.getDATEDEBUT_E()+"',DATEFIN_E='"+E.getDATEFIN_E()+"',LIEU_E='"+E.getLIEU_E()+"',DUREE_E='"+E.getDUREE_E()+"',FRAIS_E='"+E.getFRAIS_E()+"',ORGANISATEUR_E='"+E.getORGANISATEUR_E()+"',CONTACT_E='"+E.getCONTACT_E()+"',TYPE_E='"+E.getTYPE_E()+"' where ID_EVENEMENT="+id  ;
+        String requete="UPDATE evenement SET TITRE_E='"+E.getTITRE_E()+"',DESCRIPTION_E='"+E.getDESCRIPTION_E()+"',AFFICHE_E='"+E.getAFFICHE_E()+"',DATEDEBUT_E='"+E.getDATEDEBUT_E()+"',DATEFIN_E='"+E.getDATEFIN_E()+"',LIEU_E='"+E.getLIEU_E()+"',DUREE_E='"+E.getDUREE_E()+"',FRAIS_E='"+E.getFRAIS_E()+"',ORGANISATEUR_E='"+E.getORGANISATEUR_E()+"',CONTACT_E='"+E.getCONTACT_E()+"',TYPE_E='"+E.getTYPE_E()+"' where ID_EVENEMENT='"+id+"'"  ;
         ste=cnx.createStatement() ; 
         ste.executeUpdate(requete) ; 
        
@@ -51,19 +55,46 @@ ResultSet rs ;
         ste.executeUpdate(req);    
     }
     
-    public List<Evenement> displayAllEvenement() throws SQLException{
+    public ObservableList<Evenement> displayAllEvenement() throws SQLException{
         String requete="SELECT * FROM evenement" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
-        List<Evenement> list = new ArrayList<>() ; 
+        ObservableList<Evenement> list =FXCollections.observableArrayList(); 
         while(rs.next()){                   
         Evenement E = new Evenement(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getDate(7),rs.getString(8),rs.getInt(9),rs.getFloat(10),rs.getString(11),rs.getString(12),rs.getString(13));
         list.add(E) ;
         }
+        
+        return list ;
+    }
+    
+    
+        public ObservableList<Evenement> displayFiltreEvenement(String Type) throws SQLException{
+        String requete="SELECT * FROM evenement Where TYPE_E = " + Type ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        ObservableList<Evenement> list =FXCollections.observableArrayList(); 
+        while(rs.next()){                   
+        Evenement E = new Evenement(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getDate(7),rs.getString(8),rs.getInt(9),rs.getFloat(10),rs.getString(11),rs.getString(12),rs.getString(13));
+        list.add(E) ;
+        }
+        System.out.println(list);
         return list ;
     }
 
-
+        public ObservableList<Evenement> Search(String Chercher) throws SQLException{
+        String requete="SELECT * FROM evenement Where  `TITRE_E` LIKE '%"+Chercher +"%'" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        ObservableList<Evenement> list =FXCollections.observableArrayList(); 
+        while(rs.next()){                   
+        Evenement E = new Evenement(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getDate(7),rs.getString(8),rs.getInt(9),rs.getFloat(10),rs.getString(11),rs.getString(12),rs.getString(13));
+        list.add(E) ;
+        }
+        System.out.println(list);
+        return list ;
+    } 
+        
     }
     
 
