@@ -7,24 +7,13 @@ package controller;
 
 import Services.CrudEvenement;
 import entities.Evenement;
-import entities.Utilisateur;
-import java.beans.PropertyChangeEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,9 +27,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -49,7 +36,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -74,6 +60,7 @@ public class GestionEvent implements Initializable {
     private DatePicker DateFin;
     @FXML
     private TextField Lieu;
+    @FXML
     private TextField Duree;
     @FXML
     private TextField Frais;
@@ -143,8 +130,10 @@ public class GestionEvent implements Initializable {
      * Initializes the controller class.
      */
     
-    public void initialize(URL url, ResourceBundle rb) {
-         UpdateList() ; 
+    public void initialize(URL url, ResourceBundle RB) {
+       
+        System.out.println("Id");
+        UpdateList() ; 
          try { eventList.setItems(CE.displayAllEvenement()); } 
          catch (SQLException ex) {System.out.println("Combox : " + ex);  }
          ObservableList Combo =  FXCollections.observableArrayList("Randonn�","Voyage","Voyage","Marathon","Autre") ; 
@@ -153,21 +142,10 @@ public class GestionEvent implements Initializable {
        eventList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                        Evenement SelectedEvenet = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
-                        ID_Event  = SelectedEvenet.getID_EVENEMENT() ;
-                        Titre.setText(SelectedEvenet.getTITRE_E());
-                         TitreEvent  = Titre.getText();
-                        Description.setText(SelectedEvenet.getDESCRIPTION_E());
-                        FilePath.setText(SelectedEvenet.getAFFICHE_E());
-                        FilePath.setText(SelectedEvenet.getAFFICHE_E());
-                        DateDebut.valueProperty().setValue(SelectedEvenet.getDATEDEBUT_E().toLocalDate());
-                        DateFin.valueProperty().setValue(SelectedEvenet.getDATEFIN_E().toLocalDate());
-                        Lieu.setText(SelectedEvenet.getLIEU_E());
-                        Duree.setText(""+SelectedEvenet.getDUREE_E());
-                        Frais.setText(""+ SelectedEvenet.getFRAIS_E());
-                        Organisateur.setText(SelectedEvenet.getORGANISATEUR_E());
-                        Contact.setText(SelectedEvenet.getCONTACT_E());
-                        Type.getSelectionModel().select(SelectedEvenet.getTYPE_E()) ;
+                       Evenement SelectedEvenet = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
+                       
+                       E = SelectedEvenet ;
+                        vider();
             }           
         });
          
@@ -202,12 +180,32 @@ public class GestionEvent implements Initializable {
             
             Image img = new Image("file:"+file.getAbsolutePath());
             AfficheIMG.imageProperty().set(img); 
+            
+
         
     }
 
+    public void transAtt () {
+    ID_Event  = E.getID_EVENEMENT() ;
+        Titre.setText(E.getTITRE_E());
+        Description.setText(E.getDESCRIPTION_E());
+        FilePath.setText(E.getAFFICHE_E());
+        FilePath.setText(E.getAFFICHE_E());
+        DateDebut.valueProperty().setValue(E.getDATEDEBUT_E().toLocalDate());
+        DateFin.valueProperty().setValue(E.getDATEFIN_E().toLocalDate());
+        Lieu.setText(E.getLIEU_E());
+        String n =  String.valueOf(E.getDUREE_E()) ;
+        String n2 =  String.valueOf(E.getFRAIS_E()) ;
+        Duree.setText(n);
+        Frais.setText(n2);
+        Organisateur.setText(E.getORGANISATEUR_E());
+        Contact.setText(E.getCONTACT_E());
+        Type.getSelectionModel().select(E.getTYPE_E()) ;
+    }
+    
     @FXML
     private void AjouterEvenet(ActionEvent event) throws SQLException {
-        
+       
         if ("".equals(Titre.getText()) ){
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Erreur de saisie");
@@ -268,8 +266,8 @@ public class GestionEvent implements Initializable {
         
             try {
                 E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , java.sql.Date.valueOf(DateDebut.getValue()) , java.sql.Date.valueOf(DateFin.getValue()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());
-                E.setID_EVENEMENT(ID_Event);
-                E.setID_UTILISATEUR(20);
+                            
+                E.setID_UTILISATEUR(1);
                 CE.InsertEvenement(E);
                 eventList.setItems(CE.displayAllEvenement());
                  vider () ; 
@@ -286,17 +284,89 @@ public class GestionEvent implements Initializable {
 
     @FXML
     private void EditEvenet(ActionEvent event) throws SQLException {
-       try {  
-        E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , java.sql.Date.valueOf(DateDebut.getValue()) , java.sql.Date.valueOf(DateFin.getValue()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());
+        E = null ; 
+        E = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
+     
+
+        
+        if ("Enregistrer".equals(EditEvent.getText()))
+        {if ("".equals(Titre.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Le titre est un champ obligatoire !");
+            alert.showAndWait();
+        } else if ("".equals(Description.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("La description est un champ obligatoire !");
+            alert.showAndWait();
+        } else if (LocalDate.now().toEpochDay() >= DateDebut.getValue().toEpochDay() ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur Date");
+            alert.setHeaderText("Attention");
+            alert.setContentText("la date d'�venement doit etre superieur � la date courant !");
+            alert.showAndWait();
+        } else if (LocalDate.now().toEpochDay() >= DateFin.getValue().toEpochDay() || DateFin.getValue().toEpochDay()<DateDebut.getValue().toEpochDay()  ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie la date du fin de l'evenement !");
+            alert.showAndWait();
+        }else if ( "".equals(Duree.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.showAndWait();  
+        } else if ( "".equals(Frais.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.showAndWait();  
+        }else if ( "".equals(Organisateur.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie le nom de  l'organisateur  !");
+            alert.showAndWait();  
+        }
+        else if ( "".equals(Contact.getText()) ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie les contacts  !");
+            alert.showAndWait();  
+        }else if ((Type.getSelectionModel().getSelectedIndex())== 0 ){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText("Attention");
+            alert.setContentText("Verifie chois  !");
+            alert.showAndWait();  
+        }
+        else  {
+        E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , java.sql.Date.valueOf(DateDebut.getValue()) , java.sql.Date.valueOf(DateFin.getValue()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());         
+        System.out.println("Titre chap : "+Titre.getText());
+        System.out.println("Classe chap : "+Titre.getText());
         E.setID_UTILISATEUR(20);
-        E.setID_EVENEMENT(ID_Event);  
-         CE.UpdateEvenement(E,ID_Event);
-      
-      eventList.setItems(CE.displayAllEvenement());
-       vider () ; 
-       } catch (SQLException ex) { System.err.println("EditEvenet " +ex );    }
+        E.setID_EVENEMENT(ID_Event);
+        System.out.println(ID_Event);
+        CE.UpdateEvenement(E,E.getID_EVENEMENT());
+        eventList.setItems(CE.displayAllEvenement());
+        vider () ;   
+        EditEvent.setText("Modifier");}
+        }
+        
+        if ("Modifier".equals(EditEvent.getText())){
+        transAtt () ;
+        AddEvent.setVisible(false);
+        EditEvent.setText("Enregistrer");
+        }
     }
 
+    
     @FXML
     private void DeletEvent(ActionEvent event) throws SQLException {
         
@@ -360,11 +430,20 @@ public class GestionEvent implements Initializable {
     Contact.setText("");
     Type.setValue("");
     Type.setPromptText("Type");
-    AfficheIMG.imageProperty().set(null); 
+    AfficheIMG.imageProperty().set(null);
+    EditEvent.setText("Modifier");
+    AddEvent.setVisible(true);
     }
 
     @FXML
     private void SlectTable(MouseEvent event) {
+    }
+
+    @FXML
+    private void Miseajour(ActionEvent event) throws SQLException {
+        vider();
+        eventList.setItems(CE.displayAllEvenement());
+        E = null ; 
     }
 }
 

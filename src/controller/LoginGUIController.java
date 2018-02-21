@@ -6,7 +6,10 @@
 
 package controller;
 
+
+import Services.CrudReclamation;
 import Services.CrudUtilisateur;
+import entities.Reclamation;
 import entities.Utilisateur;
 import java.io.IOException;
 import java.net.URL;
@@ -78,14 +81,18 @@ public class LoginGUIController implements Initializable {
             else {
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
-       
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("Accueil");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        primaryStage.setFullScreen(true);
+                try {
+                            Parent root = loader.load();
+                            Scene scene = new Scene(root);
+                            primaryStage.setTitle("Accueil");
+                            primaryStage.setScene(scene);
+                            primaryStage.show();
+                            primaryStage.setFullScreen(true);
             
+                } catch (Exception e) {
+                    System.out.println("controller.LoginGUIController.Connecter() " + e );
+                }
+
     }
     
 }
@@ -101,6 +108,6 @@ public class LoginGUIController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.show();
      }
-     
+   
 }
  

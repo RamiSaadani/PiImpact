@@ -6,6 +6,7 @@
 
 package controller;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +34,7 @@ public class AccueilController implements Initializable {
     public AccueilController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
-    AnchorPane GestionMembre,GestionArticle,GestionEvent,GestionEspace,GestionOffre;
+    AnchorPane GestionMembre,GestionArticle,GestionEvent,GestionEspace,GestionOffre,GestionEval;
     /**
      * Initializes the controller class.
      */
@@ -45,25 +46,23 @@ public class AccueilController implements Initializable {
              GestionEvent = FXMLLoader.load(getClass().getResource("/View/GestionEvent.fxml"));
              GestionEspace = FXMLLoader.load(getClass().getResource("/View/GestionEspace.fxml"));
              GestionOffre = FXMLLoader.load(getClass().getResource("/View/GestionOffre.fxml"));
-            setNode(GestionMembre);
+             GestionEval = FXMLLoader.load(getClass().getResource("/View/GestionEval.fxml"));
+           System.out.println("controller.AccueilController.initialize() 1 ");
+             setNode(GestionMembre);
         } catch (IOException ex) {
-            Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("controller.AccueilController.initialize()"+ex);
         }
     }    
     //Set selected node to a content holder
     private void setNode(Node node) {
-        node.prefHeight(holderPane.getHeight()) ;
-        node.prefWidth(holderPane.getWidth()) ;
         holderPane.getChildren().clear();
         holderPane.getChildren().add((Node) node);
-        FadeTransition ft = new FadeTransition(Duration.millis(1000));
-  
+        FadeTransition ft = new FadeTransition(Duration.millis(1500));
         ft.setNode(node);
         ft.setFromValue(0.1);
         ft.setToValue(1);
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
-        
         ft.play();
     }
     @FXML
@@ -90,5 +89,11 @@ public class AccueilController implements Initializable {
     private void GetGestionOffre(ActionEvent event) {
         setNode(GestionOffre);
     }
+
+
     
+            @FXML
+    private void GetGestionEval(ActionEvent event) {
+        setNode(GestionEval);
+    }
 }
