@@ -13,7 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -26,7 +33,7 @@ Statement ste ;
 PreparedStatement pst ; 
     ResultSet rs ;
     
-     public void insertSt(Evaluation e) throws SQLException{
+     public void insertEvaluation(Evaluation e) throws SQLException{
          
         String requete = "INSERT INTO Evaluation (ID_EVALUATION,ID_UTILISATEUR,NOTES_EV,COMMENTAIRE_EV,OBJET_EV, TYPE_EV, ID_O) values"
                 + "('"+e.getID_EVALUATION()+"','"+e.getID_UTILISATEUR()+"','"+e.getNOTES_EV()+"','"+e.getCOMMENTAIRE_EV()+"','"+e.getOBJET_EV()+"','"+ e.getTYPE_EV()+"','"+ e.getID_O()+"')" ;
@@ -34,8 +41,31 @@ PreparedStatement pst ;
         ste=con.createStatement() ;
         ste.executeUpdate(requete ); 
     }
+     
+     public ObservableList<Evaluation>DisplayAll() throws SQLException{
+         String requete="SELECT  * from evaluation " ; 
+         ste=con.createStatement() ;
+        rs=ste.executeQuery(requete);
+        ObservableList<Evaluation> list = FXCollections.observableArrayList();
+        while(rs.next()){
+        Evaluation ev= new Evaluation(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+        list.add(ev) ;}
+        return list ;
+     } 
+public ObservableList<Evaluation>searchByNomU(String nom) throws SQLException{
+        String requete="select * FROM Evaluation,utilisateur WHERE  utilisateur.nom Like '%"+nom+"%' and  evaluation.ID_UTILISATEUR = utilisateur.ID_UTILISATEUR"  ;
+        System.out.println(requete);
+        ste=con.createStatement() ;
+        rs=ste.executeQuery(requete);
+        ObservableList<Evaluation> list = FXCollections.observableArrayList(); 
+        while(rs.next()){
+        Evaluation ev= new Evaluation(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+        list.add(ev) ;
+        }
+        return list ;
+    }
     
-     public List<Evaluation>display(String objett,String type,String nom) throws SQLException{
+     public List<Evaluation>SearchByNom(String objett,String type,String nom) throws SQLException{
          if(objett.equals("offre"))
          {
                      String requete="SELECT AVG(NOTES_EV)FROM Evaluation WHERE id=(select  ID_OFFRE from offre where  titre_o='"+nom+"' and type_o='"+type+"') ";
@@ -55,34 +85,65 @@ PreparedStatement pst ;
         ste=con.createStatement() ;
         rs=ste.executeQuery(requete);
          }
-         
-       
-        List<Evaluation> list = new ArrayList<>() ; 
+          List<Evaluation> list = new ArrayList<>() ; 
         while(rs.next()){
        Evaluation ev= new Evaluation(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
         list.add(ev) ;
         }
-        return list ;
+        return list ;  
+    }
+     
+     
+     public ObservableList<Evaluation>SearchByType(String type) throws SQLException{
+         
+         String requete="select  * from evaluation where  type_EV ="+type+" ";
+         System.out.println(requete);
+         ste=con.createStatement() ;
+        rs=ste.executeQuery(requete);
+         
+          ObservableList<Evaluation> list = FXCollections.observableArrayList() ; 
+        while(rs.next()){
+       Evaluation ev= new Evaluation(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+        list.add(ev) ;
+        }
+        return list ;  
+    }
+     public ObservableList<Evaluation>SearchByNomU_Type(String type, String nom) throws SQLException{
+         
+         String requete="select  * from  Evaluation,utilisateur where utilisateur.nom Like '%"+nom+"%' and  evaluation.ID_UTILISATEUR = utilisateur.ID_UTILISATEUR and type_EV ="+type+" ";
+         System.out.println(requete);
+         ste=con.createStatement() ;
+        rs=ste.executeQuery(requete);
+         
+          ObservableList<Evaluation> list = FXCollections.observableArrayList() ; 
+        while(rs.next()){
+       Evaluation ev= new Evaluation(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+        list.add(ev) ;
+        }
+        return list ;  
     }
       
-     public void DeleteSt(Evaluation e) throws SQLException{
+     public void DeleteEvaluation(Evaluation e) throws SQLException{
         String requete = "DELETE FROM Evaluation WHERE id="+e.getID_EVALUATION() ;
         ste=con.createStatement() ;
         ste.executeUpdate(requete); 
                 }
-      public void UpdateArticle(Evaluation e) throws SQLException{
-        String requete="UPDATE Evaluation SET ID_EVALUATION=?,ID_UTILISATEUR=?,NOTES_EV=?, COMMENTAIRE_EV=?,OBJET_EV=?,TYPE_EV=?,ID_O=?" ;
-       
-        pst=con.prepareStatement(requete) ; 
-        pst.setInt(1, e.getID_EVALUATION());
-        pst.setInt(2, e.getID_UTILISATEUR());
-        pst.setInt(3, e.getNOTES_EV());
-        pst.setString(4, e.getCOMMENTAIRE_EV()); 
-        pst.setString(5, e.getOBJET_EV());
-        pst.setString(6, e.getTYPE_EV());
-        pst.setInt(7, e.getID_O());
-        pst.executeUpdate() ; 
-       
-    }
+//      public void UpdateEvaluation(Evaluation e) throws SQLException{
+//        String requete="UPDATE Evaluation SET ID_EVALUATION=?,ID_UTILISATEUR=?,NOTES_EV=?, COMMENTAIRE_EV=?,OBJET_EV=?,TYPE_EV=?,ID_O=? where " ;
+//       
+//        pst=con.prepareStatement(requete) ; 
+//        pst.setInt(1, e.getID_EVALUATION());
+//        pst.setInt(2, e.getID_UTILISATEUR());
+//        pst.setInt(3, e.getNOTES_EV());
+//        pst.setString(4, e.getCOMMENTAIRE_EV()); 
+//        pst.setString(5, e.getOBJET_EV());
+//        pst.setString(6, e.getTYPE_EV());
+//        pst.setInt(7, e.getID_O());
+//        pst.executeUpdate() ; 
+//       
+//    }
+      
+      
+      
 }
 

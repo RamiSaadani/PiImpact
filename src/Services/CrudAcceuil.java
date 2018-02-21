@@ -20,7 +20,7 @@ import java.util.List;
  * @author CePc
  */
 public class CrudAcceuil {
-Connection con= DataSource.getInstance().getConnection() ;    
+/*Connection con= DataSource.getInstance().getConnection() ;    
 Statement ste ; 
 PreparedStatement pst ; 
     ResultSet rs ;
@@ -38,13 +38,6 @@ PreparedStatement pst ;
         }
         return list ;
     }
-       
-      public static void main(String[] args) throws SQLException {
-          Article a =new Article( 1, "sport","sante","test","test");
-        CrudAcceuil b=new CrudAcceuil();
-       
-        b.displayAll().forEach(System.out::println);
-        
-    }
+       */
 }
 

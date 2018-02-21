@@ -45,6 +45,7 @@ ResultSet rs ;
         String requete="UPDATE evenement SET TITRE_E='"+E.getTITRE_E()+"',DESCRIPTION_E='"+E.getDESCRIPTION_E()+"',AFFICHE_E='"+E.getAFFICHE_E()+"',DATEDEBUT_E='"+E.getDATEDEBUT_E()+"',DATEFIN_E='"+E.getDATEFIN_E()+"',LIEU_E='"+E.getLIEU_E()+"',DUREE_E='"+E.getDUREE_E()+"',FRAIS_E='"+E.getFRAIS_E()+"',ORGANISATEUR_E='"+E.getORGANISATEUR_E()+"',CONTACT_E='"+E.getCONTACT_E()+"',TYPE_E='"+E.getTYPE_E()+"' where ID_EVENEMENT='"+id+"'"  ;
         ste=cnx.createStatement() ; 
         ste.executeUpdate(requete) ; 
+        System.out.println(requete);
        
     }
  
