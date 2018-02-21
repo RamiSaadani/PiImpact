@@ -1,8 +1,3 @@
-﻿/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import Services.CrudEvenement;
@@ -369,15 +364,15 @@ public class GestionEvent implements Initializable {
     
     @FXML
     private void DeletEvent(ActionEvent event) throws SQLException {
-        
+        E = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation la suppression");
         alert.setHeaderText("Confirmer");
-        alert.setContentText("Vous-etes sur de supprimer l'evenement "+TitreEvent+" ?");
+        alert.setContentText("Vous-etes sur de supprimer l'evenement "+ E.getTITRE_E() +" ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-             CE.DeleteEvenement(ID_Event);
+             CE.DeleteEvenement(E.getID_EVENEMENT());
         }
          
         try {        
