@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -222,7 +222,7 @@ public class GestionEvent implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur Date");
             alert.setHeaderText("Attention");
-            alert.setContentText("la date d'�venement doit etre superieur à la date courant !");
+            alert.setContentText("la date d'évenement doit etre superieur à la date courant !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateFin.getValue().toEpochDay() || DateFin.getValue().toEpochDay()<DateDebut.getValue().toEpochDay()  ){
             Alert alert = new Alert(AlertType.ERROR);
@@ -234,13 +234,13 @@ public class GestionEvent implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.setContentText("Verifie la durée de l'evenemenemt !");
             alert.showAndWait();  
         } else if ( "".equals(Frais.getText()) ){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.setContentText("Verifie la durée de l'evenemenemt !");
             alert.showAndWait();  
         }else if ( "".equals(Organisateur.getText()) ){
             Alert alert = new Alert(AlertType.ERROR);
@@ -306,7 +306,7 @@ public class GestionEvent implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur Date");
             alert.setHeaderText("Attention");
-            alert.setContentText("la date d'�venement doit etre superieur � la date courant !");
+            alert.setContentText("la date d'évenement doit etre superieur à la date courant !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateFin.getValue().toEpochDay() || DateFin.getValue().toEpochDay()<DateDebut.getValue().toEpochDay()  ){
             Alert alert = new Alert(AlertType.ERROR);
@@ -318,13 +318,13 @@ public class GestionEvent implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.setContentText("Verifie la durée de l'evenemenemt !");
             alert.showAndWait();  
         } else if ( "".equals(Frais.getText()) ){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie la dur�e de l'evenemenemt !");
+            alert.setContentText("Verifie la durée de l'evenemenemt !");
             alert.showAndWait();  
         }else if ( "".equals(Organisateur.getText()) ){
             Alert alert = new Alert(AlertType.ERROR);

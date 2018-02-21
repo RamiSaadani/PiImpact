@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,7 +28,14 @@ import javafx.util.Duration;
  *
  * @author Rami
  */
+
+
+    
+
 public class AccueilController implements Initializable {
+    
+    @FXML 
+    private Label Gest ; 
     @FXML
     private AnchorPane holderPane;
     Stage primaryStage ;
@@ -49,6 +57,7 @@ public class AccueilController implements Initializable {
              GestionEval = FXMLLoader.load(getClass().getResource("/View/GestionEval.fxml"));
            System.out.println("controller.AccueilController.initialize() 1 ");
              setNode(GestionMembre);
+              Gest.setText("Gestionnaire des membres");
         } catch (IOException ex) {
              System.out.println("controller.AccueilController.initialize()"+ex);
         }
@@ -68,26 +77,31 @@ public class AccueilController implements Initializable {
     @FXML
     private void GetGestionMembre(ActionEvent event) {
         setNode(GestionMembre);
+        Gest.setText("Gestionnaire \n des membres");
     }
 
     @FXML
     private void GetGestionArticle(ActionEvent event) {
         setNode(GestionArticle);
+        Gest.setText("Gestionnaire des Articles");
     }
 
     @FXML
     private void GetGestionEvents(ActionEvent event) {
         setNode(GestionEvent);
+        Gest.setText("Gestionnaire des Evenements");
     }
 
     @FXML
     private void GetGestionEspace(ActionEvent event) {
         setNode(GestionEspace);
+        Gest.setText("Gestionnaire des Espaces");
     }
 
     @FXML
     private void GetGestionOffre(ActionEvent event) {
         setNode(GestionOffre);
+                Gest.setText("Gestionnaire des Offres");
     }
 
 
@@ -95,5 +109,6 @@ public class AccueilController implements Initializable {
             @FXML
     private void GetGestionEval(ActionEvent event) {
         setNode(GestionEval);
+         Gest.setText("Evaluations");
     }
 }
