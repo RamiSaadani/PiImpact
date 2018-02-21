@@ -5,6 +5,9 @@
  */
 package entities;
 
+import java.sql.Date;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author CePc
@@ -16,30 +19,53 @@ public class Article {
     String DESCRIPTION_A;
     String EDITEUR_A;
     String TYPE_A;
+    String Affiche_A;
+    Date Date_a;
 
-    public Article(int ID_ARTICLE, int ID_UTILISATEUR, String TITRE_A, String DESCRIPTION_A, String EDITEUR_A, String TYPE_A) {
+    public Article(int ID_ARTICLE, int ID_UTILISATEUR, String TITRE_A, String DESCRIPTION_A, String EDITEUR_A, String TYPE_A,String Affiche_A,Date Date_a) {
         this.ID_ARTICLE = ID_ARTICLE;
         this.ID_UTILISATEUR = ID_UTILISATEUR;
         this.TITRE_A = TITRE_A;
         this.DESCRIPTION_A = DESCRIPTION_A;
         this.EDITEUR_A = EDITEUR_A;
         this.TYPE_A = TYPE_A;
+        this.Affiche_A=Affiche_A;
+        this.Date_a=Date_a;
+        
+        
     }
 
-    public Article( int ID_UTILISATEUR, String TITRE_A, String DESCRIPTION_A, String EDITEUR_A, String TYPE_A) {
+    public Article( int ID_UTILISATEUR, String TITRE_A, String DESCRIPTION_A, String EDITEUR_A, String TYPE_A,String AFFICHE_A,Date Date_a) {
         
         this.ID_UTILISATEUR = ID_UTILISATEUR;
         this.TITRE_A = TITRE_A;
         this.DESCRIPTION_A = DESCRIPTION_A;
         this.EDITEUR_A = EDITEUR_A;
         this.TYPE_A = TYPE_A;
+        this.Affiche_A=Affiche_A;
+        this.Date_a=Date_a;
     }
 
     @Override
     public String toString() {
-        return "Article{" + "ID_ARTICLE=" + ID_ARTICLE + ", ID_UTILISATEUR=" + ID_UTILISATEUR + ", TITRE_A=" + TITRE_A + ", DESCRIPTION_A=" + DESCRIPTION_A + ", EDITEUR_A=" + EDITEUR_A + ", TYPE_A=" + TYPE_A + '}';
+        return "Article{" + "ID_ARTICLE=" + ID_ARTICLE + ", ID_UTILISATEUR=" + ID_UTILISATEUR + ", TITRE_A=" + TITRE_A + ", DESCRIPTION_A=" + DESCRIPTION_A + ", EDITEUR_A=" + EDITEUR_A + ", TYPE_A=" + TYPE_A + ", Affiche_A=" + Affiche_A + ", Date_a=" + Date_a + '}';
     }
 
+    public String getAFFICHE_A() {
+        return Affiche_A;
+    }
+
+    public void setAFFICHE_A(String AFFICHE_A) {
+        this.Affiche_A = AFFICHE_A;
+    }
+
+    public Date getDate_a() {
+        return Date_a;
+    }
+
+    public void setDate_a(Date Date_a) {
+        this.Date_a = Date_a;
+    }
 
     public int getID_ARTICLE() {
         return ID_ARTICLE;

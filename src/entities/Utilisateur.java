@@ -24,11 +24,12 @@ public class Utilisateur {
     int num_tel ;
     float taille ; 
     float poids ;
+    String Gender;
     String avatar ;
     String mot_passe ;
     String type ;
 
-    public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance, String email, int STATUS, int num_tel, float taille, float poids, String avatar, String mot_passe, String type) {
+    public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance,String Gender, String email, int STATUS, int num_tel, float taille, float poids,  String avatar, String mot_passe, String type) {
         this.Id = Id;
         this.Nom = Nom;
         this.Prenom = Prenom;
@@ -38,19 +39,33 @@ public class Utilisateur {
         this.num_tel = num_tel;
         this.taille = taille;
         this.poids = poids;
+        this.Gender = Gender;
         this.avatar = avatar;
         this.mot_passe = mot_passe;
         this.type = type;
     }
 
-    public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance, String email, String mot_passe) {
+   
+
+    public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance,String Gender, String email,  String mot_passe) {
         this.Id = Id;
         this.Nom = Nom;
         this.Prenom = Prenom;
         this.date_naissance = date_naissance;
         this.email = email;
+        this.Gender = Gender;
         this.mot_passe = mot_passe;
     }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String Gender) {
+        this.Gender = Gender;
+    }
+
+    
     
 
     
@@ -152,9 +167,10 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-        return "Utilisateur{" + "Id=" + Id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", email=" + email + ", num_tel=" + num_tel + ", date_naissance=" + date_naissance + ", poids=" + poids + ", taille=" + taille + ", mot_passe=" + mot_passe + ", avatar=" + avatar + ", type=" + type + ", STATUS=" + STATUS + '}';
+        return "Utilisateur{" + "Id=" + Id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", date_naissance=" + date_naissance + ", email=" + email + ", STATUS=" + STATUS + ", num_tel=" + num_tel + ", taille=" + taille + ", poids=" + poids + ", Gender=" + Gender + ", avatar=" + avatar + ", mot_passe=" + mot_passe + ", type=" + type + '}';
     }
-    
+
+   
             
     
    

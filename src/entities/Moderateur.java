@@ -14,14 +14,17 @@ import java.sql.Date;
  */
 public class Moderateur extends Utilisateur {
 
-    public Moderateur(int Id, String Nom, String Prenom, Date date_naissance, String email, int STATUS, int num_tel, float taille, float poids, String avatar, String mot_passe, String type) {
-        super(Id, Nom, Prenom, date_naissance, email, STATUS, num_tel, taille, poids, avatar, mot_passe, type);
+    public Moderateur(int Id, String Nom, String Prenom, Date date_naissance, String Gender, String email, int STATUS, int num_tel, float taille, float poids, String avatar, String mot_passe, String type) {
+        super(Id, Nom, Prenom, date_naissance, Gender, email, STATUS, num_tel, taille, poids, avatar, mot_passe, type);
     }
 
-    public Moderateur(int Id, String Nom, String Prenom, Date date_naissance, String email, String mot_passe) {
-        super(Id, Nom, Prenom, date_naissance, email, mot_passe);
+   
+
+    public Moderateur(int Id, String Nom, String Prenom, Date date_naissance, String Gender,String email,  String mot_passe) {
+        super(Id, Nom, Prenom, date_naissance, email, Gender, mot_passe);
     }
 
+   
     
   
 

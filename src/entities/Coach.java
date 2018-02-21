@@ -19,19 +19,22 @@ String CERTIF_COACH ;
 int NOTE_COACH ;
 String NIVEAU_COACH ;
 
-    public Coach(int Id, String Nom, String Prenom, Date date_naissance, String email, int STATUS, int num_tel, float taille, float poids, String avatar, String mot_passe, String type ,String CERTIF_COACH, String NIVEAU_COACH,int NOTE_COACH) {
-        super(Id, Nom, Prenom, date_naissance, email, STATUS, num_tel, taille, poids, avatar, mot_passe, type);
+    public Coach( int Id, String Nom, String Prenom, Date date_naissance, String Gender, String email, int STATUS, int num_tel, float taille, float poids, String avatar, String mot_passe, String type,String CERTIF_COACH,  String NIVEAU_COACH ,int NOTE_COACH) {
+        super(Id, Nom, Prenom, date_naissance, Gender, email, STATUS, num_tel, taille, poids, avatar, mot_passe, type);
         this.CERTIF_COACH = CERTIF_COACH;
         this.NOTE_COACH = NOTE_COACH;
         this.NIVEAU_COACH = NIVEAU_COACH;
     }
 
-    public Coach(int Id, String Nom, String Prenom, Date date_naissance, String email, String mot_passe,String CERTIF_COACH, String NIVEAU_COACH,int NOTE_COACH) {
-        super(Id, Nom, Prenom, date_naissance, email, mot_passe);
+    
+    public Coach(int Id, String Nom, String Prenom, Date date_naissance, String Gender,String email,  String mot_passe,String CERTIF_COACH, int NOTE_COACH, String NIVEAU_COACH ) {
+        super(Id, Nom, Prenom, date_naissance, email, Gender, mot_passe);
         this.CERTIF_COACH = CERTIF_COACH;
         this.NOTE_COACH = NOTE_COACH;
         this.NIVEAU_COACH = NIVEAU_COACH;
     }
+
+    
 
     
 

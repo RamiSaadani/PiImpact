@@ -11,13 +11,13 @@ package entities;
  */
 public class Evaluation {
    
-    int ID_EVALUATION;
-    int ID_UTILISATEUR;
-    int NOTES_EV;
-    String COMMENTAIRE_EV;
-    String OBJET_EV;
-    String TYPE_EV;
-    int ID_O;
+    private int ID_EVALUATION;
+    private int ID_UTILISATEUR;
+    private int NOTES_EV;
+    private String COMMENTAIRE_EV;
+    private String OBJET_EV;
+    private String TYPE_EV;
+    private int ID_O;
 
     public Evaluation(int ID_EVALUATION, int ID_UTILISATEUR, int NOTES_EV, String COMMENTAIRE_EV, String OBJET_EV, String TYPE_EV, int ID_O) {
         this.ID_EVALUATION = ID_EVALUATION;
@@ -29,6 +29,10 @@ public class Evaluation {
         this.ID_O = ID_O;
     }
 
+    public Evaluation() {
+    }
+
+    
     public int getID_EVALUATION() {
         return ID_EVALUATION;
     }
@@ -91,6 +95,6 @@ public class Evaluation {
     }
     
     
-    
+   
     
 }

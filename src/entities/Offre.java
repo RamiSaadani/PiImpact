@@ -5,6 +5,7 @@
  */
 package entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -17,23 +18,19 @@ public class Offre {
     int ID_ESPACE;
     String DESCRIPTION_O ;
     String TITRE_O;
-    float ANCIEN_PRIX;
-    float NOUVEAU_PRIX;
-    Date DATEDEBUT_O;
-    Date DATEFIN_O;
+    Double ANCIEN_PRIX;
+    Double NOUVEAU_PRIX;
+    LocalDate DATEDEBUT_O;
+    LocalDate DATEFIN_O;
     String AFFICHE_O;
+    String nom_es;
 
-    public Offre(int ID_OFFRE, int ID_ESPACE, String DESCRIPTION_O, String TITRE_O, float ANCIEN_PRIX, float NOUVEAU_PRIX, Date DATEDEBUT_O, Date DATEFIN_O, String AFFICHE_O) {
-        this.ID_OFFRE = ID_OFFRE;
-        this.ID_ESPACE = ID_ESPACE;
-        this.DESCRIPTION_O = DESCRIPTION_O;
-        this.TITRE_O = TITRE_O;
-        this.ANCIEN_PRIX = ANCIEN_PRIX;
-        this.NOUVEAU_PRIX = NOUVEAU_PRIX;
-        this.DATEDEBUT_O = DATEDEBUT_O;
-        this.DATEFIN_O = DATEFIN_O;
-        this.AFFICHE_O = AFFICHE_O;
+    @Override
+    public String toString() {
+        return "Offre{" + "ID_OFFRE=" + ID_OFFRE + ", ID_ESPACE=" + ID_ESPACE + ", DESCRIPTION_O=" + DESCRIPTION_O + ", TITRE_O=" + TITRE_O + ", ANCIEN_PRIX=" + ANCIEN_PRIX + ", NOUVEAU_PRIX=" + NOUVEAU_PRIX + ", DATEDEBUT_O=" + DATEDEBUT_O + ", DATEFIN_O=" + DATEFIN_O + ", AFFICHE_O=" + AFFICHE_O + ", nom_es=" + nom_es + '}';
     }
+
+    
 
     public int getID_OFFRE() {
         return ID_OFFRE;
@@ -67,35 +64,35 @@ public class Offre {
         this.TITRE_O = TITRE_O;
     }
 
-    public float getANCIEN_PRIX() {
+    public double getANCIEN_PRIX() {
         return ANCIEN_PRIX;
     }
 
-    public void setANCIEN_PRIX(float ANCIEN_PRIX) {
+    public void setANCIEN_PRIX(double ANCIEN_PRIX) {
         this.ANCIEN_PRIX = ANCIEN_PRIX;
     }
 
-    public float getNOUVEAU_PRIX() {
+    public double getNOUVEAU_PRIX() {
         return NOUVEAU_PRIX;
     }
 
-    public void setNOUVEAU_PRIX(float NOUVEAU_PRIX) {
+    public void setNOUVEAU_PRIX(double NOUVEAU_PRIX) {
         this.NOUVEAU_PRIX = NOUVEAU_PRIX;
     }
 
-    public Date getDATEDEBUT_O() {
+    public LocalDate getDATEDEBUT_O() {
         return DATEDEBUT_O;
     }
 
-    public void setDATEDEBUT_O(Date DATEDEBUT_O) {
+    public void setDATEDEBUT_O(LocalDate DATEDEBUT_O) {
         this.DATEDEBUT_O = DATEDEBUT_O;
     }
 
-    public Date getDATEFIN_O() {
+    public LocalDate getDATEFIN_O() {
         return DATEFIN_O;
     }
 
-    public void setDATEFIN_O(Date DATEFIN_O) {
+    public void setDATEFIN_O(LocalDate DATEFIN_O) {
         this.DATEFIN_O = DATEFIN_O;
     }
 
@@ -107,10 +104,56 @@ public class Offre {
         this.AFFICHE_O = AFFICHE_O;
     }
 
-    @Override
-    public String toString() {
-        return "Offre{" + "ID_OFFRE=" + ID_OFFRE + ", ID_ESPACE=" + ID_ESPACE + ", DESCRIPTION_O=" + DESCRIPTION_O + ", TITRE_O=" + TITRE_O + ", ANCIEN_PRIX=" + ANCIEN_PRIX + ", NOUVEAU_PRIX=" + NOUVEAU_PRIX + ", DATEDEBUT_O=" + DATEDEBUT_O + ", DATEFIN_O=" + DATEFIN_O + ", AFFICHE_O=" + AFFICHE_O + '}';
+
+    public String getNom_es() {
+        return nom_es;
     }
+
+    public void setNom_es(String nom_es) {
+        this.nom_es = nom_es;
+    }
+
+    public Offre(int ID_OFFRE, int ID_ESPACE, String DESCRIPTION_O, String TITRE_O, double ANCIEN_PRIX, double NOUVEAU_PRIX, LocalDate DATEDEBUT_O, LocalDate DATEFIN_O, String AFFICHE_O) {
+        this.ID_OFFRE = ID_OFFRE;
+        this.ID_ESPACE = ID_ESPACE;
+        this.DESCRIPTION_O = DESCRIPTION_O;
+        this.TITRE_O = TITRE_O;
+        this.ANCIEN_PRIX = ANCIEN_PRIX;
+        this.NOUVEAU_PRIX = NOUVEAU_PRIX;
+        this.DATEDEBUT_O = DATEDEBUT_O;
+        this.DATEFIN_O = DATEFIN_O;
+        this.AFFICHE_O = AFFICHE_O;
+    }
+
+    public Offre(String nom_es, String DESCRIPTION_O, String TITRE_O, double ANCIEN_PRIX, double NOUVEAU_PRIX, LocalDate DATEDEBUT_O, LocalDate DATEFIN_O, String AFFICHE_O) {
+        this.DESCRIPTION_O = DESCRIPTION_O;
+        this.TITRE_O = TITRE_O;
+        this.ANCIEN_PRIX = ANCIEN_PRIX;
+        this.NOUVEAU_PRIX = NOUVEAU_PRIX;
+        this.DATEDEBUT_O = DATEDEBUT_O;
+        this.DATEFIN_O = DATEFIN_O;
+        this.AFFICHE_O = AFFICHE_O;
+        this.nom_es = nom_es;
+    }
+
+    public Offre( String nom_es,int ID_OFFRE, String DESCRIPTION_O, String TITRE_O, double ANCIEN_PRIX, double NOUVEAU_PRIX, LocalDate DATEDEBUT_O, LocalDate DATEFIN_O, String AFFICHE_O) {
+        this.ID_OFFRE = ID_OFFRE;
+        this.DESCRIPTION_O = DESCRIPTION_O;
+        this.TITRE_O = TITRE_O;
+        this.ANCIEN_PRIX = ANCIEN_PRIX;
+        this.NOUVEAU_PRIX = NOUVEAU_PRIX;
+        this.DATEDEBUT_O = DATEDEBUT_O;
+        this.DATEFIN_O = DATEFIN_O;
+        this.AFFICHE_O = AFFICHE_O;
+        this.nom_es = nom_es;
+    }
+    
+    
+    
+    
+    
+
+   
     
     
     
