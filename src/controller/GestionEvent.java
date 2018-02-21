@@ -136,7 +136,7 @@ public class GestionEvent implements Initializable {
         UpdateList() ; 
          try { eventList.setItems(CE.displayAllEvenement()); } 
          catch (SQLException ex) {System.out.println("Combox : " + ex);  }
-         ObservableList Combo =  FXCollections.observableArrayList("Randonn�","Voyage","Voyage","Marathon","Autre") ; 
+         ObservableList Combo =  FXCollections.observableArrayList("Randonné","Voyage","Camping","Marathon","Autre") ; 
          Type.setItems(Combo);       
          
        eventList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -207,59 +207,59 @@ public class GestionEvent implements Initializable {
     private void AjouterEvenet(ActionEvent event) throws SQLException {
        
         if ("".equals(Titre.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Le titre est un champ obligatoire !");
             alert.showAndWait();
         } else if ("".equals(Description.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("La description est un champ obligatoire !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateDebut.getValue().toEpochDay() ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur Date");
             alert.setHeaderText("Attention");
-            alert.setContentText("la date d'�venement doit etre superieur � la date courant !");
+            alert.setContentText("la date d'�venement doit etre superieur à la date courant !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateFin.getValue().toEpochDay() || DateFin.getValue().toEpochDay()<DateDebut.getValue().toEpochDay()  ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la date du fin de l'evenement !");
             alert.showAndWait();
         }else if ( "".equals(Duree.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la dur�e de l'evenemenemt !");
             alert.showAndWait();  
         } else if ( "".equals(Frais.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la dur�e de l'evenemenemt !");
             alert.showAndWait();  
         }else if ( "".equals(Organisateur.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie le nom de  l'organisateur  !");
+            alert.setContentText("Verifie le nom de l'organisateur  !");
             alert.showAndWait();  
         }
         else if ( "".equals(Contact.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie les contacts  !");
             alert.showAndWait();  
         }else if ((Type.getSelectionModel().getSelectedIndex())== 0 ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
-            alert.setContentText("Verifie chois  !");
+            alert.setContentText("choisir le type !");
             alert.showAndWait();  
         }
         else {
@@ -272,7 +272,7 @@ public class GestionEvent implements Initializable {
                 eventList.setItems(CE.displayAllEvenement());
                  vider () ; 
             } catch (SQLException ex) {
-               Alert alert = new Alert(AlertType.WARNING);
+               Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Erreur d'insertion");
                 alert.setHeaderText("Attention");
                 alert.setContentText("Exception "+ex);
@@ -291,56 +291,56 @@ public class GestionEvent implements Initializable {
         
         if ("Enregistrer".equals(EditEvent.getText()))
         {if ("".equals(Titre.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Le titre est un champ obligatoire !");
             alert.showAndWait();
         } else if ("".equals(Description.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("La description est un champ obligatoire !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateDebut.getValue().toEpochDay() ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur Date");
             alert.setHeaderText("Attention");
             alert.setContentText("la date d'�venement doit etre superieur � la date courant !");
             alert.showAndWait();
         } else if (LocalDate.now().toEpochDay() >= DateFin.getValue().toEpochDay() || DateFin.getValue().toEpochDay()<DateDebut.getValue().toEpochDay()  ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la date du fin de l'evenement !");
             alert.showAndWait();
         }else if ( "".equals(Duree.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la dur�e de l'evenemenemt !");
             alert.showAndWait();  
         } else if ( "".equals(Frais.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie la dur�e de l'evenemenemt !");
             alert.showAndWait();  
         }else if ( "".equals(Organisateur.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie le nom de  l'organisateur  !");
             alert.showAndWait();  
         }
         else if ( "".equals(Contact.getText()) ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie les contacts  !");
             alert.showAndWait();  
         }else if ((Type.getSelectionModel().getSelectedIndex())== 0 ){
-            Alert alert = new Alert(AlertType.WARNING);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie chois  !");
@@ -399,7 +399,7 @@ public class GestionEvent implements Initializable {
     @FXML
     private void Filtre(ActionEvent event) {
         String Type = "''" ; 
-        if(Rando.isSelected()) { Type+=" or TYPE_E ='Randonn�'" ;}
+        if(Rando.isSelected()) { Type+=" or TYPE_E ='Randonné'" ;}
         if(voyage.isSelected()) { Type+="or TYPE_E ='Voyage'";}
         if(Camp.isSelected()) { Type+=" or TYPE_E ='Camping'";}
         if(marathon.isSelected()) { Type+=" or TYPE_E = 'Marathon'";}
