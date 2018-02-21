@@ -77,7 +77,7 @@ public class AccueilController implements Initializable {
     @FXML
     private void GetGestionMembre(ActionEvent event) {
         setNode(GestionMembre);
-        Gest.setText("Gestionnaire \n des membres");
+        Gest.setText("Gestionnaire des membres");
     }
 
     @FXML
