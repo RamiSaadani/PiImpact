@@ -16,13 +16,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0"   AnchorPane.bottomAnchor="1.0"   xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionEvent">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="980.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionEvent">
    <children>
-      <VBox layoutX="7.0" layoutY="13.0" prefHeight="464.0" prefWidth="200.0" spacing="12.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0">
+      <VBox layoutX="7.0" layoutY="13.0" prefHeight="635.0" prefWidth="204.0" spacing="12.0" AnchorPane.bottomAnchor="44.0" AnchorPane.topAnchor="13.0">
          <children>
             <TextField id="Titre" fx:id="Titre" promptText="Titre" style="-fx-border-color: #2471A3;" />
             <TextArea id="Description" fx:id="Description" prefHeight="61.0" prefWidth="200.0" promptText="Description" style="-fx-border-color: #2471A3;" />
-            <ImageView fx:id="AfficheIMG" fitHeight="150.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" smooth="false" />
+            <ImageView fx:id="AfficheIMG" fitHeight="92.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" smooth="false" />
             <HBox prefHeight="29.0" prefWidth="187.0" spacing="5.0">
                <children>
                   <TextField id="affiche" fx:id="FilePath" editable="false" prefHeight="25.0" prefWidth="141.0" promptText="affiche" style="-fx-border-color: #2471A3;" />
@@ -47,11 +47,13 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="445.0" layoutY="12.0" prefHeight="480.0" prefWidth="189.0" spacing="5.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="12.0">
+      <VBox layoutX="784.0" layoutY="12.0" prefHeight="635.0" prefWidth="189.0" spacing="5.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="12.0">
          <children>
+            <Button mnemonicParsing="false" onAction="#Miseajour" prefHeight="25.0" prefWidth="207.0" style="-fx-background-color: #2471A3;" text="Mise à jour" textFill="WHITE" />
+            <Pane prefHeight="50.0" prefWidth="189.0" />
             <HBox prefHeight="41.0" prefWidth="189.0" spacing="5.0">
                <children>
-                  <TextField id="cherch" fx:id="Chercher" prefHeight="20.0" prefWidth="122.0" promptText="chercher" style="-fx-border-color: #2471A3;" />
+                  <TextField id="cherch" fx:id="Chercher" prefHeight="25.0" prefWidth="122.0" promptText="chercher" style="-fx-border-color: #2471A3;" />
                   <Button id="ChercherBtn" fx:id="chercher" mnemonicParsing="false" onAction="#Search" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #2471A3;" text="chercher" textFill="WHITE" />
                </children>
             </HBox>
@@ -78,7 +80,7 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="eventList" focusTraversable="false" layoutX="224.0" layoutY="14.0" onMouseClicked="#SlectTable" prefHeight="662.0" prefWidth="285.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="15.0">
+      <TableView fx:id="eventList" focusTraversable="false" layoutX="224.0" layoutY="14.0" onMouseClicked="#SlectTable" prefHeight="635.0" prefWidth="550.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="15.0">
         <columns>
           <TableColumn fx:id="EventID" prefWidth="75.0" text="Event ID" visible="false" />
           <TableColumn fx:id="UserID" prefWidth="75.0" text="User ID" visible="false" />
