@@ -75,14 +75,7 @@ PreparedStatement pst ;
         return null ;
     }
      
-     public static void main(String[] args) {
-        CrudUtilisateur c = new  CrudUtilisateur() ;
-    try {
-        System.out.println(c.displayAllUsers()) ;
-    } catch (SQLException ex) {
-        Logger.getLogger(CrudUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }
+   
      
      
 }
