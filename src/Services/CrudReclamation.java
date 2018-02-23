@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +32,12 @@ PreparedStatement pst ;
    
   
     public void ChangerStatusToTraite(Reclamation r) throws SQLException{
-        String requete = "Update reclamation set ETAT_R='traite'" ;
+        String requete = "Update reclamation set ETAT_R='traite' where ID_RECLAMATION="+r.getID_RECLAMATION() ; ;
+        ste=cnx.createStatement() ;
+        ste.executeUpdate(requete); 
+                }
+     public void ChangerStatusToNonTraite(Reclamation r) throws SQLException{
+        String requete = "Update reclamation set ETAT_R='nontraite' where ID_RECLAMATION="+r.getID_RECLAMATION() ;
         ste=cnx.createStatement() ;
         ste.executeUpdate(requete); 
                 }
@@ -57,17 +64,44 @@ PreparedStatement pst ;
         }
         return list ;
     }
-    public List<Reclamation> findById(int id) throws SQLException{
+    public Reclamation findById(int id) throws SQLException{
          String requete="SELECT * FROM reclamation where ID_RECLAMATION="+id ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        
+        while(rs.next()){
+        Reclamation r = new Reclamation(rs.getInt("ID_RECLAMATION"),rs.getInt("ID_UTILISATEUR"),rs.getString("TYPE_R"),rs.getString("COMMENTAIRE_R"),rs.getString("ETAT_R"),rs.getDate("DATE_R"));
+        return r ;
+        }
+        return null ;
+       
+    }
+    
+    public List<Reclamation> SearchReclamation(String comment) throws SQLException{
+        String requete="SELECT * FROM reclamation where COMMENTAIRE_R LIKE'%"+comment+"%'" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Reclamation> list = new ArrayList<>() ; 
         while(rs.next()){
+        
         Reclamation r = new Reclamation(rs.getInt("ID_RECLAMATION"),rs.getInt("ID_UTILISATEUR"),rs.getString("TYPE_R"),rs.getString("COMMENTAIRE_R"),rs.getString("ETAT_R"),rs.getDate("DATE_R"));
+        
         list.add(r) ;
         }
         return list ;
-       
+    }
+    public List<Reclamation> SearchReclamationByStatus(String type) throws SQLException{
+        String requete="SELECT * FROM reclamation where ETAT_R="+type+" " ;       
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Reclamation> list = new ArrayList<>() ; 
+        while(rs.next()){
+        
+        Reclamation r = new Reclamation(rs.getInt("ID_RECLAMATION"),rs.getInt("ID_UTILISATEUR"),rs.getString("TYPE_R"),rs.getString("COMMENTAIRE_R"),rs.getString("ETAT_R"),rs.getDate("DATE_R"));
+        
+        list.add(r) ;
+        }
+        return list ;
     }
    
 }

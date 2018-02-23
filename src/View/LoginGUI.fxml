@@ -57,7 +57,7 @@
                         </Text>
                         <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
                            <children>
-                              <Text fx:id="BtnForgetPassword1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Vous etes un coach, inscrivez vous ici" underline="true">
+                              <Text fx:id="BtnForgetPassword1" onMouseClicked="#CoachRegisterSignup" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Vous etes un coach, inscrivez vous ici" underline="true">
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>

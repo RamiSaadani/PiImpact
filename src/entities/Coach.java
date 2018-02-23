@@ -28,7 +28,7 @@ String NIVEAU_COACH ;
 
     
     public Coach(int Id, String Nom, String Prenom, Date date_naissance, String Gender,String email,  String mot_passe,String CERTIF_COACH, int NOTE_COACH, String NIVEAU_COACH ) {
-        super(Id, Nom, Prenom, date_naissance, email, Gender, mot_passe);
+        super(Id, Nom, Prenom, date_naissance,Gender, email,  mot_passe);
         this.CERTIF_COACH = CERTIF_COACH;
         this.NOTE_COACH = NOTE_COACH;
         this.NIVEAU_COACH = NIVEAU_COACH;

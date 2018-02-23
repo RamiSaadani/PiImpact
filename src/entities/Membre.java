@@ -21,7 +21,7 @@ public class Membre extends Utilisateur {
    
 
     public Membre(int Id, String Nom, String Prenom, Date date_naissance,String Gender ,String email, String mot_passe) {
-        super(Id, Nom, Prenom, date_naissance, email, Gender, mot_passe);
+        super(Id, Nom, Prenom, date_naissance,Gender, email,  mot_passe);
     }
 
     

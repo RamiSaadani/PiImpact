@@ -2,7 +2,10 @@ package controller;
 
 import Services.CrudEvenement;
 import entities.Evenement;
+import java.awt.geom.Point2D;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,7 +33,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
+import maps.java.Geocoding;
 
 /**
  * FXML Controller class
@@ -115,7 +121,10 @@ public class GestionEvent implements Initializable {
     private TableColumn<Evenement, String> TYPE;
     @FXML
     private TableColumn<Evenement, String> LIEU;
-   
+    @FXML
+    private WebView WebView ; 
+    
+    
     public int ID_Event = 0 ; 
     CrudEvenement CE = new CrudEvenement() ; 
     Evenement E  = null ; 
@@ -278,11 +287,18 @@ public class GestionEvent implements Initializable {
     }
 
     @FXML
-    private void EditEvenet(ActionEvent event) throws SQLException {
+    private void EditEvenet(ActionEvent event) throws SQLException, UnsupportedEncodingException, MalformedURLException {
         E = null ; 
         E = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
-     
-
+          Geocoding ObjGeocoding=new maps.java.Geocoding();
+          String Alt = null , Long = null  ;      
+          Point2D.Double resultado=ObjGeocoding.getCoordinates(E.getLIEU_E());
+          Alt =  (String.valueOf(resultado.x));
+          Long = (String.valueOf(resultado.y));
+          WebEngine engine = WebView.getEngine();
+          String url = "https://www.google.tn/maps/@"+Alt+","+Long+",15z?hl=fr";
+          engine.load(url);
+           System.out.println(url); 
         
         if ("Enregistrer".equals(EditEvent.getText()))
         {if ("".equals(Titre.getText()) ){
@@ -359,6 +375,7 @@ public class GestionEvent implements Initializable {
         AddEvent.setVisible(false);
         EditEvent.setText("Enregistrer");
         }
+        
     }
 
     

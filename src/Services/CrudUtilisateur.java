@@ -7,6 +7,7 @@
 package Services;
 
 import connexion.DataSource;
+import entities.Membre;
 import entities.Utilisateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,6 +35,11 @@ PreparedStatement pst ;
         ste=cnx.createStatement() ;
         ste.executeUpdate(requete); 
                 }
+    public void UnBanUser(Utilisateur m) throws SQLException{
+        String requete = "Update utilisateur set status=1 where ID_UTILISATEUR="+m.getId() ;
+        ste=cnx.createStatement() ;
+        ste.executeUpdate(requete); 
+                }
     public List<Utilisateur>displayAllUsers() throws SQLException{
         String requete="SELECT * FROM utilisateur" ;
         ste=cnx.createStatement() ;
@@ -49,7 +53,7 @@ PreparedStatement pst ;
     }
    
         public List<Utilisateur> FindUserByNameOrLastname(String name) throws SQLException{
-        String requete="SELECT * FROM utilisateur where (NOM='"+name+"' OR PRENOM='"+name+"')" ;
+        String requete="SELECT * FROM utilisateur where (NOM LIKE '%"+name+"%' OR PRENOM LIKE '%"+name+"%')" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         List<Utilisateur> list = new ArrayList<>() ; 
@@ -73,9 +77,58 @@ PreparedStatement pst ;
         return m ;
         }
         return null ;
+    
     }
      
-   
-     
-     
+     public Utilisateur FindByEmail(String email) throws SQLException{
+        String requete="SELECT * FROM utilisateur where EMAIL='"+email+"'" ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        
+        while(rs.next()){
+        
+        Utilisateur m = new Utilisateur(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("GENDER"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),rs.getString("TYPE"));
+        return m ;
+        }
+        return null ;
+       
+    }
+      public Utilisateur FindUserById(int id) throws SQLException{
+        String requete="SELECT * FROM utilisateur where ID_UTILISATEUR="+id  ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+      
+        while(rs.next()){
+        
+        Utilisateur c = new Utilisateur(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("GENDER"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),rs.getString("TYPE"));
+        
+        return c ;
+        }
+        return null ;
+    }
+      public List<Utilisateur>displayUsersByType(String type) throws SQLException{
+        String requete="SELECT * FROM utilisateur where type= "+type+" " ;
+        ste=cnx.createStatement() ;
+        rs=ste.executeQuery(requete);
+        List<Utilisateur> list = new ArrayList<>() ; 
+        while(rs.next()){
+        Utilisateur m = new Utilisateur(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("GENDER"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),rs.getString("TYPE"));
+        list.add(m) ;
+        }
+        return list ;
+    }
+       public void UpdateMembreToModerateur(Utilisateur m) throws SQLException{
+        String requete="UPDATE utilisateur SET type='moderateur' WHERE ID_UTILISATEUR=?" ;
+        pst=cnx.prepareStatement(requete) ;  
+        pst.setInt(1, m.getId());
+        pst.executeUpdate() ; 
+       
+    }
+        public void ApprouverCoach(Utilisateur m) throws SQLException{
+        String requete="UPDATE utilisateur SET STATUS=1 WHERE ID_UTILISATEUR=?" ;
+        pst=cnx.prepareStatement(requete) ;  
+        pst.setInt(1, m.getId());
+        pst.executeUpdate() ; 
+       
+    }
 }

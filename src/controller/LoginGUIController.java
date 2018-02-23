@@ -6,7 +6,6 @@
 
 package controller;
 
-
 import Services.CrudReclamation;
 import Services.CrudUtilisateur;
 import entities.Reclamation;
@@ -25,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -60,7 +60,7 @@ public class LoginGUIController implements Initializable {
 
     @FXML
     private void Connecter(ActionEvent event) throws IOException, SQLException {
-        if(TxtEmail.getText()==null||TxtPass.getText()==null){
+        /*if(TxtEmail.getText()==null||TxtPass.getText()==null){
         Alert a = new Alert(Alert.AlertType.WARNING) ; 
         a.setContentText("Veuillez inserer votre email et votre mot de pass");
         a.showAndWait();
@@ -81,21 +81,27 @@ public class LoginGUIController implements Initializable {
             else {
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
-                try {
-                            Parent root = loader.load();
-                            Scene scene = new Scene(root);
-                            primaryStage.setTitle("Accueil");
-                            primaryStage.setScene(scene);
-                            primaryStage.show();
-                            primaryStage.setFullScreen(true);
-            
-                } catch (Exception e) {
-                    System.out.println("controller.LoginGUIController.Connecter() " + e );
-                }
-
-    }
+       
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Accueil");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setFullScreen(true);
+        }
+        }
+          */  
     
-}
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
+       loader.setController(new AccueilController(primaryStage));
+       
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Accueil");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setFullScreen(true);
+
     }
     @FXML
      private void Signup(ActionEvent event) throws IOException {
@@ -108,6 +114,18 @@ public class LoginGUIController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.show();
      }
+      @FXML
+     private void CoachRegisterSignup(MouseEvent event) throws IOException {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/RegisterCoach.fxml")) ; 
+       loader.setController(new RegisterCoachController(primaryStage));
+       
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Register Coach");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+     }
+     
    
 }
  

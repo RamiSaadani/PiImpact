@@ -9,6 +9,7 @@ package Services;
 import connexion.DataSource;
 import entities.Membre;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,24 +94,25 @@ PreparedStatement pst ;
     }
      
       public void InsertMembre(Membre m) throws SQLException{
-        String requete="Insert into utilisateur (NOM , PRENOM , DATENAISSANCE ,GENDER, EMAIL , STATUS , NUMTEL , TAILLE , POIDS , AVATAR , MDP,TYPE) values (?, ?,?,? ,? ,2, ?,?,?,?,?,'membre') " ;
+        String requete="Insert into utilisateur (NOM , PRENOM , DATENAISSANCE , EMAIL , STATUS , NUMTEL , TAILLE , POIDS , AVATAR , MDP,TYPE , GENDER) values (?, ?,?,? ,2, ?,?,?,?,?,'membre',?) " ;
         pst=cnx.prepareStatement(requete) ; 
         pst.setString(1, m.getNom());
         pst.setString(2, m.getPrenom());
         pst.setDate(3, m.getDate_naissance());
-        pst.setString(4, m.getGender());
-        pst.setString(5, m.getEmail());
-        pst.setInt(6, m.getNum_tel());
-        pst.setFloat(7, m.getTaille());
-        pst.setFloat(8, m.getPoids());
-        pst.setString(9, m.getAvatar());
-        pst.setString(10, m.getMot_passe());
-       
-
+        
+        pst.setString(4, m.getEmail());
+        pst.setInt(5, m.getNum_tel());
+        pst.setFloat(6, m.getTaille());
+        pst.setFloat(7, m.getPoids());
+        pst.setString(8, m.getAvatar());
+        pst.setString(9, m.getMot_passe());
+        pst.setString(10, m.getGender());
         pst.executeUpdate() ; 
-        MailService ms = new MailService() ; 
+        MailService ms = new MailService() ;
+        CrudUtilisateur c = new CrudUtilisateur() ;
     try {
-        ms.SendEmailModOrMembre(m);
+        System.out.println( c.FindByEmail(m.getEmail()).getId()) ;
+        ms.SendEmailModOrMembre(c.FindByEmail(m.getEmail()));
     } catch (MessagingException ex) {
         ex.printStackTrace();
     }

@@ -86,8 +86,9 @@ PreparedStatement pst ;
 
         pst.executeUpdate() ; 
         MailService ms = new MailService() ; 
+        CrudUtilisateur cr = new CrudUtilisateur() ;
     try {
-        ms.SendEmailCoach(m);
+        ms.SendEmailCoach(cr.FindByEmail(m.getEmail()));
     } catch (MessagingException ex) {
         ex.printStackTrace();
     }
@@ -100,7 +101,7 @@ PreparedStatement pst ;
       
         while(rs.next()){
         
-        Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("GENDER"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("NIVEAU_COACH"),rs.getString("CERTIF_COACH"),rs.getInt("NOTE_COACH"));
+        Coach c = new Coach(rs.getInt("ID_UTILISATEUR"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getDate("DATENAISSANCE"),rs.getString("GENDER"),rs.getString("EMAIL"),rs.getInt("STATUS"),rs.getInt("NUMTEL"),rs.getFloat("TAILLE"),rs.getFloat("POIDS"),rs.getString("AVATAR"),rs.getString("MDP"),"coach",rs.getString("CERTIF_COACH"),rs.getString("NIVEAU_COACH"),rs.getInt("NOTE_COACH"));
         
         return c ;
         }

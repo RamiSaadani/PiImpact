@@ -198,23 +198,23 @@ public class EspaceController implements Initializable {
         TextField nomtf = new TextField();
         nomtf.setPromptText("Nom espace");
         HBox ch1 = new HBox(5);
-        ch1.setPadding(new Insets(5,5,5,5));
-        ch1.getChildren().addAll(Nomlabel,nomtf); 
+        ch1.setPadding(new Insets(2,2,2,2));
+        ch1.getChildren().addAll(nomtf); 
         
         
         Label Adresselabel = new Label();
         TextField Adressetf = new TextField();
         Adressetf.setPromptText("Adresse");
         HBox ch2 = new HBox(34);
-        ch2.setPadding(new Insets(5,5,5,5));
-        ch2.getChildren().addAll(Adresselabel,Adressetf); 
+        ch2.setPadding(new Insets(2,2,2,2));
+        ch2.getChildren().addAll(Adressetf); 
         
         Label Maillabel = new Label();
         TextField Mailtf = new TextField();
         Mailtf.setPromptText("E-mail");
         HBox ch3 = new HBox(44);
-        ch3.setPadding(new Insets(5,5,5,5));
-        ch3.getChildren().addAll(Maillabel,Mailtf); 
+        ch3.setPadding(new Insets(2,2,2,2));
+        ch3.getChildren().addAll(Mailtf); 
         
         Button Uploadbtn = new Button("Upload");
          Label Logolabel = new Label();
@@ -257,7 +257,7 @@ public class EspaceController implements Initializable {
          upload.getChildren().addAll(Logotf,Uploadbtn);
         ch4.setPadding(new Insets(1,1,1,1));
         
-        ch4.getChildren().addAll(Logolabel,upload); 
+        ch4.getChildren().addAll(upload); 
         
         
         Label Typelabel = new Label();
@@ -266,29 +266,29 @@ public class EspaceController implements Initializable {
         TypeC.setMaxHeight(30);
        
         HBox ch5 = new HBox(5);
-        ch5.setPadding(new Insets(5,5,5,5));
-        ch5.getChildren().addAll(Typelabel,TypeC); 
+        ch5.setPadding(new Insets(2,2,2,2));
+        ch5.getChildren().addAll(TypeC); 
         
        
       // TextField Typetf = new TextField();
       //  Typetf.setPromptText("Type");
       /*  HBox ch5 = new HBox(5);
-        ch5.setPadding(new Insets(5,5,5,5));
+        ch5.setPadding(new Insets(2,2,2,2));
         ch5.getChildren().addAll(Typelabel,Typetf); */
         
         Label Facebooklabel = new Label();
         TextField Facebooktf = new TextField();
         Facebooktf.setPromptText("Facebook");
         HBox ch6 = new HBox(24);
-        ch6.setPadding(new Insets(5,5,5,5));
-        ch6.getChildren().addAll(Facebooklabel,Facebooktf); 
+        ch6.setPadding(new Insets(2,2,2,2));
+        ch6.getChildren().addAll(Facebooktf); 
         
         Label Numlabel = new Label();
         TextField Numtf = new TextField();
         Numtf.setPromptText("Numero de tel°");
         HBox ch7 = new HBox(7);
-        ch7.setPadding(new Insets(5,5,5,5));
-        ch7.getChildren().addAll(Numlabel,Numtf); 
+        ch7.setPadding(new Insets(2,2,2,2));
+        ch7.getChildren().addAll(Numtf); 
         
        Button addbtn = new Button("Ajouter");
          Button annulbtn = new Button("Annuler");
@@ -298,9 +298,9 @@ public class EspaceController implements Initializable {
          addbtn.setStyle("fx-background-color:#ffffff");
          
          HBox ch8 = new HBox(7);
-        ch8.setPadding(new Insets(5,5,5,5));
+        ch8.setPadding(new Insets(2,2,2,2));
         ch8.getChildren().addAll(addbtn,annulbtn); 
-        
+        /*
         Nomlabel.setText("Nom espace:");
         Adresselabel.setText("Adresse:");
         Maillabel.setText("E-mail:");
@@ -308,7 +308,7 @@ public class EspaceController implements Initializable {
         Typelabel.setText("Type espace:");
         Facebooklabel.setText("Facebook:");
         Numlabel.setText("Numero de tel°:");
-        
+        */
      //  VBox layout = new VBox(10);
         VboxInterfaceAjout.setPadding(new Insets(10,10,10,10));
          
@@ -407,7 +407,7 @@ public class EspaceController implements Initializable {
         TextField Adressetf = new TextField();
         Adressetf.setPromptText("Adresse");
         HBox ch2 = new HBox(34);
-        ch2.setPadding(new Insets(5,5,5,5));
+        ch2.setPadding(new Insets(2,2,2,2));
         ch2.getChildren().addAll(Adresselabel,Adressetf); 
         
          VBox layout = new VBox(10);

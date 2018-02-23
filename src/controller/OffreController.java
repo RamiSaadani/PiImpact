@@ -46,9 +46,7 @@ import javafx.stage.Stage;
  * @author Nidhal Bougatf
  */
 public class OffreController implements Initializable {
-    
-    
-
+   String pathh ="";
     @FXML
     private javafx.scene.control.Button btnappliquer;
     @FXML
@@ -222,7 +220,7 @@ public class OffreController implements Initializable {
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(OffreController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         selected=false;
     }
@@ -239,7 +237,7 @@ public class OffreController implements Initializable {
              
             
         } catch (SQLException ex) {
-            
+            System.out.println(ex); 
         }
     }
       
@@ -260,8 +258,13 @@ public class OffreController implements Initializable {
             LocalDate datedeb=datedebut.getValue();
             LocalDate datef=datefin.getValue();
             String aff=pathaffiche.getText();
+            
+            //System.out.println("path="+aff);
+            
+            //String output = String.format("%s = %d", "joe", 35);
+            //System.out.println("path="+output);
             CrudOffre co = new CrudOffre();
-            Offre f = new Offre(nomesp,titr,desc,ancprix,nvprix,datedeb,datef,aff);
+            Offre f = new Offre(nomesp,desc,titr,ancprix,nvprix,datedeb,datef,aff);
             co.InsertOffre(f);
             Alert a = new Alert(Alert.AlertType.INFORMATION) ; 
             a.setContentText("Offre ajouté avec succés !!");
@@ -366,7 +369,7 @@ public class OffreController implements Initializable {
         fileChooser.setTitle("Choisir l'affiche");
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);
-        String pathh = selectedFile.getAbsolutePath();
+         pathh = selectedFile.getAbsolutePath().toString();
         
         if (pathh.equals("")) 
         {
@@ -396,19 +399,19 @@ public class OffreController implements Initializable {
         }
         else
         {
-            String titr = titreoffrerech.getText() ;          
-            CrudOffre co = new CrudOffre();
+            selected=false;
+            String titr = titreoffrerech.getText() ;
+            CrudOffre co = new CrudOffre();     
+            try 
+            {
+                tableoffre.setItems(co.searchOffreByTitre(titr));
 
-        list_promotion = FXCollections.observableArrayList();
-        try {
-            co.searchOffreByTitre(titr).forEach(e -> { list_promotion.add(e);});
-        } catch (SQLException ex) {
-            
-        }
-      
-        tableoffre.getItems().clear();
-        tableoffre.getItems().addAll(list_promotion);
-
+            } 
+            catch (SQLException ex) 
+            {
+                System.out.println(ex);
+            }
+ 
     
         }
     }
@@ -436,7 +439,7 @@ public class OffreController implements Initializable {
                 try {
                     co.searchOffreMultiple(nomespa,dispoesp,ancprix,nvprix).forEach(e -> { list_promotion.add(e);});
                 } catch (SQLException ex) {
-                    
+                    System.out.println(ex); 
                 }
 
                 tableoffre.getItems().clear();
@@ -452,7 +455,7 @@ public class OffreController implements Initializable {
                 try {
                     co.searchOffreWithoutprix(nomespa,dispoesp).forEach(e -> { list_promotion.add(e);});
                 } catch (SQLException ex) {
-                    
+                    System.out.println(ex); 
                 }
 
                 tableoffre.getItems().clear();
@@ -605,5 +608,4 @@ public class OffreController implements Initializable {
         
         
     }
-    
 }

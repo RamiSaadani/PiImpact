@@ -6,7 +6,11 @@
 
 package entities;
 
+import Services.CrudUtilisateur;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +23,7 @@ public class Reclamation {
     String COMMENTAIRE_R ;
     String ETAT_R ;
     Date DATE_R ;
+    String NomPrenomUtilisateur ;
 
     public Reclamation(int ID_RECLAMATION, int ID_UTILISATEUR, String TYPE_R, String COMMENTAIRE_R, String ETAT_R, Date DATE_R) {
         this.ID_RECLAMATION = ID_RECLAMATION;
@@ -81,5 +86,15 @@ public class Reclamation {
     public String toString() {
         return "Reclamation{" + "ID_RECLAMATION=" + ID_RECLAMATION + ", ID_UTILISATEUR=" + ID_UTILISATEUR + ", TYPE_R=" + TYPE_R + ", COMMENTAIRE_R=" + COMMENTAIRE_R + ", ETAT_R=" + ETAT_R + ", DATE_R=" + DATE_R + '}';
     }
-    
+    public void NameUser(){
+        CrudUtilisateur c = new  CrudUtilisateur() ; 
+        try {
+            Utilisateur a = c.FindUserById(ID_UTILISATEUR) ;
+            NomPrenomUtilisateur=a.getNom()+" "+a.getPrenom() ;
+        } catch (SQLException ex) {
+                ex.printStackTrace();
+                
+        }
+        
+    }
 }

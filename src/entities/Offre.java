@@ -5,6 +5,7 @@
  */
 package entities;
 
+import static java.lang.Math.round;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
  * @author Nidhal Bougatf
  */
 public class Offre {
+    
     
     int ID_OFFRE;
     int ID_ESPACE;
@@ -30,6 +32,9 @@ public class Offre {
         return "Offre{" + "ID_OFFRE=" + ID_OFFRE + ", ID_ESPACE=" + ID_ESPACE + ", DESCRIPTION_O=" + DESCRIPTION_O + ", TITRE_O=" + TITRE_O + ", ANCIEN_PRIX=" + ANCIEN_PRIX + ", NOUVEAU_PRIX=" + NOUVEAU_PRIX + ", DATEDEBUT_O=" + DATEDEBUT_O + ", DATEFIN_O=" + DATEFIN_O + ", AFFICHE_O=" + AFFICHE_O + ", nom_es=" + nom_es + '}';
     }
 
+    public String toSMS() {
+        return "Cher client ,  une nouvelle offre vient d'etre ajouté dans notre espace ! \nVenez profiter vite !\n\nOffre : " + TITRE_O +"\nDescription : " + DESCRIPTION_O +"\nNom Espace : " + nom_es +"\nPRIX : " + round(NOUVEAU_PRIX) +"DT \nDate expiration : " + DATEFIN_O+"\n\nHealthCare Support Team" ;
+    }    
     
 
     public int getID_OFFRE() {
@@ -147,15 +152,5 @@ public class Offre {
         this.AFFICHE_O = AFFICHE_O;
         this.nom_es = nom_es;
     }
-    
-    
-    
-    
-    
-
-   
-    
-    
-    
-    
+  
 }

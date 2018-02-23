@@ -16,8 +16,6 @@ public class Utilisateur {
     int Id ; 
     String Nom ; 
     String Prenom ; 
-    
-    
     Date date_naissance ;
     String email;
     int STATUS ;
@@ -28,6 +26,7 @@ public class Utilisateur {
     String avatar ;
     String mot_passe ;
     String type ;
+    String StatusToString ; 
 
     public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance,String Gender, String email, int STATUS, int num_tel, float taille, float poids,  String avatar, String mot_passe, String type) {
         this.Id = Id;
@@ -43,11 +42,13 @@ public class Utilisateur {
         this.avatar = avatar;
         this.mot_passe = mot_passe;
         this.type = type;
+        StatToString() ;
     }
 
    
 
     public Utilisateur(int Id, String Nom, String Prenom, Date date_naissance,String Gender, String email,  String mot_passe) {
+       
         this.Id = Id;
         this.Nom = Nom;
         this.Prenom = Prenom;
@@ -55,6 +56,8 @@ public class Utilisateur {
         this.email = email;
         this.Gender = Gender;
         this.mot_passe = mot_passe;
+        StatToString() ;
+         
     }
 
     public String getGender() {
@@ -172,7 +175,28 @@ public class Utilisateur {
 
    
             
+    public void StatToString (){
+        switch (STATUS) {
+            case 1:
+                StatusToString="Compte activé" ;
+                break;
+            case 2:
+                StatusToString="Membre doit activer son compte par mail " ;
+                break;
+            case 3:
+                StatusToString="Compte Coach attendant la confirmation par l'admin" ; 
+                break;
+            case 4:
+                StatusToString="Compte verouillé par admin" ;
+                break;
+            default:
+                break;
+        }
     
+    }
    
-    
+        public String getStatusToString() {
+        return StatusToString;
+    }
+
 }
