@@ -190,13 +190,10 @@ public class GestionEvent implements Initializable {
             
             Image img = new Image("file:"+file.getAbsolutePath());
             AfficheIMG.imageProperty().set(img); 
-            
-
-        
     }
 
     public void transAtt () {
-    ID_Event  = E.getID_EVENEMENT() ;
+        ID_Event  = E.getID_EVENEMENT() ;
         Titre.setText(E.getTITRE_E());
         Description.setText(E.getDESCRIPTION_E());
         FilePath.setText(E.getAFFICHE_E());
@@ -342,7 +339,7 @@ public class GestionEvent implements Initializable {
             alert.setHeaderText("Attention");
             alert.setContentText("Verifie les contacts  !");
             alert.showAndWait();  
-        }else if ((Type.getSelectionModel().getSelectedIndex())== 0 ){
+        }else if ((Type.getSelectionModel().getSelectedIndex())== -1 ){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText("Attention");

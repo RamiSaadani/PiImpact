@@ -131,4 +131,22 @@ PreparedStatement pst ;
         pst.executeUpdate() ; 
        
     }
+          public void UpdateUser(Utilisateur m) throws SQLException{
+        String requete="UPDATE utilisateur SET NOM=?, PRENOM=? ,DATENAISSANCE=?, GENDER=? ,EMAIL=? ,STATUS=?, NUMTEL=?,TAILLE=?,POIDS=?,AVATAR=?,MDP=? WHERE ID_UTILISATEUR=?" ;
+        pst=cnx.prepareStatement(requete) ; 
+        pst.setString(1, m.getNom());
+        pst.setString(2, m.getPrenom());
+        pst.setDate(3, m.getDate_naissance());
+        pst.setString(4, m.getGender());
+        pst.setString(5, m.getEmail());
+        pst.setInt(6, m.getSTATUS());
+        pst.setInt(7, m.getNum_tel());
+        pst.setFloat(8, m.getTaille());
+        pst.setFloat(9, m.getPoids());
+        pst.setString(10, m.getAvatar());
+        pst.setString(11, m.getMot_passe());
+        pst.setInt(12, m.getId());
+        pst.executeUpdate() ; 
+       
+    }
 }

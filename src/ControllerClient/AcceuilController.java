@@ -6,6 +6,7 @@ package ControllerClient;
  * and open the template in the editor.
  */
 
+import controller.LoginGUIController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +17,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -32,7 +37,10 @@ public class AcceuilController implements Initializable {
 
 
     AnchorPane EventClient,ArticleClient,EspaceClient,OffreClient,ActualiteClient,Bot;
-    
+    @FXML
+    private Label UserName;
+    @FXML
+    private ImageView AVATARUSER;
       @FXML
     private Button BtnActualite;
     @FXML
@@ -81,6 +89,10 @@ public class AcceuilController implements Initializable {
             OffreClient = FXMLLoader.load(getClass().getResource("/ViewClient/Offre.fxml"));
             ActualiteClient = FXMLLoader.load(getClass().getResource("/ViewClient/Actualite.fxml"));
             Bot = FXMLLoader.load(getClass().getResource("/View/ChatBotHelp.fxml"));
+            
+              Image image = new Image("file:"+LoginGUIController.CurrentUser.getAvatar());
+              UserName.setText(LoginGUIController.CurrentUser.getNom() +" "+LoginGUIController.CurrentUser.getPrenom());
+              AVATARUSER.setImage(image);
             } catch (IOException ex) {
                 System.out.println("ControllerClient.AcceuilController.initialize()"+ex);
           }
@@ -198,5 +210,11 @@ public class AcceuilController implements Initializable {
         BtnOffre.setStyle("-fx-background-color:  #FFFFFF");
         BtnOffre.setTextFill(Color.web("#2471A3"));
     }
-    
+        @FXML
+    private void ProfileEdit(MouseEvent event) {
+    }
+
+    @FXML
+    private void Lougout(MouseEvent event) {
+    }
 }

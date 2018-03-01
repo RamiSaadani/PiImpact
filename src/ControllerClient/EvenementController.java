@@ -8,6 +8,8 @@ package ControllerClient;
 
 import Services.CrudEvaluation;
 import Services.CrudEvenement;
+import Services.CrudUtilisateur;
+import controller.LoginGUIController;
 import entities.Evaluation;
 import entities.Evenement;
 import entities.Utilisateur;
@@ -76,11 +78,9 @@ public class EvenementController implements Initializable {
     @FXML
     private CheckBox autre;
     
-    public  Utilisateur CurrentUser  ;
+   
 
-    public void setCurrentUser(Utilisateur CurrentUser) {
-        this.CurrentUser = CurrentUser;
-    }
+ 
 
     public  Node ListofAllEvent () throws SQLException {
         VBox root0 =new VBox(10) ; 
@@ -95,18 +95,19 @@ public class EvenementController implements Initializable {
        root.setPadding(new Insets(5,5, 5,5));
 
         try {
-       
-        FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
-        Image image = new Image(input);
+       Evenement E = OB.get(i)   ;
+     //   FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
+        Image image = new Image("file:"+E.getAFFICHE_E());
         ImageView IMG = new ImageView(image);
         IMG.fitHeightProperty().set(200);
         IMG.fitWidthProperty().set(200);
+        IMG.preserveRatioProperty().set(true);
         Separator sep = new Separator(Orientation.VERTICAL) ; 
         VBox root2 = new VBox(6) ;
         root2.prefWidthProperty().set(1000);
         root2.prefHeightProperty().set(200);
         root2.setPadding(new Insets(4,4, 4,4));
-        Evenement E = OB.get(i)   ;
+        
         
         //Titre
         Label Titre = new Label(E.getTITRE_E()) ; 
@@ -187,18 +188,20 @@ public class EvenementController implements Initializable {
        root.setPadding(new Insets(5,5, 5,5));
 
         try {
-       
-        FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
-        Image image = new Image(input);
+            
+       Evenement E = OB.get(i)   ;
+     //   FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
+        Image image = new Image("file:"+E.getAFFICHE_E());
         ImageView IMG = new ImageView(image);
         IMG.fitHeightProperty().set(200);
         IMG.fitWidthProperty().set(200);
+        IMG.preserveRatioProperty().set(true);
         Separator sep = new Separator(Orientation.VERTICAL) ; 
         VBox root2 = new VBox(6) ;
         root2.prefWidthProperty().set(1000);
         root2.prefHeightProperty().set(200);
         root2.setPadding(new Insets(4,4, 4,4));
-        Evenement E = OB.get(i)   ;
+   
         
         //Titre
         Label Titre = new Label(E.getTITRE_E()) ; 
@@ -285,6 +288,7 @@ public class EvenementController implements Initializable {
         ImageView IMG = new ImageView(image);
         IMG.fitHeightProperty().set(200);
         IMG.fitWidthProperty().set(200);
+        IMG.preserveRatioProperty().set(true);
         Separator sep = new Separator(Orientation.VERTICAL) ; 
         VBox root2 = new VBox(6) ;
         root2.prefWidthProperty().set(1000);
@@ -363,11 +367,12 @@ public class EvenementController implements Initializable {
        
       VBox V0 = new VBox(10) ;
       HBox H0 = new HBox(6) ; 
-      VBox V2 = new VBox(10) ; 
-        FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
-        Image image = new Image(input);
-        ImageView IMG = new ImageView(image);
+      VBox V2 = new VBox(10) ;  
        
+     //   FileInputStream input = new FileInputStream("C:\\Users\\koussai\\Downloads\\19956753_117137918905954_6849634775297747404_o (1).png");
+        Image image = new Image("file:"+E.getAFFICHE_E());
+        ImageView IMG = new ImageView(image);
+        IMG.preserveRatioProperty().set(true);
          HBox Hnote = new HBox(10) ; 
          Titre.setFont(new Font("Arial", 16));
          Label NoteL = new Label("Note") ;  
@@ -450,6 +455,7 @@ public class EvenementController implements Initializable {
         //Description
         Descrip.setFont(new Font("Arial", 14));
         Descrip.editableProperty().set(false);
+        Descrip.setMaxHeight(150);
         //Detaille
         HBox H2 = new HBox(10) ; 
         Label DateDebut = new Label("Date de début : " +E.getDATEDEBUT_E()) ; 
@@ -477,7 +483,7 @@ public class EvenementController implements Initializable {
             Long = (String.valueOf(resultado.y));
             WebEngine engine = Loc.getEngine();
             Loc.setMaxSize(700, 200);
-            String url = "https://www.google.tn/maps/?q="+Alt+","+Long+"";
+            String url = "https://www.google.com/maps/@"+Alt+","+Long+"z?hl=fr";
             engine.load(url);
             System.out.println(url); 
             }
@@ -495,12 +501,15 @@ public class EvenementController implements Initializable {
         orga.setFont(new Font("Arial", 14));
         Label Type = new Label("Type : "+E.getTYPE_E()) ;
         Type.setFont(new Font("Arial", 14));
+        Label Contact = new Label("Contact : "+E.getCONTACT_E()) ;
+        Contact.setFont(new Font("Arial", 14));
         H1.getChildren().addAll(btnExit,Titre) ;
         H1.setAlignment(Pos.CENTER_LEFT);  
         H2.getChildren().addAll(DateDebut,DateFin,Duree) ;
-        V1.getChildren().addAll(H1,Descrip,H2,LieuDet,Loc,Frais,orga,Type) ; 
-        IMG.fitHeightProperty().set(image.getHeight()/7);
-        IMG.fitWidthProperty().set(image.getWidth()/7);
+        V1.getChildren().addAll(H1,Descrip,H2,LieuDet,Frais,orga,Type,Contact,Loc) ; 
+        IMG.fitHeightProperty().set(300);
+        IMG.fitWidthProperty().set(450);
+        IMG.preserveRatioProperty().set(true);
         Separator sep = new Separator(Orientation.VERTICAL) ; 
         Hnote.getChildren().addAll(NoteL,N1,N2,N3,N4,N5,NoteValue,SubmitNote) ;
         TextArea Comment = new TextArea() ; 
@@ -516,11 +525,29 @@ public class EvenementController implements Initializable {
         
         VBox Vcomm = new  VBox() ; 
         
-       ImageView Imgcomm = new ImageView("/view/images/Avatar.png") ;
+       
+       if (EvalU.get(i).getID_UTILISATEUR()== LoginGUIController.CurrentUser.getId()){
+       Hnote.setVisible(false);
+       Comment.setVisible(false);
+       }
+       Utilisateur U = null ;
+       CrudUtilisateur CU = new CrudUtilisateur(); 
+       U = CU.FindUserById(EvalU.get(i).getID_UTILISATEUR()) ; 
+       ImageView Imgcomm ; 
+       
+            System.out.println(U.getAvatar() );
+       if (U.getAvatar() == "" ){
+            Imgcomm = new ImageView("/View/images/Avatar.png") ;
+            Imgcomm.preserveRatioProperty().set(true);
+       }else{
+            Imgcomm = new ImageView("file:"+U.getAvatar()) ;
+            Imgcomm.preserveRatioProperty().set(true);
+        }
        Imgcomm.setFitHeight(50);
        Imgcomm.setFitWidth(50);
-        Label UserNameCom = new Label("ID Utilisateur "+EvalU.get(i).getID_UTILISATEUR()) ; 
+        Label UserNameCom = new Label(""+U.getNom()+" "+U.getPrenom()) ; 
         UserNameCom.setFont(new Font("Arial", 16));
+        UserNameCom.setTextFill(Color.web("#FDFEFE"));
         Label UserCom = new Label(""+EvalU.get(i).getCOMMENTAIRE_EV()) ;
      //   Lieu.setTextFill(Color.web("#FDFEFE"));
         UserCom.setFont(new Font("Arial", 14));
@@ -546,7 +573,7 @@ public class EvenementController implements Initializable {
          SubmitNote.onActionProperty().set((event) -> {
      if  (N1.isSelected()||N2.isSelected()||N3.isSelected()||N4.isSelected()||N5.isSelected()){
              System.out.println(SubmitNote.getAccessibleText());
-             Evaluation Eval = new Evaluation(0, CurrentUser.getId(), Integer.parseInt(NoteValue.getText()) , Comment.getText() ,"Evenement" , E.getTYPE_E() , E.getID_EVENEMENT(), Date.valueOf(LocalDate.now())) ;
+             Evaluation Eval = new Evaluation(0, LoginGUIController.CurrentUser.getId(), Integer.parseInt(NoteValue.getText()) , Comment.getText() ,"Evenement" , E.getTYPE_E() , E.getID_EVENEMENT(), Date.valueOf(LocalDate.now())) ;
              CrudEvaluation IsertNote = new CrudEvaluation(); 
              
           try {

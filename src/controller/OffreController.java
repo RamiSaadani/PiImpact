@@ -11,12 +11,18 @@ import entities.Offre;
 
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Math.round;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +31,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -33,12 +40,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.geometry.Side;
+import javafx.scene.Scene;
+import javafx.scene.chart.*;
+import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -48,13 +71,13 @@ import javafx.stage.Stage;
 public class OffreController implements Initializable {
    String pathh ="";
     @FXML
-    private javafx.scene.control.Button btnappliquer;
+    private Button btnappliquer;
     @FXML
-    private javafx.scene.control.Button reinitialiser;
+    private Button reinitialiser;
     @FXML
-    private javafx.scene.control.Button annuler;
+    private Button annuler;
     @FXML
-    private javafx.scene.control.Button enregistrer;
+    private Button enregistrer;
     @FXML
     private ComboBox<String> nomespace;
     
@@ -65,44 +88,43 @@ public class OffreController implements Initializable {
     
     private int idHolder;
     @FXML
-    private javafx.scene.control.TextField titre;
+    private TextField titre;
     @FXML
-    private javafx.scene.control.TextField pathaffiche;
+    private TextField pathaffiche;
     @FXML
-    private javafx.scene.control.TextArea description;
+    private TextArea description;
     @FXML
-    private Slider ancienprix;
+    private TextField ancienprix;
 
 
     @FXML
-    private Slider nouveauprix;
+    private TextField nouveauprix;
     @FXML
     private DatePicker datedebut;
     @FXML
     private DatePicker datefin;
    
     @FXML
-    private javafx.scene.control.Button btnupload;
-
+    private Button btnupload;
+    @FXML
+    private Button btnadd;
     
     ObservableList<String> myData = FXCollections
             .observableArrayList("Promotion", "Offre");
     
     
     @FXML
-    private javafx.scene.control.Button btnajouter;
+    private Button btnajouter;
     @FXML
-    private javafx.scene.control.Button btnmodifier;
+    private  Button btnmodifier;
     @FXML
-    private javafx.scene.control.Button btnsupprimer;
+    private Button btnsupprimer;
     @FXML
     private TableView<Offre> tableoffre;
 
     
     @FXML
-    private javafx.scene.control.TextField titreoffrerech;
-    @FXML
-    private javafx.scene.control.Button btnchercher;
+    private TextField titreoffrerech;
     @FXML
     private ComboBox<String> nomespacerech;
     @FXML
@@ -120,6 +142,8 @@ public class OffreController implements Initializable {
     
     private ObservableList<Offre> list_promotion= FXCollections.observableArrayList();
     
+    CrudOffre co = new CrudOffre();   
+    
     boolean selected=false;
     
         TableColumn _nomesp = new TableColumn("Nom espace");
@@ -127,34 +151,23 @@ public class OffreController implements Initializable {
         TableColumn _description = new TableColumn("Description");
         TableColumn _ancprix = new TableColumn("Ancien prix");
         TableColumn _nvprix = new TableColumn("Nouveau prix");
-        TableColumn _startingDate = new TableColumn("Date debur");
+        TableColumn _startingDate = new TableColumn("Date debut");
         TableColumn _endingDate = new TableColumn("Date fin");
-        TableColumn _affiche = new TableColumn("Affiche");
-        TableColumn _test = new TableColumn("TEST");//********************************************************
+    @FXML
+    private VBox stats;
+
         
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         annuler.setVisible(false);
         enregistrer.setVisible(false);
+        btnajouter.setVisible(false);
+        btnmodifier.setVisible(true);
+        btnsupprimer.setVisible(true);
+        btnadd.setVisible(true);
 
-            ancienprix.setMin(0);
-            ancienprix.setMax(500);
-            ancienprix.setValue(250);
-            ancienprix.setShowTickLabels(true);
-            ancienprix.setShowTickMarks(true);
-            ancienprix.setMajorTickUnit(50);
-            ancienprix.setMinorTickCount(5);
-            ancienprix.setBlockIncrement(5);
             
-            nouveauprix.setMin(0);
-            nouveauprix.setMax(500);
-            nouveauprix.setValue(250);
-            nouveauprix.setShowTickLabels(true);
-            nouveauprix.setShowTickMarks(true);
-            nouveauprix.setMajorTickUnit(50);
-            nouveauprix.setMinorTickCount(5);
-            nouveauprix.setBlockIncrement(5);
             
             prixminrech.setMin(0);
             prixminrech.setMax(500);
@@ -194,8 +207,7 @@ public class OffreController implements Initializable {
             _nvprix.setCellValueFactory(new PropertyValueFactory<>("NOUVEAU_PRIX"));
             _startingDate.setCellValueFactory(new PropertyValueFactory<>("DATEDEBUT_O"));
             _endingDate.setCellValueFactory(new PropertyValueFactory<>("DATEFIN_O"));
-            _affiche.setCellValueFactory(new PropertyValueFactory<>("AFFICHE_O"));
-            tableoffre.getColumns().addAll(_nomesp,_titre,_description,_ancprix,_nvprix,_startingDate,_endingDate,_affiche);
+            tableoffre.getColumns().addAll(_nomesp,_titre,_description,_ancprix,_nvprix,_startingDate,_endingDate);
             buildOffreTable();
             
             
@@ -205,14 +217,22 @@ public class OffreController implements Initializable {
                     if (newValue == null) {
                         return;
                     }
-                    getPromotionInfo(newValue.getID_OFFRE());
+            try {
+                getPromotionInfo(newValue.getID_OFFRE());
+            } catch (SQLException ex) {
+                System.out.println(ex);            
+            }
                 });
+
+                statss();
+
+            
        
     }    
 
      private void buildOffreTable() 
      {
-            CrudOffre co = new CrudOffre();     
+              
         try 
         {
             tableoffre.setItems(co.displayAllOffre());
@@ -230,7 +250,7 @@ public class OffreController implements Initializable {
      
       public void buildNomEspace()
     {
-         CrudOffre co = new CrudOffre();
+         
         try {
             
              myespaces =FXCollections.observableArrayList(co.getAllEspace());
@@ -241,10 +261,24 @@ public class OffreController implements Initializable {
         }
     }
       
-     
+     @FXML
+    private void btnadd(ActionEvent event) throws IOException, SQLException 
+    {
+        clearsaisie();
+        btnadd.setVisible(false);
+            enregistrer.setVisible(false);
+            btnmodifier.setVisible(false);
+            btnajouter.setVisible(true);
+            btnsupprimer.setVisible(false);
+            annuler.setVisible(true);
+
+        
+
+    }
     @FXML
     private void ajouter(ActionEvent event) throws IOException, SQLException 
     {
+        
 
         if(testsaisie())
         {
@@ -253,8 +287,8 @@ public class OffreController implements Initializable {
             String nomesp = nomespace.getValue() ; 
             String titr = titre.getText() ;
             String desc = description.getText();
-            Double ancprix=ancienprix.getValue();
-            Double nvprix=nouveauprix.getValue();
+            Double ancprix=Double.parseDouble(ancienprix.getText());
+            Double nvprix=Double.parseDouble(nouveauprix.getText());
             LocalDate datedeb=datedebut.getValue();
             LocalDate datef=datefin.getValue();
             String aff=pathaffiche.getText();
@@ -263,7 +297,7 @@ public class OffreController implements Initializable {
             
             //String output = String.format("%s = %d", "joe", 35);
             //System.out.println("path="+output);
-            CrudOffre co = new CrudOffre();
+            
             Offre f = new Offre(nomesp,desc,titr,ancprix,nvprix,datedeb,datef,aff);
             co.InsertOffre(f);
             Alert a = new Alert(Alert.AlertType.INFORMATION) ; 
@@ -271,6 +305,13 @@ public class OffreController implements Initializable {
             a.showAndWait();
             buildOffreTable(); 
             clearsaisie();
+            annuler.setVisible(false);
+        enregistrer.setVisible(false);
+        btnajouter.setVisible(false);
+        btnmodifier.setVisible(true);
+        btnsupprimer.setVisible(true);
+        btnadd.setVisible(true);
+
         }
         
 
@@ -279,13 +320,12 @@ public class OffreController implements Initializable {
     {
             
             titre.clear() ;
-            description.clear();
-            ancienprix.setValue(250);
-            nouveauprix.setValue(250);         
+            description.clear();        
             datedebut.setValue(null);
             datefin.setValue(null);
             pathaffiche.clear();
-
+            ancienprix.clear();
+            nouveauprix.clear();
             nomespace.setValue("Select Espace");
             nomespace.setItems(myespaces);
             
@@ -296,11 +336,36 @@ public class OffreController implements Initializable {
     
     public boolean testsaisie()
     {
+        
          String nomesp = nomespace.getValue() ; 
             String titr = titre.getText() ;
             String desc = description.getText();
-            Double ancprix=ancienprix.getValue();
-            Double nvprix=nouveauprix.getValue();
+            Double nvprix=0.0;
+            Double ancprix=0.0;
+            try
+            {
+                ancprix=Double.parseDouble(ancienprix.getText());
+            }
+            catch(NumberFormatException o)
+            {
+                 Alert a = new Alert(Alert.AlertType.WARNING) ; 
+                a.setContentText("L'ancien prix doit etre un réel ! ");
+                a.showAndWait(); 
+                return false;
+            }
+            try
+            {
+                nvprix=Double.parseDouble(nouveauprix.getText());
+            }
+            catch (NumberFormatException o)
+            {
+                 Alert a = new Alert(Alert.AlertType.WARNING) ; 
+                a.setContentText("Le nouveau prix doit etre un réel ! ");
+                a.showAndWait(); 
+                return false;
+            }
+            
+            
             LocalDate datedeb=datedebut.getValue();
             LocalDate datef=datefin.getValue();
             String aff=pathaffiche.getText();
@@ -324,13 +389,14 @@ public class OffreController implements Initializable {
                 Alert a = new Alert(Alert.AlertType.WARNING) ; 
                 a.setContentText("Veuillez ajouter une description ! ");
                 a.showAndWait();
-            } 
+            }
             else if(nvprix>=ancprix)
             {
                  Alert a = new Alert(Alert.AlertType.WARNING) ; 
                 a.setContentText("Le nouveau prix doit etre inferieur à l'ancien prix ! ");
                 a.showAndWait();  
             }
+            
             else if(datedeb==null)
             {
                 Alert a = new Alert(Alert.AlertType.WARNING) ; 
@@ -387,35 +453,35 @@ public class OffreController implements Initializable {
 
     }
     
-    public void chercher(ActionEvent event) throws IOException, SQLException 
+    @FXML
+    public void chercher(KeyEvent event) throws  SQLException 
     {
         
-        if ("".equals(titreoffrerech.getText())) 
+        if ("".equals(titreoffrerech.getText().trim())) 
         {
-            Alert a = new Alert(Alert.AlertType.WARNING) ; 
-            a.setContentText("Veuillez saisir un titre ! ");
-            a.showAndWait();
+            buildOffreTable(); 
             
         }
         else
         {
-            String titr = titreoffrerech.getText() ;          
-            CrudOffre co = new CrudOffre();
+            selected=false;
+            String titr = titreoffrerech.getText() ;
+                
+            try 
+            {
+                tableoffre.setItems(co.searchOffreByTitre(titr));
 
-        list_promotion = FXCollections.observableArrayList();
-        try {
-            co.searchOffreByTitre(titr).forEach(e -> { list_promotion.add(e);});
-        } catch (SQLException ex) {
-            System.out.println(ex); 
-        }
-      
-        tableoffre.getItems().clear();
-        tableoffre.getItems().addAll(list_promotion);
-
+            } 
+            catch (SQLException ex) 
+            {
+                System.out.println(ex);
+            }
+ 
     
         }
     }
     
+    @FXML
     public void appliquer(ActionEvent event) throws IOException, SQLException 
     {
         Double ancprix=prixminrech.getValue();
@@ -433,7 +499,7 @@ public class OffreController implements Initializable {
             }
             else
             {        
-                CrudOffre co = new CrudOffre();
+                
 
                 list_promotion = FXCollections.observableArrayList();
                 try {
@@ -449,7 +515,7 @@ public class OffreController implements Initializable {
         }
         else
         {
-            CrudOffre co = new CrudOffre();
+            
 
                 list_promotion = FXCollections.observableArrayList();
                 try {
@@ -467,6 +533,7 @@ public class OffreController implements Initializable {
         
     }
     
+    @FXML
     public void reinitialiser(ActionEvent event)
     {
             prixminrech.setMin(0);
@@ -496,8 +563,10 @@ public class OffreController implements Initializable {
             buildOffreTable();
         
     }
+    @FXML
     public void supprimer(ActionEvent event) throws SQLException
     {
+        
         
         if (selected == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -515,14 +584,15 @@ public class OffreController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) 
             {
-                CrudOffre co = new CrudOffre();
+                
                 co.DeleteOffre(idHolder);
                 buildOffreTable();
-                
+                clearsaisie();
             }
         }
     }
     
+    @FXML
     public void modifier(ActionEvent event) throws SQLException
     {
         if (selected == false) {
@@ -535,55 +605,73 @@ public class OffreController implements Initializable {
         else 
         {
             
-            annuler.setVisible(true);
+            btnadd.setVisible(false);
             enregistrer.setVisible(true);
             btnmodifier.setVisible(false);
             btnajouter.setVisible(false);
             btnsupprimer.setVisible(false);
-            
-            
-            CrudOffre co = new CrudOffre();
-            Offre result =  co.getOffreById(idHolder);
-            nomespace.getSelectionModel().select(co.getNomEspaceID(result.getID_ESPACE()));
-            titre.setText(result.getTITRE_O()); 
-            description.setText(result.getDESCRIPTION_O());
-            ancienprix.setValue(result.getANCIEN_PRIX());
-            nouveauprix.setValue(result.getNOUVEAU_PRIX());
-            datedebut.setValue(result.getDATEDEBUT_O());
-            datefin.setValue(result.getDATEFIN_O());
-            pathaffiche.setText(result.getAFFICHE_O());
+            annuler.setVisible(true);
             
         }
         
     }
 
-    private void getPromotionInfo(Integer id_offre) 
+    private void getPromotionInfo(Integer id_offre) throws SQLException 
     {
-        selected = true;
-       idHolder = id_offre;
+            selected = true;
+           idHolder = id_offre;
+          
+           btnadd.setVisible(true);
+           annuler.setVisible(false);
+            enregistrer.setVisible(false);
+            btnmodifier.setVisible(true);
+            btnajouter.setVisible(false);
+            btnsupprimer.setVisible(true);
+            
+            
+            
+            Offre result =  co.getOffreById(idHolder);
+            nomespace.getSelectionModel().select(co.getNomEspaceID(result.getID_ESPACE()));
+            titre.setText(result.getTITRE_O()); 
+            description.setText(result.getDESCRIPTION_O());
+            Double x = result.getANCIEN_PRIX();
+            Double y = result.getNOUVEAU_PRIX();
+            ancienprix.setText(x.toString());
+            nouveauprix.setText(y.toString());
+            datedebut.setValue(result.getDATEDEBUT_O());
+            datefin.setValue(result.getDATEFIN_O());
+            
+            pathaffiche.setText(result.getAFFICHE_O());
+            Image image = new Image(new File(pathaffiche.getText()).toURI().toString());
+            viewaffiche.setImage(image);
         
     }
     
+    @FXML
     public void annuler (ActionEvent event)
     {
         clearsaisie();
-        annuler.setVisible(false);
+        
+           annuler.setVisible(false);
         enregistrer.setVisible(false);
+        btnajouter.setVisible(false);
         btnmodifier.setVisible(true);
-        btnajouter.setVisible(true);
         btnsupprimer.setVisible(true);
+        btnadd.setVisible(true);
+        
         
         
     }
+    @FXML
     public void enregistrer(ActionEvent event) throws SQLException
     {
        
-        CrudOffre co = new CrudOffre();
+        
         String nomesp = nomespace.getValue() ; 
         String titr = titre.getText() ;
         String desc = description.getText();
-        Double ancprix=ancienprix.getValue();
-        Double nvprix=nouveauprix.getValue();
+        Double ancprix=Double.parseDouble(ancienprix.getText());
+        Double nvprix=Double.parseDouble(nouveauprix.getText());
         LocalDate datedeb=datedebut.getValue();
         LocalDate datef=datefin.getValue();
         String aff=pathaffiche.getText();
@@ -601,11 +689,38 @@ public class OffreController implements Initializable {
         clearsaisie();
         annuler.setVisible(false);
         enregistrer.setVisible(false);
+        btnajouter.setVisible(false);
         btnmodifier.setVisible(true);
-        btnajouter.setVisible(true);
         btnsupprimer.setVisible(true);
+        btnadd.setVisible(true);
         viewaffiche.setImage(null);
         
         
+    }
+    
+    
+    
+    public void statss() 
+    {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        Map<String,Double> maps = new HashMap<>();
+       try {
+           co.statistiquesOffre(maps);
+       } catch (SQLException ex) {
+           System.out.println("stat error"+ex);       
+       }
+
+        pieChartData.add(new PieChart.Data("test",10.0));
+
+
+        maps.entrySet().stream().map((en) -> {pieChartData.add(new PieChart.Data(en.getKey()+" = "+round( en.getValue().doubleValue()) + "%",round( en.getValue().doubleValue())));return en;})
+                .forEachOrdered((en) -> { System.out.println("key "+en.getKey()+"val " + round( en.getValue().doubleValue())); });
+        
+        PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Statistiques des Offres");
+        chart.setLabelLineLength(10);
+        chart.setLegendSide(Side.LEFT);
+
+        stats.getChildren().addAll(chart) ;
     }
 }

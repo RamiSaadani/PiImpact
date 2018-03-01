@@ -6,17 +6,18 @@
 package controller;
 
 import Services.CrudEvaluation;
+
 import connexion.DataSource;
 import entities.Evaluation;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.util.Calendar;
+
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,16 +28,20 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.util.Duration;
-
-
-
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.action.Action;
 
 /**
  * FXML Controller class
@@ -73,41 +78,76 @@ public class GestionEvalController implements Initializable {
     private ToggleGroup filter1;
     @FXML
     private RadioButton EvalNone;
-    @FXML
     private TextField NomObj;
+    @FXML
+    private RadioButton Event;
+    @FXML
+    private RadioButton article;
+    @FXML
+    private RadioButton esp;
+    @FXML
+    private ComboBox<?> ComboType;
+    ObservableList Combo1 = FXCollections.observableArrayList();
+    ObservableList Combo2 = FXCollections.observableArrayList();
+    ObservableList Combo3 = FXCollections.observableArrayList();
+    @FXML
+    private ToggleGroup filter2;
+
+    Timer timer = new Timer();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         UpdateListe();
-        
 
         TableColumn _IdEval = new TableColumn("ID_EVALUATION");
         TableColumn _IdUtilisateur = new TableColumn("ID_UTILISATEUR");
-     _IdEval.setVisible(false);
-     _IdUtilisateur.setVisible(false);
-    
-     TableColumn _NotesEv = new TableColumn("NOTES_EV");
+        _IdEval.setVisible(false);
+        _IdUtilisateur.setVisible(false);
+        TableColumn _Nom_uti = new TableColumn("NOM_UTILISATEUR");
+        TableColumn _NotesEv = new TableColumn("NOTES_EV");
         TableColumn _CommentaireEv = new TableColumn("COMMENTAIRE_EV");
         TableColumn _ObjetEv = new TableColumn("OBJET_EV");
         TableColumn _TypeEv = new TableColumn("TYPE_EV");
         TableColumn _IdObj = new TableColumn("ID_O");
+        _IdObj.setVisible(false);
 
         _IdEval.setCellValueFactory(new PropertyValueFactory<>("ID_EVALUATION"));
+
         _IdUtilisateur.setCellValueFactory(new PropertyValueFactory<>("ID_UTILISATEUR"));
         _NotesEv.setCellValueFactory(new PropertyValueFactory<>("NOTES_EV"));
         _CommentaireEv.setCellValueFactory(new PropertyValueFactory<>("COMMENTAIRE_EV"));
         _ObjetEv.setCellValueFactory(new PropertyValueFactory<>("OBJET_EV"));
         _TypeEv.setCellValueFactory(new PropertyValueFactory<>("TYPE_EV"));
         _IdObj.setCellValueFactory(new PropertyValueFactory<>("ID_O"));
-        TableEval.getColumns().addAll(_IdEval, _IdUtilisateur, _NotesEv, _CommentaireEv, _ObjetEv, _TypeEv, _IdObj);
-
-
+        _Nom_uti.setCellValueFactory(new PropertyValueFactory<>("NOM_UTILISATEUR"));
+        //  _Nom_uti.setCellFactory(new PropertyValueFactory<>("nomUtilisateur"));
+        TableEval.getColumns().addAll(_IdEval, _IdUtilisateur, _Nom_uti, _NotesEv, _CommentaireEv, _ObjetEv, _TypeEv, _IdObj);
 
         this.LoadChart("génerale", "");
-           
 
+        Combo1 = FXCollections.observableArrayList("Randonné", "Voyage", "Camping", "Marathon", "Autre");
+
+        Combo2 = FXCollections.observableArrayList("salle de sport", "spa", "Centre de therapie", "salle de beaute");
+
+        Combo3 = FXCollections.observableArrayList("sport", "sante", "nutrition", "medicne", "therapie", "citation", "horoscope", " pshcologie", "motivation");
+        
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    MaNotification maNotification = new MaNotification();
+                    try {
+                        maNotification.s = AfficherHeures();
+                    } catch (SQLException ex) {
+                        
+                    }
+                    maNotification.start();
+                }
+            }, 5000,60*60*1000);
+        
     }
+//pour extraire year et type du BD 
 
     public void LoadChart(String chartName, String type) {
         String requete = "select Distinct Extract(YEAR from DATE_EVALUATION) as year From Evaluation " + type + "";
@@ -138,37 +178,40 @@ public class GestionEvalController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    
-     public void LoadChart2(String chartName, String objet) {
+
+    public void LoadChart2(String chartName, String objet) {
         String requete = " select Distinct Extract(YEAR from DATE_EVALUATION) as year From Evaluation " + objet + "";
         chart5.setTitle("Evaluation " + chartName);
 
         XYChart.Series<String, Number> series = new XYChart.Series();
         series.setName("Evaluation");
-
+        
         try {
             Connection connexion = DataSource.getInstance().getConnection();
             ResultSet rs = connexion.createStatement().executeQuery(requete);
             while (rs.next()) {
                 String req;
                 if (objet.equals("")) {
-                    req = "select count(*) as number From Evaluation where "
-                            + "Extract(YEAR from DATE_EVALUATION) = " + rs.getString(5);
+                    req = "select count(*) as number From Evaluation where   "
+                            + "Extract(YEAR from DATE_EVALUATION) = " + rs.getString(1);
                 } else {
                     req = "select count(*) as number From Evaluation " + objet + " and "
-                            +"Extract(YEAR from DATE_EVALUATION) = " + rs.getString(1);
+                            + "Extract(YEAR from DATE_EVALUATION) = " + rs.getString(1);
                 }
                 ResultSet rs1 = connexion.createStatement().executeQuery(req);
                 rs1.next();
-                series.getData().add(new XYChart.Data(rs.getString(5), rs1.getInt(1)));
+                series.getData().add(new XYChart.Data(rs.getString(1), rs1.getInt(1)));
             }
+//            XYChart.Series<String, Number> series2 = new XYChart.Series();
+//            for(Evaluation item : list){
+//            series2.getData().add(new XYChart.Data(item, item.getTYPE_EV()));
+//            }
             chart5.getData().clear();
             chart5.getData().add(series);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
 
     @FXML
     public void UpdateListe() {
@@ -179,7 +222,7 @@ public class GestionEvalController implements Initializable {
             TableEval.setItems(CE.DisplayAll());
 
         } catch (SQLException ex) {
-          
+            
         }
     }
 
@@ -192,128 +235,165 @@ public class GestionEvalController implements Initializable {
             a.showAndWait();
 
         } else {
-           
+
             CrudEvaluation CE = new CrudEvaluation();
 
             list_evaluation = FXCollections.observableArrayList();
-            try {
-                TableEval.setItems(CE.searchByNomU(chercherUti.getText()));
-             
-            } catch (SQLException ex) {
-              
-            }
-
         }
+        try {
+            TableEval.setItems(CE.searchByNomU(chercherUti.getText()));
+
+        } catch (SQLException ex) {
+           
+        }
+
     }
 
     @FXML
     private void filtrer(ActionEvent event) throws SQLException {
         String type = "";
         String evalName = "génerale";
+
         if (EvalEvent.isSelected()) {
-            type += "WHERE EVALUATION.TYPE_EV = 'evenement'  ";
-            
+            type += "WHERE OBJET_EV  = 'Evenement'  ";
+
             evalName = "evenement";
         }
         if (EvalArticle.isSelected()) {
-            type += "WHERE EVALUATION.TYPE_EV = 'article' ";
+            type += "WHERE OBJET_EV = 'Article' ";
             evalName = "article";
         }
         if (EvalEspace.isSelected()) {
-            type += "WHERE EVALUATION.TYPE_EV = 'espace' ";
+            type += "WHERE OBJET_EV = 'Espace' ";
             evalName = "espace";
         }
         if (EvalOffre.isSelected()) {
-            type += "WHERE EVALUATION.TYPE_EV = 'offre' ";
+            type += "WHERE OBJET_EV = 'Offre' ";
             evalName = "offre";
         }
         try {
-            TableEval.setItems(CE.SearchByType(type));
+            TableEval.setItems(CE.SearchByObjet(type));
             this.LoadChart(evalName, type);
         } catch (SQLException ex) {
             System.out.println(ex);
         }
     }
-    
-    
+
     @FXML
     private void filtrerObj(ActionEvent event) {
-        String objet = NomObj.getText();
-      String nom="";
-       String evalname="génerale";
-       
-          if ("".equals(objet))
-         {
-            Alert a = new Alert(Alert.AlertType.WARNING);
-            a.setContentText("Veuillez saisir un objet! ");
-            a.showAndWait();
 
-         } 
-         else {
-           
-//        list_evaluation = FXCollections.observableArrayList();
-         if ("offre".equals(objet)) { 
-            nom+=" where evaluation.OBJET_EV Like '" + nom + "%'";    
-           evalname="offre";}
-       
-       if (objet.equals("espace")) { 
-            nom+=" where evaluation.OBJET_EV Like '" + nom + "%'";      
-           evalname="espace";}
-       
-       if (objet.equals("evenement")) { 
-                
-           evalname="evenement";}
-       
-       if (objet.equals("article")) { 
-               
-           evalname="article";}
- 
-         }
-       
+        String objet = "";
+        String evalname = "génerale";
+        String type = (String) ComboType.getValue();
+
+        if (Event.isSelected()) {
+            objet += "where OBJET_EV= 'Evenement' and TYPE_EV = '" + type + "' ";
+            evalname = type;
+        }
+
+        if (article.isSelected()) {
+            objet += "where OBJET_EV= 'Article'  and TYPE_EV = '" + type + "' ";
+            evalname = type;
+        }
+
+        if (esp.isSelected()) {
+            objet += "where OBJET_EV= 'Espace' and TYPE_EV = '" + type + "' ";
+            evalname = type;
+        }
+
         try {
-         TableEval.setItems(CE.SearchByNomObj(objet));
+            TableEval.setItems(CE.SearchByObjetType(objet, type));
             this.LoadChart2(evalname, objet);
         } catch (SQLException ex) {
-          
+           
         }
     }
 
-  @FXML
+    @FXML
     private void Reinitialiser(ActionEvent event) {
-        
+
+        String evalname = "génerale";
         UpdateListe();
         chercherUti.clear();
-        NomObj.clear();
-        
-        
+        LoadChart(evalname, "");
+
     }
-public void AfficherHeures(int heures){
 
-Calendar cal = Calendar.getInstance();
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        int minute = cal.get(Calendar.MINUTE);
-    
+    public int AfficherHeures() throws SQLException {
 
-}
+        int req = 0;
+        String requete = " SELECT count(*) FROM evaluation WHERE DAY( DATE_EVALUATION ) = DAY(CURDATE()) AND MONTH(DATE_EVALUATION)= MONTH(CURDATE())AND YEAR(DATE_EVALUATION)= YEAR(CURDATE()) ";
+        try {
+            Connection connexion = DataSource.getInstance().getConnection();
+            ResultSet rs = connexion.createStatement().executeQuery(requete);
+
+//             new MyTimerTask().run();
+            while (rs.next()) {
+                req = rs.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return req;
+    }
+
+    class MaNotification extends Thread {
+
+        public int s = 0;
+
+        @Override
+        public void run() {
+//        
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(EvaluationController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            Notifications notificationBuilder = Notifications.create()
+                    .title("Alerte ")
+                    .text("Nombre d'evaluations d'aujourd'hui est: " + s)
+                    .graphic(null)
+                    .hideAfter(Duration.hours(6))
+                    .position(Pos.CENTER)
+                    .onAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println("afficher notification");
+
+                        }
+                    });
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    notificationBuilder.show();
+                }
+            });
+
+        }
+    }
+
+
     @FXML
-    private void AfficheNotif(ActionEvent event) {
-       /* 
-      Notifications notificationBuilder = Notifications.create()
-              .title("Evaluation faite")
-              .text("Nombre des evaluations pendant les 6 derniers heures")
-              .graphic(null)
-              .hideAfter(Duration.hours(6))
-              .position(Pos.CENTER)
-              .onAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-              System.out.println("afficher notification");
-              AfficherHeures(6);
-              
-          }
-      });
-      notificationBuilder.show();*/
+    private void RemplirEvent(ActionEvent event) {
+        if (Event.isSelected()) {
+            ComboType.setItems(Combo1);
+        }
     }
 
-    
+    @FXML
+    private void RemplorArt(ActionEvent event) {
+        if (article.isSelected()) {
+            ComboType.setItems(Combo3);
+        }
+    }
+
+    @FXML
+    private void RemplirEsp(ActionEvent event) {
+        if (esp.isSelected()) {
+            ComboType.setItems(Combo2);
+        }
+    }
+
 }

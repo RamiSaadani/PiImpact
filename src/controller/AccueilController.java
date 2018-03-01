@@ -37,16 +37,19 @@ import javafx.util.Duration;
     
 
 public class AccueilController implements Initializable {
+    Stage primaryStage ;
+    public Utilisateur CurrentUser ;
+    
     @FXML
     private Label LblUserName;
     @FXML 
     private Label Gest ; 
     @FXML
     private AnchorPane holderPane;
-    Stage primaryStage ;
-    public Utilisateur CurrentUser ;
+    
      @FXML
     ImageView UserPicture ;
+     
     public AccueilController(Stage primaryStage) {
             this.primaryStage = primaryStage;
     }
@@ -56,6 +59,7 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
        try {    
              GestionMembre = FXMLLoader.load(getClass().getResource("/View/GestionMembre.fxml"));
              GestionArticle = FXMLLoader.load(getClass().getResource("/View/GestionArticle.fxml"));
@@ -66,10 +70,14 @@ public class AccueilController implements Initializable {
              GestionReclamation = FXMLLoader.load(getClass().getResource("/View/GestionReclamation.fxml"));
              ChatBotHelp = FXMLLoader.load(getClass().getResource("/View/ChatBotHelp.fxml"));
              GestionEditProfile= FXMLLoader.load(getClass().getResource("/View/GestionInformationMembre.fxml"));
-             setNode(ChatBotHelp);
+           //  setNode(ChatBotHelp);
               Gest.setText("Gestionnaire des membres");
+              
+              Image image = new Image("file:"+LoginGUIController.CurrentUser.getAvatar());
+              UserPicture.setImage(image);
+              
         } catch (IOException ex) {
-             System.out.println("controller.AccueilController.initialize()"+ex);
+             System.out.println("controller.AccueilController.initialize() "+ex);
         }
     }    
     //Set selected node to a content holder
@@ -131,7 +139,7 @@ public class AccueilController implements Initializable {
     @FXML
     private void GetGestionReclamation(ActionEvent event) {
         setNode(GestionReclamation);
-        Gest.setText("Evaluations");
+        Gest.setText("Gestion des réclamation");
         
     }
     @FXML

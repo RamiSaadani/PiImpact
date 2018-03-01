@@ -103,7 +103,7 @@ public class LoginGUIController implements Initializable {
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true); 
+        primaryStage.setMaximized(true); 
         }else if(u.getType().equals("membre")){
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewClient/Acceuil.fxml")) ; 
        loader.setController(new AcceuilController(primaryStage));
@@ -116,7 +116,7 @@ public class LoginGUIController implements Initializable {
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true); 
+        primaryStage.setMaximized(true); 
         }else if(u.getType().equals("coach")){
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewClient/Acceuil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
@@ -129,7 +129,7 @@ public class LoginGUIController implements Initializable {
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true); 
+        primaryStage.setMaximized(true); 
         }else if(u.getType().equals("moderateur")){
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
@@ -142,7 +142,7 @@ public class LoginGUIController implements Initializable {
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true); 
+        primaryStage.setMaximized(true); 
         }
         }
        } 

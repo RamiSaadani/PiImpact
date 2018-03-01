@@ -55,30 +55,18 @@ ResultSet rs ;
         
         pst = cnx.prepareStatement(req);//attente des parametre
         
-        pst.setInt(1, LoginGUIController.CurrentUser.getId() );
-       
-        pst.setString(2, E.getTITRE_E());
-        
+        pst.setInt(1, LoginGUIController.CurrentUser.getId() );    
+        pst.setString(2, E.getTITRE_E()); 
         pst.setString(3, E.getDESCRIPTION_E());
-        
         pst.setString(4, E.getAFFICHE_E());
-        
         pst.setDate(5, E.getDATEDEBUT_E());
-      
         pst.setDate(6,  E.getDATEFIN_E());
-       
         pst.setString(7, E.getLIEU_E());
-       
         pst.setInt(8, E.getDUREE_E());
-       
         pst.setFloat(9, E.getFRAIS_E());
-        
         pst.setString(10, E.getORGANISATEUR_E());
-        
         pst.setString(11, E.getCONTACT_E());
-        
         pst.setString(12, E.getTYPE_E());
-        
         pst.executeUpdate();
         System.out.println(pst);
     }
@@ -110,7 +98,7 @@ ResultSet rs ;
         
         pst.setString(11, E.getTYPE_E());
         
-        pst.setInt(11, E.getID_EVENEMENT());
+        
        
         
         System.out.println(pst);

@@ -48,7 +48,7 @@ public class CrudEvaluation {
     }
 
     public ObservableList<Evaluation> searchByNomU(String nom) throws SQLException {
-        String requete = "select * FROM Evaluation,utilisateur WHERE  utilisateur.nom Like '%" + nom + "%' and  evaluation.ID_UTILISATEUR = utilisateur.ID_UTILISATEUR";
+        String requete = "select e.*, u.nom FROM Evaluation e join utilisateur u on e.ID_EVALUATION=u.ID_UTILISATEUR WHERE  u.nom Like '" + nom + "%' ";
         System.out.println(requete);
         ste = con.createStatement();
         rs = ste.executeQuery(requete);
@@ -60,9 +60,9 @@ public class CrudEvaluation {
         return list;
     }
     
-    public ObservableList<Evaluation> SearchByType(String type) throws SQLException {
+    public ObservableList<Evaluation> SearchByObjet(String objet) throws SQLException {
 
-        String requete = "select  * from evaluation " + type + " ";
+        String requete = "select  * from evaluation " + objet + " ";
         System.out.println(requete);
         ste = con.createStatement();
         rs = ste.executeQuery(requete);
@@ -104,15 +104,15 @@ public class CrudEvaluation {
         return list;
     }
   
-    public ObservableList<Evaluation> SearchByNomObj( String nom) throws SQLException {
+    public ObservableList<Evaluation> SearchByObjetType( String objet, String type) throws SQLException {
         try {
-            String requete = "SELECT * FROM evaluation  where evaluation.OBJET_EV Like '" + nom + "%'";
-        System.out.println(requete);
+            String requete = "select * from evaluation  "+objet+" and  TYPE_EV = '"+type+"'";
+        System.out.println(requete); 
         ste = con.createStatement();
         rs = ste.executeQuery(requete);
       
         } catch (Exception e) {
-            System.out.println("Services.CrudEvaluation.SearchByNomU_Type()"+e);
+            System.out.println("Services.CrudEvaluation.SearchByObjetType"+e);
         }
         
         ObservableList<Evaluation> list = FXCollections.observableArrayList();

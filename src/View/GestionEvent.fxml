@@ -33,7 +33,7 @@
             <DatePicker id="DateDeb" fx:id="DateDebut" prefHeight="27.0" prefWidth="199.0" promptText="Date Debut : JJ/MM/AAAA" style="-fx-border-color: #2471A3;" />
             <DatePicker id="DateFin" fx:id="DateFin" prefHeight="27.0" prefWidth="199.0" promptText="Date Fin : JJ/MM/AAAA" style="-fx-border-color: #2471A3;" />
             <TextField id="Lieu" fx:id="Lieu" onAction="#LieuChanged2" promptText="Lieu" style="-fx-border-color: #2471A3;" />
-            <TextField id="Dureee" fx:id="Duree" promptText="Dureee (H)" style="-fx-border-color: #2471A3;" />
+            <TextField id="Duree" fx:id="Duree" promptText="Durée (en H)" style="-fx-border-color: #2471A3;" />
             <TextField id="Frais" fx:id="Frais" promptText="Frais" style="-fx-border-color: #2471A3;" />
             <TextField id="Organisateur" fx:id="Organisateur" promptText="Organiisateur" style="-fx-border-color: #2471A3;" />
             <TextField id="Contact" fx:id="Contact" promptText="Contact" style="-fx-border-color: #2471A3;" />
@@ -97,7 +97,7 @@
                      <columns>
                         <TableColumn fx:id="DATEDEBUT" prefWidth="75.0" text="Date Debut" />
                         <TableColumn fx:id="DATEFIN" prefWidth="75.0" text="Date Fin" />
-                        <TableColumn fx:id="DUREE" prefWidth="75.0" text="Dureee" />
+                        <TableColumn fx:id="DUREE" prefWidth="75.0" text="Durée" />
                         <TableColumn fx:id="LIEU" prefWidth="75.0" text="Lieu" />
                      </columns>
                   </TableColumn>

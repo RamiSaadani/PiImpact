@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" >
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2471A3;" BorderPane.alignment="CENTER">
          <children>
@@ -44,16 +44,17 @@
                <children>
                   <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="149.0">
                      <children>
-                        <Label text="User Name" textFill="WHITE">
+                        <Label fx:id="UserName" text="User Name" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
                         <Separator prefHeight="2.0" prefWidth="116.0" />
-                        <Label text="Deconnexion" textFill="WHITE" underline="true" />
+                        <Label onMouseClicked="#ProfileEdit" text="Modifier le profil" textFill="WHITE" underline="true" />
+                        <Label onMouseClicked="#Lougout" text="Deconnexion" textFill="WHITE" underline="true" />
                      </children>
                   </VBox>
-                  <ImageView fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="AVATARUSER" fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../View/images/Avatar.png" />
                      </image>

@@ -15,20 +15,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="1362.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatBotHelpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="781.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatBotHelpController">
    <children>
       <SplitPane dividerPositions="40.0" prefHeight="484.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <ImageView fitHeight="647.0" fitWidth="317.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="305.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/Test.png" />
                </image>
             </ImageView>
-            <BorderPane prefHeight="486.0" prefWidth="149.0">
+            <BorderPane prefHeight="324.0" prefWidth="765.0">
                <bottom>
                   <HBox alignment="CENTER" prefHeight="73.0" prefWidth="571.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextArea fx:id="TxtMessage" prefHeight="53.0" prefWidth="805.0" promptText="Tapez votre message ici">
+                        <TextArea fx:id="TxtMessage" prefHeight="53.0" prefWidth="508.0" promptText="Tapez votre message ici">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -41,15 +41,15 @@
                   </HBox>
                </bottom>
                <center>
-                  <ScrollPane fx:id="ScrollPane" prefHeight="388.0" prefWidth="184.0" BorderPane.alignment="CENTER">
+                  <ScrollPane fx:id="ScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="388.0" prefWidth="184.0" BorderPane.alignment="CENTER">
                      <content>
-                        <VBox fx:id="ChatVBox" prefHeight="551.0" prefWidth="1155.0" spacing="20.0">
+                        <VBox fx:id="ChatVBox" prefHeight="384.0" prefWidth="673.0" spacing="20.0">
                            <children>
                               <Pane prefHeight="43.0" prefWidth="380.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="13.0" prefHeight="17.0" prefWidth="832.0" text="Vous pouvez me poser des question simples sur le fonctionnement de Health'Care , ou saisir quelques mot-clés" textFill="#2471a3">
+                                    <Label layoutX="-7.0" layoutY="3.0" prefHeight="37.0" prefWidth="642.0" text="Vous pouvez me poser des question simples sur le fonctionnement de Health'Care , ou saisir quelques mot-clés" textFill="#2471a3">
                                        <font>
-                                          <Font name="Arial Bold Italic" size="14.0" />
+                                          <Font name="Arial Bold Italic" size="12.0" />
                                        </font>
                                        <opaqueInsets>
                                           <Insets />
