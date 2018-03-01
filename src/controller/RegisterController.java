@@ -67,7 +67,7 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    RadBtnHomme.setSelected(true);
     }    
 
     @FXML
@@ -84,10 +84,21 @@ public class RegisterController implements Initializable {
     
     @FXML
     private void Signup(ActionEvent event) throws IOException, SQLException {
-        if(TxtNom.equals("")||TxtPrenom.equals("")||TxtEmail.equals("")||TxtPass.equals("")||(gender.getSelectedToggle() == null)||(DateNaissance.getValue()==null)){
+         if(!TxtNom.getText().equals("")){TxtNom.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;"); TxtNom.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtPrenom.getText().equals("")){TxtPrenom.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtPrenom.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtEmail.getText().equals("")){TxtEmail.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtEmail.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtPass.getText().equals("")){TxtPass.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtPass.setPromptText("Inserez votre nom ici !!!");}
+             if(DateNaissance.getValue()!=null){DateNaissance.setStyle("-fx-border-color : white ; ") ;}
+        if(TxtNom.equals("")||TxtPrenom.equals("")||TxtEmail.equals("")||TxtPass.equals("")||(DateNaissance.getValue()==null)){
              Alert a = new Alert(Alert.AlertType.WARNING) ; 
             a.setContentText("Veuillez remplir tous les champs");
              a.showAndWait();
+             if(TxtNom.getText().equals("")){TxtNom.setStyle("-fx-border-color : red ;");}
+             if(TxtPrenom.getText().equals("")){TxtPrenom.setStyle("-fx-border-color : red ;");}
+             if(TxtEmail.getText().equals("")){TxtEmail.setStyle("-fx-border-color : red ;");}
+             if(TxtPass.getText().equals("")){TxtPass.setStyle("-fx-border-color : red ;");}
+             if(DateNaissance.getValue()==null){DateNaissance.setStyle("-fx-border-color : red ;") ;}
+           
         }else{
             RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
             String toogleGroupValue = selectedRadioButton.getText().toLowerCase();
@@ -108,6 +119,8 @@ public class RegisterController implements Initializable {
             a.setContentText("adresse email existe deja connectez vous");
             a.showAndWait();
             }
+           Signin(null) ;  
         }
+        
 }
 }

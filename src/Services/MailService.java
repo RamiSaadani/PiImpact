@@ -61,4 +61,14 @@ public class MailService {
 			Transport.send(message);
                         
 }
+      public void SendReclamation(Utilisateur m , String Text) throws MessagingException{
+			Message message = new MimeMessage(getProperties());
+			message.setFrom(new InternetAddress("no-reply@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(m.getEmail()));
+			message.setSubject("Reclamation");
+			message.setText(Text) ;
+			Transport.send(message);
+                        
+}
 }

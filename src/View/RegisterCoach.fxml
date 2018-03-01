@@ -44,7 +44,7 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <TextField fx:id="TxtNom" maxHeight="300.0" maxWidth="300.0" promptText="Nom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: white; -fx-text-fill: white;">
+                        <TextField fx:id="TxtNom" maxHeight="300.0" maxWidth="300.0" promptText="Nom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-text-fill: white; -fx-border-color: white;">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -116,7 +116,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </Label>
-                              <Button mnemonicParsing="false" onAction="#joinPic" prefHeight="7.0" prefWidth="107.0" text="Cliquez ici" />
+                              <Button fx:id="BtnJoin" mnemonicParsing="false" onAction="#joinPic" prefHeight="7.0" prefWidth="107.0" text="Cliquez ici" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="35.0" prefWidth="314.0" spacing="10.0" VBox.vgrow="NEVER">

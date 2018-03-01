@@ -2,6 +2,7 @@ package controller;
 
 import Services.CrudEvenement;
 import entities.Evenement;
+import entities.Utilisateur;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -9,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -32,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -61,6 +63,7 @@ public class GestionEvent implements Initializable {
     private DatePicker DateFin;
     @FXML
     private TextField Lieu;
+    
     @FXML
     private TextField Duree;
     @FXML
@@ -125,6 +128,10 @@ public class GestionEvent implements Initializable {
     private WebView WebView ; 
     
     
+
+    
+     
+     
     public int ID_Event = 0 ; 
     CrudEvenement CE = new CrudEvenement() ; 
     Evenement E  = null ; 
@@ -147,7 +154,6 @@ public class GestionEvent implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                        Evenement SelectedEvenet = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
-                       
                        E = SelectedEvenet ;
                         vider();
             }           
@@ -194,7 +200,8 @@ public class GestionEvent implements Initializable {
         Titre.setText(E.getTITRE_E());
         Description.setText(E.getDESCRIPTION_E());
         FilePath.setText(E.getAFFICHE_E());
-        FilePath.setText(E.getAFFICHE_E());
+        Image img = new Image("file:"+FilePath.getText());
+            AfficheIMG.imageProperty().set(img); 
         DateDebut.valueProperty().setValue(E.getDATEDEBUT_E().toLocalDate());
         DateFin.valueProperty().setValue(E.getDATEFIN_E().toLocalDate());
         Lieu.setText(E.getLIEU_E());
@@ -267,20 +274,15 @@ public class GestionEvent implements Initializable {
             alert.showAndWait();  
         }
         else {
-        
             try {
-                E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , java.sql.Date.valueOf(DateDebut.getValue()) , java.sql.Date.valueOf(DateFin.getValue()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());
-                            
-                E.setID_UTILISATEUR(1);
+                E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , Date.valueOf(DateDebut.getValue().toString()) , Date.valueOf(DateFin.getValue().toString()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());
+                System.out.println(E);            
+                E.setID_UTILISATEUR(LoginGUIController.CurrentUser.getId());
                 CE.InsertEvenement(E);
                 eventList.setItems(CE.displayAllEvenement());
-                 vider () ; 
+                vider () ; 
             } catch (SQLException ex) {
-               Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Erreur d'insertion");
-                alert.setHeaderText("Attention");
-                alert.setContentText("Exception "+ex);
-                alert.showAndWait();
+                System.out.println(ex);
             }
          }
        
@@ -290,16 +292,6 @@ public class GestionEvent implements Initializable {
     private void EditEvenet(ActionEvent event) throws SQLException, UnsupportedEncodingException, MalformedURLException {
         E = null ; 
         E = eventList.getItems().get(eventList.getSelectionModel().getSelectedIndex());
-          Geocoding ObjGeocoding=new maps.java.Geocoding();
-          String Alt = null , Long = null  ;      
-          Point2D.Double resultado=ObjGeocoding.getCoordinates(E.getLIEU_E());
-          Alt =  (String.valueOf(resultado.x));
-          Long = (String.valueOf(resultado.y));
-          WebEngine engine = WebView.getEngine();
-          String url = "https://www.google.tn/maps/@"+Alt+","+Long+",15z?hl=fr";
-          engine.load(url);
-           System.out.println(url); 
-        
         if ("Enregistrer".equals(EditEvent.getText()))
         {if ("".equals(Titre.getText()) ){
             Alert alert = new Alert(AlertType.ERROR);
@@ -361,7 +353,7 @@ public class GestionEvent implements Initializable {
         E = new  Evenement( Titre.getText(), Description.getText(), FilePath.getText() , java.sql.Date.valueOf(DateDebut.getValue()) , java.sql.Date.valueOf(DateFin.getValue()), Lieu.getText(),Integer.parseInt(Duree.getText()) , Float.parseFloat(Frais.getText()), Organisateur.getText(), Contact.getText(), Type.getValue());         
         System.out.println("Titre chap : "+Titre.getText());
         System.out.println("Classe chap : "+Titre.getText());
-        E.setID_UTILISATEUR(20);
+        E.setID_UTILISATEUR(LoginGUIController.CurrentUser.getId());
         E.setID_EVENEMENT(ID_Event);
         System.out.println(ID_Event);
         CE.UpdateEvenement(E,E.getID_EVENEMENT());
@@ -456,6 +448,29 @@ public class GestionEvent implements Initializable {
         vider();
         eventList.setItems(CE.displayAllEvenement());
         E = null ; 
+    }
+
+     
+
+    private void LieuChanged(ActionEvent event) {
+       
+    }
+
+    @FXML
+    private void LieuChanged2(ActionEvent event) {
+         try {
+         Geocoding ObjGeocoding=new maps.java.Geocoding();
+          String Alt = null , Long = null  ;      
+          Point2D.Double resultado=ObjGeocoding.getCoordinates(Lieu.getText());
+          Alt =  (String.valueOf(resultado.x));
+          Long = (String.valueOf(resultado.y));
+          WebEngine engine = WebView.getEngine();
+          String url = "https://www.google.tn/maps/@"+Alt+","+Long+",15z?hl=fr";
+          engine.load(url);
+           System.out.println(url);
+           } catch (Exception e) {
+               System.out.println("controller.GestionEvent.LieuChanged()"+e);
+        }
     }
 }
 

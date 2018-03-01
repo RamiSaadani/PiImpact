@@ -33,7 +33,7 @@ public class Offre {
     }
 
     public String toSMS() {
-        return "Cher client ,  une nouvelle offre vient d'etre ajouté dans notre espace ! \nVenez profiter vite !\n\nOffre : " + TITRE_O +"\nDescription : " + DESCRIPTION_O +"\nNom Espace : " + nom_es +"\nPRIX : " + round(NOUVEAU_PRIX) +"DT \nDate expiration : " + DATEFIN_O+"\n\nHealthCare Support Team" ;
+        return "Cher client ,  une nouvelle offre vient d'etre ajouté dans notre espace  ! \nVenez profiter vite !\n\nOffre : " + TITRE_O +"\nDescription : " + DESCRIPTION_O +"\nNom Espace : " + nom_es +"\nPRIX : " + round(NOUVEAU_PRIX) +"DT \nDate expiration : " + DATEFIN_O+"\n\nHealthCare Support Team" ;
     }    
     
 

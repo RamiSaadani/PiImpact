@@ -6,25 +6,24 @@
 package controller;
 
 import Services.CrudEvaluation;
-import Services.CrudUtilisateur;
 import connexion.DataSource;
 import entities.Evaluation;
-import entities.Utilisateur;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -34,6 +33,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
+
+
+
 
 /**
  * FXML Controller class
@@ -56,16 +59,7 @@ public class GestionEvalController implements Initializable {
     private RadioButton EvalEspace;
     @FXML
     private RadioButton EvalOffre;
-    @FXML
     private TextField NomUser;
-    @FXML
-    private RadioButton EvaEspace;
-    @FXML
-    private RadioButton EvaArticle;
-    @FXML
-    private RadioButton EvaEvent;
-    @FXML
-    private RadioButton EvaOffre;
 
     private ObservableList<Evaluation> list_evaluation = FXCollections.observableArrayList();
     ;
@@ -80,18 +74,20 @@ public class GestionEvalController implements Initializable {
     @FXML
     private RadioButton EvalNone;
     @FXML
-    private RadioButton EvaNone;
-    @FXML
-    private ToggleGroup filter2;
+    private TextField NomObj;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         UpdateListe();
+        
 
         TableColumn _IdEval = new TableColumn("ID_EVALUATION");
         TableColumn _IdUtilisateur = new TableColumn("ID_UTILISATEUR");
-        TableColumn _NotesEv = new TableColumn("NOTES_EV");
+     _IdEval.setVisible(false);
+     _IdUtilisateur.setVisible(false);
+    
+     TableColumn _NotesEv = new TableColumn("NOTES_EV");
         TableColumn _CommentaireEv = new TableColumn("COMMENTAIRE_EV");
         TableColumn _ObjetEv = new TableColumn("OBJET_EV");
         TableColumn _TypeEv = new TableColumn("TYPE_EV");
@@ -109,6 +105,7 @@ public class GestionEvalController implements Initializable {
 
 
         this.LoadChart("génerale", "");
+           
 
     }
 
@@ -141,13 +138,38 @@ public class GestionEvalController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+    
+     public void LoadChart2(String chartName, String objet) {
+        String requete = " select Distinct Extract(YEAR from DATE_EVALUATION) as year From Evaluation " + objet + "";
+        chart5.setTitle("Evaluation " + chartName);
 
-//    
-//     public GestionEvalController(Stage primaryStage) 
-//    {
-//        this.primaryStage = primaryStage;
-//    }
-//  
+        XYChart.Series<String, Number> series = new XYChart.Series();
+        series.setName("Evaluation");
+
+        try {
+            Connection connexion = DataSource.getInstance().getConnection();
+            ResultSet rs = connexion.createStatement().executeQuery(requete);
+            while (rs.next()) {
+                String req;
+                if (objet.equals("")) {
+                    req = "select count(*) as number From Evaluation where "
+                            + "Extract(YEAR from DATE_EVALUATION) = " + rs.getString(5);
+                } else {
+                    req = "select count(*) as number From Evaluation " + objet + " and "
+                            +"Extract(YEAR from DATE_EVALUATION) = " + rs.getString(1);
+                }
+                ResultSet rs1 = connexion.createStatement().executeQuery(req);
+                rs1.next();
+                series.getData().add(new XYChart.Data(rs.getString(5), rs1.getInt(1)));
+            }
+            chart5.getData().clear();
+            chart5.getData().add(series);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     @FXML
     public void UpdateListe() {
 
@@ -157,7 +179,7 @@ public class GestionEvalController implements Initializable {
             TableEval.setItems(CE.DisplayAll());
 
         } catch (SQLException ex) {
-            Logger.getLogger(GestionEvalController.class.getName()).log(Level.SEVERE, null, ex);
+          
         }
     }
 
@@ -170,14 +192,15 @@ public class GestionEvalController implements Initializable {
             a.showAndWait();
 
         } else {
-            String uti = chercherUti.getText();
+           
             CrudEvaluation CE = new CrudEvaluation();
 
             list_evaluation = FXCollections.observableArrayList();
             try {
                 TableEval.setItems(CE.searchByNomU(chercherUti.getText()));
+             
             } catch (SQLException ex) {
-                Logger.getLogger(GestionEvalController.class.getName()).log(Level.SEVERE, null, ex);
+              
             }
 
         }
@@ -188,7 +211,8 @@ public class GestionEvalController implements Initializable {
         String type = "";
         String evalName = "génerale";
         if (EvalEvent.isSelected()) {
-            type += "WHERE EVALUATION.TYPE_EV = 'evenement' ";
+            type += "WHERE EVALUATION.TYPE_EV = 'evenement'  ";
+            
             evalName = "evenement";
         }
         if (EvalArticle.isSelected()) {
@@ -210,91 +234,86 @@ public class GestionEvalController implements Initializable {
             System.out.println(ex);
         }
     }
-
+    
+    
     @FXML
-    private void filtrerUti(ActionEvent event) throws SQLException {
-
-        String uti = NomUser.getText();
-         String type = "";
-//        String typeis = "";
-        String evalName = "génerale";
-        list_evaluation = FXCollections.observableArrayList();
-        
-        
-               if (EvaEvent.isSelected() ) {
-            type +=" WHERE EVALUATION.TYPE_EV ='evenement'";
-            evalName = "evenement";
-        } 
-        if (EvaArticle.isSelected()) {
-            type +=" WHERE EVALUATION.TYPE_EV ='article' ";
-            evalName = "article";
-        }
-        if (EvaEspace.isSelected()) {
-            type += " WHERE EVALUATION.TYPE_EV = 'espace' ";
-            evalName = "espace";
-        }
-        if (EvaOffre.isSelected()) {
-            type += " WHERE EVALUATION.TYPE_EV ='offre' ";
-            evalName = "offre"; }
-        try {
-            ObservableList<Evaluation> mylist = FXCollections.observableArrayList(test(NomUser.getText(), evalName)) ;
-            
-            TableEval.setItems(mylist);
-             
-               this.LoadChart(evalName, type);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionEvalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }
-    private List<Evaluation>list;
-    public List<Evaluation> test(String nom, String type) throws SQLException{
-       List<Evaluation> list2;
-       CrudEvaluation a = new CrudEvaluation() ;
- List<Evaluation> list = new ArrayList<>();
+    private void filtrerObj(ActionEvent event) {
+        String objet = NomObj.getText();
+      String nom="";
+       String evalname="génerale";
        
-       list = a.DisplayAll2();
-      
-        CrudUtilisateur t = new CrudUtilisateur() ;
-        List<Utilisateur> users = t.FindUserByNameOrLastname(nom) ;
-        System.out.println(type);
- list2 = (List<Evaluation>) list.stream().filter(e->e.getTYPE_EV().equals(type)).collect(Collectors.toList());
-        System.out.println(list2);
-        if (list2!=null&& users!=null) {
-            
-            
+          if ("".equals(objet))
+         {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("Veuillez saisir un objet! ");
+            a.showAndWait();
+
+         } 
+         else {
+           
+//        list_evaluation = FXCollections.observableArrayList();
+         if ("offre".equals(objet)) { 
+            nom+=" where evaluation.OBJET_EV Like '" + nom + "%'";    
+           evalname="offre";}
        
- boolean testtt=false ;
-    for(Evaluation e : list2){
+       if (objet.equals("espace")) { 
+            nom+=" where evaluation.OBJET_EV Like '" + nom + "%'";      
+           evalname="espace";}
        
-    for(Utilisateur u : users){
-    if(e.getID_UTILISATEUR()==u.getId()){
-        System.out.println(e.getID_UTILISATEUR());
-                System.out.println(u.getId());
-                System.out.println("aaaaaaaaaakzejvkzerjzer");
-    testtt=true ;
-    }
-    if(testtt==false){
-    list2.remove(e) ;
-    }
-    }
-    }
-     
+       if (objet.equals("evenement")) { 
+                
+           evalname="evenement";}
+       
+       if (objet.equals("article")) { 
+               
+           evalname="article";}
  
- return list2 ;
+         }
+       
+        try {
+         TableEval.setItems(CE.SearchByNomObj(objet));
+            this.LoadChart2(evalname, objet);
+        } catch (SQLException ex) {
+          
+        }
     }
-        return null ;
-      }         
 
-    @FXML
+  @FXML
     private void Reinitialiser(ActionEvent event) {
         
         UpdateListe();
         chercherUti.clear();
-        NomUser.clear();
+        NomObj.clear();
         
         
     }
+public void AfficherHeures(int heures){
+
+Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+    
+
+}
+    @FXML
+    private void AfficheNotif(ActionEvent event) {
+       /* 
+      Notifications notificationBuilder = Notifications.create()
+              .title("Evaluation faite")
+              .text("Nombre des evaluations pendant les 6 derniers heures")
+              .graphic(null)
+              .hideAfter(Duration.hours(6))
+              .position(Pos.CENTER)
+              .onAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+              System.out.println("afficher notification");
+              AfficherHeures(6);
+              
+          }
+      });
+      notificationBuilder.show();*/
+    }
+
     
 }

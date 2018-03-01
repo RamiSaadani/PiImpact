@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="855.0" prefWidth="1310.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionMembreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="855.0" prefWidth="1310.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionMembreController">
    <children>
       <BorderPane layoutY="-2.0" prefHeight="538.0" prefWidth="745.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
          <center>
@@ -24,12 +24,9 @@
                   <TableColumn fx:id="UserNameColumn" prefWidth="171.0" text="Nom" />
                   <TableColumn fx:id="UserLastNameColumn" prefWidth="182.0" text="Prenom" />
                   <TableColumn fx:id="EmailColumn" prefWidth="266.0" text="Email" />
-                  <TableColumn fx:id="StatusColumn" minWidth="2.0" prefWidth="223.0" text="Status" />
-                  <TableColumn fx:id="TypeColumn" minWidth="-1.0" prefWidth="244.0" text="Type" />
+                  <TableColumn fx:id="StatusColumn" minWidth="2.0" prefWidth="245.0" text="Status" />
+                  <TableColumn fx:id="TypeColumn" minWidth="-1.0" prefWidth="222.0" text="Type" />
                </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
             </TableView>
          </center>
          <right>
@@ -37,7 +34,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="41.0" prefWidth="189.0" spacing="5.0">
                      <children>
-                        <TextField id="cherch" fx:id="TxtSearch" onKeyPressed="#Filtre" prefHeight="20.0" prefWidth="122.0" promptText="chercher" style="-fx-border-color: #2471A3;">
+                        <TextField id="cherch" fx:id="TxtSearch" onKeyTyped="#Filtre" prefHeight="20.0" prefWidth="122.0" promptText="chercher" style="-fx-border-color: #2471A3;">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -96,12 +93,12 @@
                   </Label>
                   <VBox alignment="BOTTOM_CENTER" prefHeight="182.0" prefWidth="189.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="TxtNom" disable="true" editable="false" promptText="Nom" />
-                        <TextField fx:id="TxtPrenom" disable="true" editable="false" promptText="Prenom" />
-                        <TextField fx:id="TxtGender" disable="true" editable="false" promptText="Gender" />
-                        <TextField fx:id="TxtNumtel" disable="true" editable="false" promptText="Num_tel" />
-                        <TextField fx:id="TxtEmail" disable="true" editable="false" promptText="Type" text="Email" />
-                        <TextField fx:id="TxtType" disable="true" editable="false" promptText="Type" />
+                        <TextField fx:id="TxtNom" disable="true" editable="false" promptText="Nom" style="-fx-border-color: #2471A3;" />
+                        <TextField fx:id="TxtPrenom" disable="true" editable="false" promptText="Prenom" style="-fx-border-color: #2471A3;" />
+                        <TextField fx:id="TxtGender" disable="true" editable="false" promptText="Gender" style="-fx-border-color: #2471A3;" />
+                        <TextField fx:id="TxtNumtel" disable="true" editable="false" promptText="Num_tel" style="-fx-border-color: #2471A3;" />
+                        <TextField fx:id="TxtEmail" disable="true" editable="false" promptText="Type" style="-fx-border-color: #2471A3;" text="Email" />
+                        <TextField fx:id="TxtType" disable="true" editable="false" promptText="Type" style="-fx-border-color: #2471A3;" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -120,8 +117,8 @@
                   <Button id="Filtre" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AddModerateur" prefHeight="25.0" prefWidth="192.0" style="-fx-background-color: #2471A3;" text="Changer membre en moderateur" textFill="WHITE" />
                   <VBox fx:id="CoachLayout" alignment="CENTER" prefHeight="252.0" prefWidth="203.0" spacing="10.0">
                      <children>
-                        <ImageView fx:id="ImageView" fitHeight="78.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label prefHeight="55.0" prefWidth="196.0" text="Demander acces en mode coach">
+                        <ImageView fx:id="ImageView" fitHeight="78.0" fitWidth="180.0" onMouseClicked="#AfficherCoachDetails" pickOnBounds="true" preserveRatio="true" styleClass="bor" />
+                        <Label onMouseClicked="#AfficherCoachDetails" prefHeight="55.0" prefWidth="196.0" text="Plus de detailles sur ce coach" underline="true">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -130,7 +127,7 @@
                            <children>
                               <Button id="Filtre" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AccepterCoachInvi" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #2471A3;" text="Accepter" textFill="WHITE" />
                               <Pane prefHeight="30.0" prefWidth="5.0" />
-                              <Button id="Filtre" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AnnulerCoachinvi" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #2471A3;" text="Annuler" textFill="WHITE" />
+                              <Button id="Filtre" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AnnulerCoachinvi" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #2471A3;" text="Déapprouver" textFill="WHITE" />
                            </children>
                            <padding>
                               <Insets top="10.0" />

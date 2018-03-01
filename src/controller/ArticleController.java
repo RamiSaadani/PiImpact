@@ -381,7 +381,6 @@ affiche.setText(result.getAFFICHE_A());
     
     @FXML
     private void enregistrer(ActionEvent event) throws SQLException {
-        
         Article a=new Article(idHolder,1, titre.getText(), description.getText(), editeur.getText(), type.getValue(), affiche.getText(), Date.valueOf(LocalDate.now()));
            if((titre.getText().equals(""))||(description.getText().equals(""))||(editeur.getText().equals(""))||(type.getValue().equals("Type"))||(affiche.getText().equals(""))){
             alert.setContentText("Veuillez saisir tout les CHAMPS ! ");

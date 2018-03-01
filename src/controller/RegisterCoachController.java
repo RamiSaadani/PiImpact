@@ -60,6 +60,8 @@ public class RegisterCoachController implements Initializable {
     private TextArea TxtNiveauCoach;
     @FXML
     private Button BtnSignup;
+    @FXML
+    private Button BtnJoin ;
     String filepath="" ;
     Stage primaryStage ;
 
@@ -71,7 +73,7 @@ public class RegisterCoachController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        RadBtnHomme.setSelected(true);
     }    
 
     @FXML
@@ -97,10 +99,22 @@ public class RegisterCoachController implements Initializable {
     }
      @FXML
     private void Signup(ActionEvent event) throws IOException, SQLException {
-        if(TxtNom.equals("")||TxtPrenom.equals("")||TxtEmail.equals("")||TxtPass.equals("")||(gender.getSelectedToggle() == null)||(DateNaissance.getValue()==null)||TxtNiveauCoach.equals("")||filepath.equals("")){
+        if(!TxtNom.getText().equals("")){TxtNom.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;"); TxtNom.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtPrenom.getText().equals("")){TxtPrenom.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtPrenom.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtEmail.getText().equals("")){TxtEmail.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtEmail.setPromptText("Inserez votre nom ici !!!");}
+             if(!TxtPass.getText().equals("")){TxtPass.setStyle("-fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ;");TxtPass.setPromptText("Inserez votre nom ici !!!");}
+             if(DateNaissance.getValue()!=null){DateNaissance.setStyle("-fx-border-color : white ; ") ;}
+             if(!filepath.equals("")){BtnJoin.setStyle("-fx-background-color : white ;");}
+        if(TxtNom.getText().equals("")||TxtPrenom.getText().equals("")||TxtEmail.getText().equals("")||TxtPass.getText().equals("")||(DateNaissance.getValue()==null)||TxtNiveauCoach.equals("")||filepath.equals("")){
              Alert a = new Alert(Alert.AlertType.WARNING) ; 
             a.setContentText("Veuillez remplir tous les champs");
              a.showAndWait();
+             if(TxtNom.getText().equals("")){TxtNom.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; "); TxtNom.setPromptText("Inserez votre nom ici !!!");}
+             if(TxtPrenom.getText().equals("")){TxtPrenom.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; ");TxtPrenom.setPromptText("Inserez votre nom ici !!!");}
+             if(TxtEmail.getText().equals("")){TxtEmail.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; ");TxtEmail.setPromptText("Inserez votre nom ici !!!");}
+             if(TxtPass.getText().equals("")){TxtPass.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; ");TxtPass.setPromptText("Inserez votre nom ici !!!");}
+             if(DateNaissance.getValue()==null){DateNaissance.setStyle("-fx-border-color : red ; ") ;}
+             if(filepath.equals("")){BtnJoin.setStyle("-fx-background-color : red ;");}
         }else{
             RadioButton selectedRadioButton = (RadioButton) gender.getSelectedToggle();
             String toogleGroupValue = selectedRadioButton.getText().toLowerCase();
@@ -114,7 +128,9 @@ public class RegisterCoachController implements Initializable {
             a.setContentText("adresse email existe deja connectez vous");
             a.showAndWait();
             }
+            Signin(null) ; 
         }
+       
 }
     
 }

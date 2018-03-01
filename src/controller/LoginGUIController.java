@@ -6,9 +6,8 @@
 
 package controller;
 
-import Services.CrudReclamation;
+import ControllerClient.AcceuilController;
 import Services.CrudUtilisateur;
-import entities.Reclamation;
 import entities.Utilisateur;
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -45,7 +46,7 @@ public class LoginGUIController implements Initializable {
     @FXML
     private Text BtnForgetPassword;
     Stage primaryStage ; 
-
+    public static  Utilisateur CurrentUser ;
     public LoginGUIController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -60,54 +61,98 @@ public class LoginGUIController implements Initializable {
 
     @FXML
     private void Connecter(ActionEvent event) throws IOException, SQLException {
-        /*if(TxtEmail.getText()==null||TxtPass.getText()==null){
+       TxtEmail.setStyle(" -fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white") ; 
+       TxtPass.setStyle(" -fx-border-color : white ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white") ; 
+
+       if(TxtEmail.getText().equals("")||TxtPass.getText().equals("")){
         Alert a = new Alert(Alert.AlertType.WARNING) ; 
         a.setContentText("Veuillez inserer votre email et votre mot de pass");
         a.showAndWait();
+        if(TxtEmail.getText().equals("")){
+        TxtEmail.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ");
+        }
+        if(TxtPass.getText().equals("")){
+        TxtPass.setStyle("-fx-border-color : red ; -fx-border-width :  0 0 2px 0 ; -fx-background-color :  transparent ; -fx-text-fill : white ");
+        }
         }else{
         String email = TxtEmail.getText() ; 
         String pass = TxtPass.getText() ;
             CrudUtilisateur crudutilisateur = new CrudUtilisateur() ;
             Utilisateur u = crudutilisateur.Authentification(email, pass) ; 
+            
             if(u==null){
             Alert a = new Alert(Alert.AlertType.WARNING) ; 
-        a.setContentText("Email ou mot de passe incorrect");
-        a.showAndWait();
+            a.setContentText("Email ou mot de passe incorrect");
+            a.showAndWait();
             }else if(u.getSTATUS()!=1){
             Alert b = new Alert(Alert.AlertType.ERROR) ; 
-        b.setContentText("Compte n'est pas confirmé ou bien deactivé");
-        b.showAndWait();
+            b.setContentText("Compte n'est pas confirmé ou bien deactivé par l'admin");
+            b.showAndWait();
             }
             else {
+                CurrentUser = u ;
+                if(u.getType().equals("admin")){
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
-       
-        Parent root = loader.load();
+                
+                AnchorPane root = loader.load();
+        AccueilController secondController = loader.getController() ;
+        
+        secondController.setLabelUserName(u.getNom()+" "+u.getPrenom(),u.getId());
         Scene scene = new Scene(root);
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true);
-        }
-        }
-          */  
-    
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
+        primaryStage.setFullScreen(true); 
+        }else if(u.getType().equals("membre")){
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewClient/Acceuil.fxml")) ; 
+       loader.setController(new AcceuilController(primaryStage));
+                
+                    BorderPane root = loader.load();
+        AcceuilController secondController = loader.getController() ;
+        
+       // secondController.setLabelUserName(u.getNom()+" "+u.getPrenom(),u.getId());
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Accueil");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setFullScreen(true); 
+        }else if(u.getType().equals("coach")){
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewClient/Acceuil.fxml")) ; 
        loader.setController(new AccueilController(primaryStage));
-       
-        Parent root = loader.load();
+                
+                BorderPane root = loader.load();
+        AccueilController secondController = loader.getController() ;
+        
+        secondController.setLabelUserName(u.getNom()+" "+u.getPrenom(),u.getId());
         Scene scene = new Scene(root);
         primaryStage.setTitle("Accueil");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true); 
+        }else if(u.getType().equals("moderateur")){
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Accueil.fxml")) ; 
+       loader.setController(new AccueilController(primaryStage));
+                
+                AnchorPane root = loader.load();
+        AccueilController secondController = loader.getController() ;
+        
+        secondController.setLabelUserName(u.getNom()+" "+u.getPrenom(),u.getId());
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Accueil");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setFullScreen(true); 
+        }
+        }
+       } 
+ 
 
     }
     @FXML
      private void Signup(ActionEvent event) throws IOException {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Register.fxml")) ; 
        loader.setController(new RegisterController(primaryStage));
-       
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Register");
@@ -118,7 +163,6 @@ public class LoginGUIController implements Initializable {
      private void CoachRegisterSignup(MouseEvent event) throws IOException {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/RegisterCoach.fxml")) ; 
        loader.setController(new RegisterCoachController(primaryStage));
-       
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Register Coach");

@@ -33,7 +33,7 @@ PreparedStatement pst ;
     
     
     public ObservableList<Offre> displayAllOffre() throws SQLException{
-        String requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace " ;
+        String requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace " ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
         ObservableList<Offre> list = FXCollections.observableArrayList(); 
@@ -118,11 +118,10 @@ PreparedStatement pst ;
     public String sendSms(String msg,long num) {
 		try {
 			// Construct data
-			String apiKey = "apikey=" + "RzOAxftRP64-xC1UnMQkc6OjNREXGTZ2pAmIW5scdS";
+			String apiKey = "apikey=" + "ZGali8IdPSY-koWQ8VnmpAPecU7HaaII4NvHMdfHly";
 			String message = "&message=" + msg;
-			String sender = "&sender=" + "HealthCare";
-                        String numbers = "&numbers=" + "0021624169508";
-		//	String numbers = "&numbers=" + "00216"+String.valueOf(num);
+			String sender = "&sender=" + "Healthcare ";
+			String numbers = "&numbers=" + "00216"+String.valueOf(num);
 			
 			// Send data
 			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
@@ -176,14 +175,13 @@ PreparedStatement pst ;
         return list ;
     }
     */
-    public ObservableList<Offre>searchOffreByTitre(String titre) throws SQLException{
-        String requete="SELECT e.nom_es,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where titre_o LIKE '%"+titre+"%' OR titre_o LIKE '"+titre+"%' OR titre_o LIKE '"+titre+"%'" ;
+    public List<Offre>searchOffreByTitre(String titre) throws SQLException{
+        String requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where titre_o LIKE '%"+titre+"%' OR titre_o LIKE '"+titre+"%' OR titre_o LIKE '"+titre+"%'" ;
         ste=cnx.createStatement() ;
         rs=ste.executeQuery(requete);
-        ObservableList<Offre> list = FXCollections.observableArrayList(); 
+        List<Offre> list = new ArrayList<>() ; 
         while(rs.next()){
-            
-        Offre o  = new Offre(rs.getString(1),rs.getString(2),rs.getString(3),rs.getFloat(4),rs.getFloat(5),rs.getDate(6).toLocalDate(),rs.getDate(7).toLocalDate(),rs.getString(8));
+        Offre o  = new Offre(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getDate(7).toLocalDate(),rs.getDate(8).toLocalDate(),rs.getString(9));
         list.add(o) ;
         }
         return list ;
@@ -197,17 +195,17 @@ PreparedStatement pst ;
         {
             if (etat.equals("Epuise"))
             {
-              requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
+              requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else if (etat.equals("Disponible"))
             {
-               requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
+               requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else
              {
-                requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+"    " ;
+                requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+"    " ;
                 ste=cnx.createStatement() ; 
             }   
         }
@@ -215,17 +213,17 @@ PreparedStatement pst ;
         {
             if (etat.equals("Epuise"))
             {
-              requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
+              requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else if (etat.equals("Disponible"))
             {
-               requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
+               requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+" AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else
              {
-                requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+"   " ;
+                requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  nouveau_prix >= "+prixmin+" and nouveau_prix <="+prixmax+"   " ;
                 ste=cnx.createStatement() ; 
             }
             
@@ -248,17 +246,17 @@ PreparedStatement pst ;
         {
             if (etat.equals("Epuise"))
             {
-              requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
+              requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')  AND (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else if (etat.equals("Disponible"))
             {
-               requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace  where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')   AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
+               requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace  where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"')   AND (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else
              {
-                requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"') " ;
+                requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where o.ID_ESPACE= (Select ID_ESPACE from Espace where NOM_ES='"+nomesp+"') " ;
                 ste=cnx.createStatement() ; 
             }   
         }
@@ -266,17 +264,17 @@ PreparedStatement pst ;
         {
             if (etat.equals("Epuise"))
             {
-              requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
+              requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where  (CURRENT_TIMESTAMP  > DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else if (etat.equals("Disponible"))
             {
-               requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where   (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
+               requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace where   (CURRENT_TIMESTAMP  < DATEFIN_O)   " ;
                 ste=cnx.createStatement() ; 
             }
             else
              {
-                requete="SELECT e.nom_es,ID_OFFRE,DESCRIPTION_O,TITRE_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace  " ;
+                requete="SELECT e.nom_es,ID_OFFRE,TITRE_O,DESCRIPTION_O, ANCIEN_PRIX, NOUVEAU_PRIX, DATEDEBUT_O, DATEFIN_O, AFFICHE_O FROM Offre o join espace e on o.id_espace=e.id_espace  " ;
                 ste=cnx.createStatement() ; 
                  System.out.println("test");
             }  

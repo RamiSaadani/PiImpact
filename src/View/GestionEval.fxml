@@ -15,8 +15,8 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="804.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionEvalController">
-   <children>
-      <TableView fx:id="TableEval" layoutX="16.0" layoutY="13.0" onSort="#UpdateListe" prefHeight="236.0" prefWidth="543.0" AnchorPane.bottomAnchor="355.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="13.0">
+  <children>
+      <TableView fx:id="TableEval" layoutY="14.0" onSort="#UpdateListe" prefHeight="223.0" prefWidth="566.0" AnchorPane.bottomAnchor="367.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="238.0" AnchorPane.topAnchor="14.0">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -29,6 +29,23 @@
                   <Button mnemonicParsing="false" onAction="#Chercher" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: #2471A3;" text="Recherche" textFill="WHITE" />
                </children>
             </HBox>
+            <HBox prefHeight="7.0" prefWidth="220.0" />
+            <HBox prefHeight="38.0" prefWidth="220.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par Objet" wrappingWidth="183.423828125">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="220.0">
+               <children>
+                  <TextField fx:id="NomObj" prefHeight="27.0" prefWidth="115.0" promptText="Nom ultilisateur" style="-fx-border-color: #2471A3;" />
+                  <Button mnemonicParsing="false" onAction="#filtrerObj" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: #2471A3;" text="Chercher" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox prefHeight="3.0" prefWidth="220.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par Type Evaluation " wrappingWidth="219.423828125">
                <font>
                   <Font size="18.0" />
@@ -48,36 +65,22 @@
                   <Button mnemonicParsing="false" onAction="#filtrer" prefHeight="0.0" prefWidth="202.0" style="-fx-background-color: #2471A3;" text="Filtrer" textFill="WHITE" />
                </children>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par Utilisateur " wrappingWidth="183.423828125">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <TextField fx:id="NomUser" prefHeight="27.0" prefWidth="196.0" promptText="Nom ultilisateur" style="-fx-border-color: #2471A3;" />
-            <RadioButton fx:id="EvaNone" mnemonicParsing="false" selected="true" text="None">
-               <toggleGroup>
-                  <ToggleGroup fx:id="filter2" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="EvaEspace" mnemonicParsing="false" text="Espace" toggleGroup="$filter2" />
-            <RadioButton fx:id="EvaArticle" mnemonicParsing="false" text="Article" toggleGroup="$filter2" />
-            <RadioButton fx:id="EvaEvent" mnemonicParsing="false" text="Evenement" toggleGroup="$filter2" />
-            <RadioButton fx:id="EvaOffre" mnemonicParsing="false" text="Offre" toggleGroup="$filter2" />
-            <HBox prefHeight="29.0" prefWidth="209.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#filtrerUti" prefHeight="0.0" prefWidth="202.0" style="-fx-background-color: #2471A3;" text="Filtrer" textFill="WHITE" />
-               </children>
-            </HBox>
+            <HBox prefHeight="24.0" prefWidth="220.0" />
             <Button mnemonicParsing="false" onAction="#Reinitialiser" prefHeight="25.0" prefWidth="202.0" style="-fx-background-color: #2471A3;" text="Reinitialiser" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#AfficheNotif" prefHeight="25.0" prefWidth="201.0" style="-fx-background-color: #2471A3;" text="Notification" textFill="WHITE" />
          </children>
       </VBox>
-      <BarChart fx:id="chart5" layoutX="9.0" layoutY="258.0" prefHeight="314.0" prefWidth="554.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="241.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
+      <HBox layoutX="49.0" layoutY="255.0" prefHeight="313.0" prefWidth="502.0">
+         <children>
+            <BarChart fx:id="chart5" prefHeight="314.0" prefWidth="463.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

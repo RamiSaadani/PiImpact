@@ -399,19 +399,19 @@ public class OffreController implements Initializable {
         }
         else
         {
-            selected=false;
-            String titr = titreoffrerech.getText() ;
-            CrudOffre co = new CrudOffre();     
-            try 
-            {
-                tableoffre.setItems(co.searchOffreByTitre(titr));
+            String titr = titreoffrerech.getText() ;          
+            CrudOffre co = new CrudOffre();
 
-            } 
-            catch (SQLException ex) 
-            {
-                System.out.println(ex);
-            }
- 
+        list_promotion = FXCollections.observableArrayList();
+        try {
+            co.searchOffreByTitre(titr).forEach(e -> { list_promotion.add(e);});
+        } catch (SQLException ex) {
+            System.out.println(ex); 
+        }
+      
+        tableoffre.getItems().clear();
+        tableoffre.getItems().addAll(list_promotion);
+
     
         }
     }

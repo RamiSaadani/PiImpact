@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="92.0" prefWidth="985.0" style="-fx-background-color: #2471A3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -36,7 +36,7 @@
                      </children>
                   </VBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <VBox alignment="CENTER" prefHeight="90.0" prefWidth="532.0" spacing="4.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="90.0" prefWidth="555.0" spacing="4.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label prefHeight="3.0" prefWidth="206.0" text="Espace Administratif" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
                            <font>
@@ -44,14 +44,37 @@
                            </font>
                         </Label>
                         <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                        <HBox prefHeight="25.0" prefWidth="649.0" spacing="6.0" VBox.vgrow="NEVER">
+                        <HBox prefHeight="25.0" prefWidth="420.0" spacing="6.0" VBox.vgrow="NEVER">
                            <children>
-                              <Button onAction="#GetGestionMembre" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Membre" />
-                              <Button onAction="#GetGestionArticle" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Article" />
-                              <Button onAction="#GetGestionEvents" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Evenement" />
-                              <Button onAction="#GetGestionEspace" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Espace" />
-                              <Button onAction="#GetGestionOffre" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Offre" />
-                              <Button onAction="#GetGestionEval" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Evaluation" />
+                              <Button onAction="#GetGestionMembre" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Membre">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionArticle" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Article">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionEvents" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Evenement">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionEspace" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Espace">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionOffre" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Offre">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionEval" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Evaluation">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font></Button>
+                              <Button onAction="#GetGestionReclamation" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FAFAFA;" text="Reclamation">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -62,22 +85,23 @@
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="210.0" spacing="6.0">
                      <children>
-                        <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="90.0" prefWidth="119.0">
+                        <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="90.0" prefWidth="135.0" spacing="5.0">
                            <children>
-                              <Label prefHeight="21.0" prefWidth="71.0" text="User name" textFill="WHITE">
+                              <Label fx:id="LblUserName" prefHeight="21.0" prefWidth="154.0" text="User name" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                               <Separator prefHeight="0.0" prefWidth="118.0" />
-                              <Label text="Deconnexion" textFill="WHITE" underline="true">
+                              <Label onMouseClicked="#EditProfile" text="Modifier mon profil" textFill="WHITE" underline="true" />
+                              <Label onMouseClicked="#disconnect" text="Deconnexion" textFill="WHITE" underline="true">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
                            </children>
                         </VBox>
-                        <ImageView fitHeight="46.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="UserPicture" fitHeight="46.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/Avatar.png" />
                            </image>
@@ -88,7 +112,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane id="centre" fx:id="holderPane" layoutX="5.0" layoutY="98.0" prefHeight="559.0" prefWidth="975.0" style="-fx-background-color: #FAFAFA;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane id="centre" fx:id="holderPane" layoutX="5.0" layoutY="98.0" prefHeight="571.0" prefWidth="975.0" style="-fx-background-color: #FAFAFA;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="98.0">
          <effect>
             <DropShadow />
          </effect>

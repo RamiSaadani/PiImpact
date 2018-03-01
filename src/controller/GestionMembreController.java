@@ -9,19 +9,28 @@ import Services.CrudCoach;
 import Services.CrudUtilisateur;
 import entities.Coach;
 import entities.Utilisateur;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -30,7 +39,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import main.Popup;
 
 /**
  * FXML Controller class
@@ -104,7 +116,7 @@ public class GestionMembreController implements Initializable {
     }    
 
     @FXML
-    private void SelectData(MouseEvent event) throws SQLException {
+    private void SelectData(MouseEvent event) throws SQLException, FileNotFoundException {
         CoachLayout.setVisible(false);
         Utilisateur user = TablViewList.getSelectionModel().getSelectedItem() ;
         TxtNom.setText(user.getNom());
@@ -117,13 +129,9 @@ public class GestionMembreController implements Initializable {
          CoachLayout.setVisible(true);
          CrudCoach cr = new CrudCoach() ; 
          Coach k =cr.FindCoachById(user.getId()) ;
-            System.out.println(k.getCERTIF_COACH());
-       
-      
-            
-         Image image = new Image(k.getCERTIF_COACH());
+         FileInputStream f = new FileInputStream(k.getCERTIF_COACH()) ;  
+         Image image = new Image(f);
          ImageView.setImage(image);
-       
         }
         
     }
@@ -236,5 +244,15 @@ public class GestionMembreController implements Initializable {
             
        TablViewList.setItems(Obchercher);
     }
-    
+
+    @FXML
+    private void AfficherCoachDetails(MouseEvent event) throws SQLException, FileNotFoundException{
+        Utilisateur user = TablViewList.getSelectionModel().getSelectedItem() ;
+        CrudCoach c = new CrudCoach() ;
+        CrudUtilisateur cu = new CrudUtilisateur() ; 
+        Popup p = new Popup() ;
+        p.display(c.FindCoachById(user.getId()));
+        ObservableList data1 = FXCollections.observableArrayList(cu.displayAllUsers());
+        TablViewList.setItems(data1);
+}
 }

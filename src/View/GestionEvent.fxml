@@ -32,7 +32,7 @@
             </HBox>
             <DatePicker id="DateDeb" fx:id="DateDebut" prefHeight="27.0" prefWidth="199.0" promptText="Date Debut : JJ/MM/AAAA" style="-fx-border-color: #2471A3;" />
             <DatePicker id="DateFin" fx:id="DateFin" prefHeight="27.0" prefWidth="199.0" promptText="Date Fin : JJ/MM/AAAA" style="-fx-border-color: #2471A3;" />
-            <TextField id="Lieu" fx:id="Lieu" promptText="Lieu" style="-fx-border-color: #2471A3;" />
+            <TextField id="Lieu" fx:id="Lieu" onAction="#LieuChanged2" promptText="Lieu" style="-fx-border-color: #2471A3;" />
             <TextField id="Dureee" fx:id="Duree" promptText="Dureee (H)" style="-fx-border-color: #2471A3;" />
             <TextField id="Frais" fx:id="Frais" promptText="Frais" style="-fx-border-color: #2471A3;" />
             <TextField id="Organisateur" fx:id="Organisateur" promptText="Organiisateur" style="-fx-border-color: #2471A3;" />
