@@ -104,7 +104,7 @@ public class GestionEvalController implements Initializable {
         TableColumn _IdUtilisateur = new TableColumn("ID_UTILISATEUR");
         _IdEval.setVisible(false);
         _IdUtilisateur.setVisible(false);
-        TableColumn _Nom_uti = new TableColumn("NOM_UTILISATEUR");
+       // TableColumn _Nom_uti = new TableColumn("NOM_UTILISATEUR");
         TableColumn _NotesEv = new TableColumn("NOTES_EV");
         TableColumn _CommentaireEv = new TableColumn("COMMENTAIRE_EV");
         TableColumn _ObjetEv = new TableColumn("OBJET_EV");
@@ -120,9 +120,9 @@ public class GestionEvalController implements Initializable {
         _ObjetEv.setCellValueFactory(new PropertyValueFactory<>("OBJET_EV"));
         _TypeEv.setCellValueFactory(new PropertyValueFactory<>("TYPE_EV"));
         _IdObj.setCellValueFactory(new PropertyValueFactory<>("ID_O"));
-        _Nom_uti.setCellValueFactory(new PropertyValueFactory<>("NOM_UTILISATEUR"));
-        //  _Nom_uti.setCellFactory(new PropertyValueFactory<>("nomUtilisateur"));
-        TableEval.getColumns().addAll(_IdEval, _IdUtilisateur, _Nom_uti, _NotesEv, _CommentaireEv, _ObjetEv, _TypeEv, _IdObj);
+     //   _Nom_uti.setCellValueFactory(new PropertyValueFactory<>("NOM_UTILISATEUR"));
+     
+        TableEval.getColumns().addAll(_IdEval, _IdUtilisateur, _NotesEv, _CommentaireEv, _ObjetEv, _TypeEv, _IdObj);
 
         this.LoadChart("génerale", "");
 
@@ -364,12 +364,12 @@ public class GestionEvalController implements Initializable {
 
                         }
                     });
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    notificationBuilder.show();
-                }
-            });
+//            Platform.runLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    notificationBuilder.show();
+//                }
+//            });
 
         }
     }

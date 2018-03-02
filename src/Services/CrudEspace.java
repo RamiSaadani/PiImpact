@@ -17,6 +17,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import connexion.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.control.Alert;
 
 /**
@@ -34,6 +36,39 @@ public class CrudEspace {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+    }
+    public Map<Integer,String> EspaceDonneeCombo() throws SQLException
+    {
+        HashMap<Integer,String>map= new HashMap<>();
+        String requete = "select ID_ESPACE,NOM_ES   from espace";
+        ste = con.createStatement();
+         rs=ste.executeQuery(requete);
+         while(rs.next())
+         {
+             map.put(rs.getInt(1),rs.getString(2));
+         }
+        return map; 
+    }
+        public ObservableList<String> displayIDesp() throws SQLException
+    {
+        String requete = "select ID_ESPACE,NOM_ES ,ADRESSE_ES   from espace";
+        ste = con.createStatement();
+        
+        
+        rs=ste.executeQuery(requete);
+        
+        ObservableList<String> List= FXCollections.observableArrayList();
+        while(rs.next())
+        {
+            
+            
+            List.add(" "+rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3));
+            String X = ""+rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3);
+            
+            System.out.println(X.substring(0, 1));
+          System.out.println(Integer.parseInt(X.substring(0, 1)));
+        }
+        return List;
     }
     
         public void insertPST(Espace p) throws SQLException
@@ -67,6 +102,17 @@ public class CrudEspace {
         }
         return List;
     }
+        public int VerifAdresseEspaceObs(String Nom,String Adresse) throws SQLException
+        {
+            String requete = "select NOM_ES,ADRESSE_ES from espace where NOM_ES= '"+Nom+"' and ADRESSE_ES= '"+Adresse+"'";
+            ste = con.createStatement();
+        
+        
+        rs=ste.executeQuery(requete);
+       // rs=ste.executeQuery(requete);
+        
+        return rs.getRow();
+        }
                 public ObservableList<Espace> displayAllObs() throws SQLException
     {
         String requete = "select *  from espace";
@@ -83,6 +129,22 @@ public class CrudEspace {
         }
         return List;
     }
+       public ObservableList<Espace> SearchByNom(String objet) throws SQLException 
+       {
+
+        String requete = "select  * from espace where NOM_ES like '" + objet + "' ";
+        System.out.println(requete);
+        ste = con.createStatement();
+        rs = ste.executeQuery(requete);
+
+        ObservableList<Espace> list = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Espace ev = new Espace(rs.getInt(1),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9));
+            list.add(ev);
+        }
+        return list;
+    }
+       
                  public ObservableList<Espace> SearchByType(String type) throws SQLException
     {
         String requete = "select *  from espace where TYPE_ES = '"+type+"'";

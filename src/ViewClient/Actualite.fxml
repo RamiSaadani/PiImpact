@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="ControllerClient.ActualiteController">
+<AnchorPane AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerClient.ActualiteController">
    <children>
-      <Label layoutX="286.0" layoutY="183.0" text="Acceuil" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="557.0" prefWidth="661.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox prefHeight="892.0" prefWidth="646.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="566.0" text="Nos Videos                                                                                                                " underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <WebView fx:id="WebView1" prefHeight="327.0" prefWidth="634.0" />
+                  <HBox prefHeight="278.0" prefWidth="646.0" spacing="6.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="230.0" prefWidth="277.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Top Evenements" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane fx:id="scroll4" fitToHeight="true" fitToWidth="true" prefHeight="500" prefWidth="600.0" />
+                              <Label text="Top Espaces" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane fx:id="scroll3" fitToHeight="true" fitToWidth="true" prefHeight="500" prefWidth="600.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="425.0" prefWidth="315.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Top Articles" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane fx:id="scroll1" fitToHeight="true" fitToWidth="true" prefHeight="500" prefWidth="600.0" />
+                              <Label text="Top Offres" underline="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane fx:id="scroll2" fitToWidth="true" prefHeight="500" prefWidth="600.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

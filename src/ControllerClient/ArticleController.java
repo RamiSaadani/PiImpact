@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import org.json.JSONException;
 import org.json.JSONObject;
 import Services.CrudEvaluation;
+import Services.CrudUtilisateur;
 import controller.LoginGUIController;
 import static controller.LoginGUIController.CurrentUser;
 import entities.Article;
@@ -109,9 +110,7 @@ public class ArticleController implements Initializable {
     private CheckBox Motivation;
     @FXML
     private Button AnnulerConfirmation;    
-    @FXML
     private WebView WebViewLeft;
-    @FXML
     private WebView WebViewright;
     public  Node ListofAllArticle () throws SQLException {
 
@@ -162,7 +161,7 @@ public class ArticleController implements Initializable {
         //Voir Plus
              HBox Hbtn = new HBox(10);
            Button button = new Button("Voir Plus d'information") ;
-           button.setStyle("-fx-background-color:  #17202A"); 
+           button.setStyle("-fx-background-color:  #2471A3"); 
            button.setTextFill(Color.web("#FBFCFC"));
            button.setAccessibleText(""+A.getID_ARTICLE());
            button.onActionProperty().set((event) -> {
@@ -490,11 +489,7 @@ public class ArticleController implements Initializable {
         IMG.fitWidthProperty().set(image.getWidth()/7);
         Separator sep = new Separator(Orientation.VERTICAL) ; 
         Hnote.getChildren().addAll(NoteL,N1,N2,N3,N4,N5,NoteValue,SubmitNote) ;
-//        V2.getChildren().addAll(IMG,Hnote);
-//        H0.getChildren().addAll(V1,sep,V2) ;
-//        V0.getChildren().addAll(H0) ;
-//        
-       
+
          
        TextArea Comment = new TextArea() ; 
        Comment.setPromptText("Commenter");
@@ -506,12 +501,26 @@ public class ArticleController implements Initializable {
         ListComm.fillWidthProperty().set(true);
          
         for (int i=0;i<EvalU.size();i++)  {
-            System.out.println("entities.FXML.AcceuilController.AfficheEvent()");
         HBox Hcomm = new HBox(6) ; 
         
         VBox Vcomm = new  VBox() ; 
-        
-        ImageView Imgcomm = new ImageView("file:\"+A.getAFFICHE_A()") ;
+        if (EvalU.get(i).getID_UTILISATEUR()== LoginGUIController.CurrentUser.getId()){
+       Hnote.setVisible(false);
+       Comment.setVisible(false);
+       }
+       Utilisateur U = null ;
+       CrudUtilisateur CU = new CrudUtilisateur(); 
+       U = CU.FindUserById(EvalU.get(i).getID_UTILISATEUR()) ; 
+       ImageView Imgcomm ; 
+       
+            System.out.println(U.getAvatar() );
+       if (U.getAvatar() == "" ){
+            Imgcomm = new ImageView("/View/images/Avatar.png") ;
+            Imgcomm.preserveRatioProperty().set(true);
+       }else{
+            Imgcomm = new ImageView("file:"+U.getAvatar()) ;
+            Imgcomm.preserveRatioProperty().set(true);
+        }
         Imgcomm.setFitHeight(50);
         Imgcomm.setFitWidth(50);
         Label UserNameCom = new Label("ID Utilisateur "+EvalU.get(i).getID_UTILISATEUR()) ; 
@@ -582,13 +591,7 @@ public class ArticleController implements Initializable {
             
           
 
-         WebView embeddedWV = new WebView();
-           WebEngine WebView = embeddedWV.getEngine();
-           WebViewLeft.getEngine().load("https://www.youtube.com/watch?v=Vo7QtHdeTbo&list=PL_C0q8jNRXJadoakiLVd8Prvu_HbZkKkm&index=2");
-           
-         WebView embeddedWV1 = new WebView();
-           WebEngine WebView1 = embeddedWV.getEngine();
-           WebViewright.getEngine().load("https://www.youtube.com/watch?v=rq39plBJJl8&list=PL_C0q8jNRXJYpk5Thodl9iTOq16mydkYS");
+        
     }
   
 
@@ -1015,4 +1018,13 @@ while ((inputLine = in.readLine()) != null) {
    
     
 }
+
+
+
+    
+
+    
+
+    
+    
 

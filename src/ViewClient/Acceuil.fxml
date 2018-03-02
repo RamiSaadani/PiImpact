@@ -106,7 +106,7 @@
                   </Button>
                </children>
             </VBox>
-            <Label text="Envoyer une reclamation?" textFill="WHITE" underline="true" />
+            <Label onMouseClicked="#Reclamer" text="Envoyer une reclamation?" textFill="WHITE" underline="true" />
          </children>
       </VBox>
    </left>

@@ -68,7 +68,7 @@ public class AccueilController implements Initializable {
              GestionOffre = FXMLLoader.load(getClass().getResource("/View/GestionOffre.fxml"));
              GestionEval = FXMLLoader.load(getClass().getResource("/View/GestionEval.fxml"));
              GestionReclamation = FXMLLoader.load(getClass().getResource("/View/GestionReclamation.fxml"));
-             ChatBotHelp = FXMLLoader.load(getClass().getResource("/View/ChatBotHelp.fxml"));
+           //  ChatBotHelp = FXMLLoader.load(getClass().getResource("/View/ChatBotHelp.fxml"));
              GestionEditProfile= FXMLLoader.load(getClass().getResource("/View/GestionInformationMembre.fxml"));
            //  setNode(ChatBotHelp);
               Gest.setText("Gestionnaire des membres");

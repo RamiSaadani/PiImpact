@@ -66,14 +66,15 @@ public class ChatBotHelpController implements Initializable {
             Label LblReponse = new Label(chatbot.GetResponse(TxtMessage.getText())) ;
             
             //Pane reponse = new Pane() ;
-            LblReponse.setStyle("-fx-background-color:  #2471A3 ; -fx-border-radius: 20px ; ");
-            LblReponse.setTextFill(Color.WHITE);
+            LblReponse.setStyle("-fx-background-color:  white ; -fx-border-radius: 20px ;  ");
+            LblReponse.setTextFill(Color.BLACK);
             //reponse.getChildren().add(LblReponse) ;
             LblReponse.setFont(new Font("Arial", 15));
             
             LblReponse.setPadding(new Insets(10, 10, 10, 10));
             LblReponse.setWrapText(true);
             ChatVBox.getChildren().add(LblReponse) ;
+            TxtMessage.setText("");
              
     }
     }

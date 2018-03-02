@@ -13,14 +13,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.PasswordField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="711.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionInformationMembreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="711.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionInformationMembreController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="1.0" prefHeight="584.0" prefWidth="711.0" spacing="5.0" AnchorPane.bottomAnchor="132.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="1.0">
          <children>
             <Label prefHeight="27.0" prefWidth="238.0" text="Information du compte">
                <font>
-                  <Font name="Arial" size="23.0" />
+                  <Font name="Cambria" size="23.0" />
                </font>
             </Label>
             <HBox prefHeight="471.0" prefWidth="671.0">
@@ -32,8 +33,8 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                            <children>
-                              <ImageView fitHeight="117.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" />
-                              <TextField fx:id="TxtNom" maxHeight="300.0" maxWidth="300.0" promptText="Nom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: white;">
+                              <ImageView fx:id="ProfilePic" fitHeight="117.0" fitWidth="124.0" onMouseClicked="#ChangePicture" pickOnBounds="true" preserveRatio="true" />
+                              <TextField fx:id="TxtNom" maxHeight="300.0" maxWidth="300.0" promptText="Nom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: black;">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
@@ -41,7 +42,7 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="TxtPrenom" maxHeight="300.0" maxWidth="300.0" promptText="Prenom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: white;">
+                              <TextField fx:id="TxtPrenom" maxHeight="300.0" maxWidth="300.0" promptText="Prenom" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: black;">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
@@ -49,12 +50,12 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="TxtPoids" maxHeight="300.0" maxWidth="300.0" promptText="Poids" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: white;">
+                              <TextField fx:id="TxtPoids" maxHeight="300.0" maxWidth="300.0" promptText="Poids" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: black;">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <TextField fx:id="TxtTaille" maxHeight="300.0" maxWidth="300.0" promptText="Taille" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: white;">
+                              <TextField fx:id="TxtTaille" maxHeight="300.0" maxWidth="300.0" promptText="Taille" style="-fx-background-color: transparent; -fx-border-width: 0 0 2px 0; -fx-border-color: #2471A3; -fx-text-fill: black;">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
@@ -95,9 +96,9 @@
                   </VBox>
                   <VBox fx:id="Hboxx" alignment="CENTER" prefHeight="516.0" prefWidth="539.0" spacing="25.0">
                      <children>
-                        <TextField fx:id="TxtCurrentPass" promptText="Mot de passe actuelle" />
-                        <TextField fx:id="TxtNewPass" promptText="nouveau mot de passe " />
-                        <TextField fx:id="TxtNewPass2" promptText="confirmer mot de passe" />
+                        <PasswordField fx:id="TxtCurrentPass" promptText="Mot de passe actuelle" style="-fx-border-color: #2471A3; -fx-border-width: 0 0 2px 0; -fx-background-color: Transparent; -fx-text-fill: black;" />
+                        <PasswordField fx:id="TxtNewPass" promptText="Nouveau mot de passe " style="-fx-border-color: #2471A3; -fx-border-width: 0 0 2px 0; -fx-background-color: transparent; -fx-text-fill: black;" />
+                        <PasswordField fx:id="TxtNewPass2" onKeyPressed="#CheckPasswordwithTxPass" promptText="Confirmer mot de passe" style="-fx-border-color: #2471A3; -fx-border-width: 0 0 2px 0; -fx-background-color: transparent; -fx-text-fill: black;" />
                         <Button id="Filtre" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#SavingPassword" prefHeight="25.0" prefWidth="161.0" style="-fx-background-color: #2471A3;" text="Enregistrer Mot de passe" textFill="WHITE" />
                      </children>
                      <opaqueInsets>

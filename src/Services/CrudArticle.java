@@ -27,12 +27,22 @@ PreparedStatement pst ;
     
      public void insertSt(Article a) throws SQLException{
          
-        String requete = "INSERT INTO Article (ID_UTILISATEUR,TITRE_A,DESCRIPTION_A,EDITEUR_A,TYPE_A,AFFICHE_A,Date_a) values"
-                + "('"+a.getID_UTILISATEUR()+"','"+a.getTITRE_A()+"','"+a.getDESCRIPTION_A()+"','"+a.getEDITEUR_A()+"','"+a.getTYPE_A()+"','"+a.getAFFICHE_A()+"','"+a.getDate_a()+"')" ;
+        String requete = "INSERT INTO Article SET ID_UTILISATEUR=?, TITRE_A=?, DESCRIPTION_A=?, EDITEUR_A=?, TYPE_A=?,AFFICHE_A=?,Date_a=? ";
                 
-        ste=con.createStatement() ;
-        ste.executeUpdate(requete ); 
+       pst=con.prepareStatement(requete) ;
+        pst.setInt(1, a.getID_UTILISATEUR());
+        pst.setString(2, a.getTITRE_A());
+        pst.setString(3, a.getDESCRIPTION_A());
+        pst.setString(4, a.getEDITEUR_A());
+        pst.setString(5, a.getTYPE_A());
+        pst.setString(6, a.getAFFICHE_A());
+        pst.setDate(7, a.getDate_a());
         
+        
+         
+        
+        pst.executeUpdate() ; 
+       
     }
     
     

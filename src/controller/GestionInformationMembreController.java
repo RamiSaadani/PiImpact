@@ -130,6 +130,7 @@ public class GestionInformationMembreController implements Initializable {
             CurrentUser.setDate_naissance(java.sql.Date.valueOf(DateNaissance.getValue()));
             CurrentUser.setGender(toogleGroupValue);
             CrudUtilisateur crd = new CrudUtilisateur() ;
+            LoginGUIController.CurrentUser=this.CurrentUser ;
             
             try {
                 crd.UpdateUser(CurrentUser);
@@ -192,7 +193,9 @@ public class GestionInformationMembreController implements Initializable {
             FileInputStream ff = new  FileInputStream(CurrentUser.getAvatar()) ;
             Image img = new Image(ff) ;
             ProfilePic.setImage(img);
+            LoginGUIController.CurrentUser.setAvatar(CurrentUser.getAvatar());
                 crd.UpdateUser(CurrentUser);
+                
             } catch (Exception e ) {
                 Alert a = new  Alert(Alert.AlertType.ERROR) ; 
                 a.setContentText("Il y a un erreur");

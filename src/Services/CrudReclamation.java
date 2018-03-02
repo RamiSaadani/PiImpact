@@ -9,10 +9,12 @@ package Services;
 import connexion.DataSource;
 import entities.Reclamation;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -103,5 +105,13 @@ PreparedStatement pst ;
         }
         return list ;
     }
-   
+ public void insertReclamation(Reclamation r) throws SQLException{
+        
+        String requete = "insert into reclamation (ID_UTILISATEUR , TYPE_R , COMMENTAIRE_R , ETAT_R,DATE_R) values ( "+r.getID_UTILISATEUR()+", '"+r.getTYPE_R()+"', '"+r.getCOMMENTAIRE_R()+"', '"+r.getETAT_R()+"' ,'"+r.getDATE_R()+"')";
+       
+        
+         ste=cnx.createStatement() ;
+        ste.executeUpdate(requete);
+    }
+    
 }
